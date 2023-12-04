@@ -1,6 +1,8 @@
 let express = require("express");
 let session = require('express-session');
 let app = express();
+const port = 3000;
+
 
 app.use(session({
     secret: 'asd;lfkja;ldfkjlk123389akjdhla987897akjh78111ih',
@@ -30,3 +32,20 @@ let bcrypt = require('bcrypt');
 let saltRounds = 10;
 
 
+app.use(express.urlencoded({ extended: true }));
+
+app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => res.render("index"));
+
+
+
+
+
+
+
+
+
+app.listen(port, () => console.log("Website started"));    
