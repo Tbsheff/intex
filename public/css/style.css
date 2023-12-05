@@ -107,8 +107,8 @@ main>section {
   transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transition-property: color;
-  transition-duration: 0.3s;
+  transition-property: color, background-color;
+  transition-duration: 0.4s;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -1107,7 +1107,7 @@ textarea.form-control {
 }
 
 #submit.btn-effect:after {
-  background: #2e2e2e;
+  /* background: #2e2e2e; */
 }
 
 .contact-details h3 {

@@ -125,20 +125,20 @@ $(document).ready(function () {
     /*	Menu item highlighting
     /* ========================================================================= */
 
-    jQuery('#nav').singlePageNav({
-        offset: jQuery('#nav').outerHeight(),
-        filter: ':not(.external)',
-        speed: 2000,
-        currentClass: 'current',
-        easing: 'easeInOutExpo',
-        updateHash: true,
-        beforeStart: function () {
-            console.log('begin scrolling');
-        },
-        onComplete: function () {
-            console.log('done scrolling');
-        }
-    });
+    // jQuery('#nav').singlePageNav({
+    //     offset: jQuery('#nav').outerHeight(),
+    //     filter: ':not(.external)',
+    //     speed: 2000,
+    //     currentClass: 'current',
+    //     easing: 'easeInOutExpo',
+    //     updateHash: true,
+    //     beforeStart: function () {
+    //         console.log('begin scrolling');
+    //     },
+    //     onComplete: function () {
+    //         console.log('done scrolling');
+    //     }
+    // });
 
     $(window).scroll(function () {
         if ($(window).scrollTop() > 400) {
@@ -161,7 +161,7 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         'use strict',
-        $('#home-slider, #slider, .sl-slider, .sl-content-wrapper').css('height', slideHeight);
+            $('#home-slider, #slider, .sl-slider, .sl-content-wrapper').css('height', slideHeight);
     });
 
 
