@@ -21,9 +21,9 @@ let knex = require("knex")({
         host: process.env.RDS_HOSTNAME || "awseb-e-ee3vw2q82p-stack-awsebrdsdatabase-moo0bhesoomr.cf6qafoa0mp0.us-east-2.rds.amazonaws.com",
         user: process.env.RDS_USERNAME || "ebroot",
         password: process.env.RDS_PASSWORD || "cougarcruiser",
-        database: process.env.RDS_DB_NAME || "",
+        database: process.env.RDS_DB_NAME || "social_sense",
         port: process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
+        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : true
     },
     debug: true
 });
@@ -103,6 +103,49 @@ app.post("/login", (req, res) => {
 
 
 app.get("/signup", (req, res) => res.render("signup"));
+
+app.post("/signup", (req, res) => {
+    console.log(req.body);
+    // Extract the plain text password from the request
+    let plainTextPassword = req.body.password;
+
+    // Hash the password
+    bcrypt.hash(plainTextPassword, saltRounds, (err, hash) => {
+        if (err) {
+            res.status(500).json({ error: 'Error hashing password' });
+            return;
+        }
+
+        // Start a transaction
+        knex.transaction(trx => {
+            // insert into the user table
+            return trx.insert({
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email
+            })
+                .into('user_table')
+                .returning('user_id')
+                .then(userIds => {
+                    // insert into the Security table
+                    console.log('Inserted user ID:', userIds[0]);
+
+                    return trx('security_table').insert({
+                        username: req.body.username,
+                        password: hash,
+                        user_id: user_id[0].student_id  // Use the returned user_id
+                    });
+                })
+        })
+            .then(() => {
+                res.redirect("/"); // Redirect if the transaction is successful
+            })
+            .catch(error => {
+                res.status(500).json({ error }); // Handle errors
+            });
+    });
+});
+
 
 app.get("/survey", (req, res) => res.render("getResponse"));
 
