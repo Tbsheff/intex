@@ -19,6 +19,82 @@
 /* =================================== */
 /*	Basic Style 
 /* =================================== */
+.rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+.end-label {
+  font-size: 16px;
+  color: #aaa; /* Default color */
+  margin: 0 10px; /* Space between the labels and the rating scale */
+}
+.rating-scale {
+  display: flex;
+  justify-content: center;
+}
+.rating-scale input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+.rating-scale label {
+  font-size: 16px;
+  color: #aaa; /* Default color */
+  border: 2px solid #aaa; /* Default border color */
+  border-radius: 50%; /* Round borders */
+  text-align: center; /* Center the text horizontally */
+  margin: 5px; /* Space between buttons */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Set specific sizes for each button */
+#tick1 + label, #tick5 + label {
+  width: 50px; /* Largest buttons */
+  height: 50px;
+  font-size: 14px;
+}
+#tick2 + label, #tick4 + label {
+  width: 40px; /* Medium buttons */
+  height: 40px;
+  font-size: 14px;
+}
+#tick3 + label {
+  width: 30px; /* Smallest button */
+  height: 30px;
+  font-size: 14px;
+}
+.rating-scale input[type="radio"]:checked + label {
+  color: #4CAF50; /* Color when checked */
+  border-color: #4CAF50; /* Border color when checked */
+  transform: scale(1.1); /* Slightly increase size when selected */
+}
+/* Specific styles for the first and last labels */
+#tick1 + label {
+  color: green; /* Agree color */
+  border-color: green;
+}
+#tick2 + label {
+  color: rgb(101, 168, 101); /* Agree color */
+  border-color: rgb(101, 168, 101);
+}
+#tick4 + label {
+  color: rgb(176, 63, 176); /* Agree color */
+  border-color: rgb(176, 63, 176);
+}
+#tick5 + label {
+  color: purple; /* Disagree color */
+  border-color: purple;
+}
+/* Hover effect */
+.rating-scale label:hover {
+  border-color: #666;
+}
+.rating-scale label:active {
+  background-color: #ddd; /* Background color when clicked */
+}
 body {
   background-color: #fff;
   font-family: "Open Sans", sans-serif;
