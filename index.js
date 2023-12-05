@@ -23,7 +23,7 @@ let knex = require("knex")({
         password: process.env.RDS_PASSWORD || "cougarcruiser",
         database: process.env.RDS_DB_NAME || "social_sense",
         port: process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
+        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : true
     },
     debug: true
 });
