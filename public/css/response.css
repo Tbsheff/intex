@@ -12,7 +12,7 @@ h3 {
     color: #0AA6BD;
     font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
-    
+
 }
 
 .buffer {
@@ -89,4 +89,61 @@ body {
 
 .btn:hover {
     background-color: #fff;
+}
+
+.survey-form {
+    width: 100% !important;
+}
+
+
+/* Media Query for screens less than 560px */
+@media (max-width: 560px) {
+    .rating-container {
+        grid-template-columns: 1fr auto 1fr;
+        /* Adjust grid layout */
+        padding: 0 10px;
+        /* Add padding to prevent edge-to-edge stretching */
+    }
+
+    .end-label {
+        font-size: 12px;
+        /* Reduce font size for smaller screens */
+        margin: 0 5px;
+        /* Adjust margin to save space */
+    }
+
+    .rating-scale label {
+        font-size: 12px;
+        /* Reduce label font size */
+        border: 1px solid #7da8b3;
+        /* Reduce border thickness */
+        margin: 3px;
+        margin-top: auto;
+        margin-bottom: auto;
+        /* Reduce margin between buttons */
+    }
+
+    /* Adjust the size of the rating buttons for smaller screens */
+    .tick1+label,
+    .tick5+label {
+        width: 35px;
+        /* Reduce width */
+        height: 35px;
+        /* Reduce height */
+    }
+
+    .tick2+label,
+    .tick4+label {
+        width: 30px;
+        /* Reduce width */
+        height: 30px;
+        /* Reduce height */
+    }
+
+    .tick3+label {
+        width: 25px;
+        /* Reduce width */
+        height: 25px;
+        /* Reduce height */
+    }
 }
