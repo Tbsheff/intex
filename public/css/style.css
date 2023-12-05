@@ -363,6 +363,7 @@ main>section {
 
 #navigation.animated-header {
   padding: 20px 0;
+  padding-left: 10px;
 }
 
 .nav-link {
@@ -1136,9 +1137,9 @@ ul.external li a:hover {
 }
 
 .social-button li a {
-  border: 2px solid #fff;
+  border: 2px solid #727272;
   border-radius: 50%;
-  color: #fff;
+  color: #727272;
   display: block;
   height: 90px;
   line-height: 96px;

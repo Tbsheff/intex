@@ -47,7 +47,7 @@ function isAuthenticated(req, res, next) {
 
 
 
-
+app.get("/results", (req, res) => res.render("results"));
 
 
 
