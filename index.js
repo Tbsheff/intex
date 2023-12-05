@@ -149,7 +149,78 @@ app.post("/signup", (req, res) => {
 
 app.get("/survey", (req, res) => res.render("getResponse"));
 
+app.post("/survey", (req, res) => {
+    console.log(req.body);
 
+    // Mapping for occupation
+    const occupationMap = {
+        'University Student': 1,
+        'School Student': 2,
+        'Salaried Worker': 3,
+        'Retired': 4
+    };
+
+    // Mapping for gender
+    const genderMap = {
+        'Female': 1,
+        'Male': 2,
+        'Non-binary': 3,
+        'Trans': 4,
+        'Other': 5
+    };
+
+    const relationshipStatusMap = {
+        'In a relationship': 1,
+        'Single': 2,
+        'Married': 3,
+        'Divorced': 4
+    };
+
+    // Retrieve the IDs from the maps
+    let relationshipStatusId = relationshipStatusMap[req.body.relationship_status];
+    let occupationId = occupationMap[req.body.occupation];
+    let genderId = genderMap[req.body.gender];
+
+    // Check if we got valid IDs
+    if (!occupationId) {
+        return res.status(400).json({ error: 'Invalid occupation' });
+    }
+
+    if (!genderId) {
+        return res.status(400).json({ error: 'Invalid gender' });
+    }
+
+    if (!relationshipStatusId) {
+        return res.status(400).json({ error: 'Invalid relationship status' });
+    }
+
+    knex.transaction(async (trx) => {
+        try {
+            let surveyId = await trx('survey').insert({
+                age: req.body.age,
+                gender_id: genderId,
+                relationship_status_id: relationshipStatusId,
+                occupation_id: occupationId,
+            }, 'survey_id');
+
+            await trx.commit();
+            console.log({ survey_id: surveyId[0] });
+        } catch (error) {
+            await trx.rollback();
+            res.status(500).json({ error: error.message });
+        }
+    }).catch(err => {
+        res.status(500).json({ error: err.message });
+    });
+});
+
+
+app.get("/displayresults", (req, res) => {
+    knex.select("*")
+        .from("survey s")
+        .join("occupation p on o.occupation_id = s.occupation_id")
+}
+)
 
 
 
