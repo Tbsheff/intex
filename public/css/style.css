@@ -363,6 +363,7 @@ main>section {
 
 #navigation.animated-header {
   padding: 20px 0;
+  padding-left: 10px;
 }
 
 .nav-link {
