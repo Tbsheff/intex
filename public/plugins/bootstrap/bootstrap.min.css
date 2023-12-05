@@ -1132,7 +1132,7 @@ pre code {
     }
 }
 
-@media (min-width:768px) {
+@media (min-width:800px) {
     .col-md {
         -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -1187,7 +1187,7 @@ pre code {
     .col-md-7 {
         -ms-flex: 0 0 58.333333%;
         flex: 0 0 58.333333%;
-        max-width: 58.333333%
+        max-width: 75%
     }
 
     .col-md-8 {
