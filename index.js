@@ -2,6 +2,9 @@ let express = require("express");
 let session = require('express-session');
 let app = express();
 const port = process.env.PORT || 3000;
+app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+
 
 
 app.use(session({
@@ -14,6 +17,7 @@ app.use(session({
 
 
 let path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
 
 let knex = require("knex")({
     client: "pg",
@@ -22,8 +26,7 @@ let knex = require("knex")({
         user: process.env.RDS_USERNAME || "ebroot",
         password: process.env.RDS_PASSWORD || "cougarcruiser",
         database: process.env.RDS_DB_NAME || "social_sense",
-        port: process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : true
+        port: process.env.RDS_PORT || 5432
     },
     debug: true
 });
@@ -46,11 +49,7 @@ function isAuthenticated(req, res, next) {
 
 
 
-app.use(express.urlencoded({ extended: true }));
 
-app.set("view engine", "ejs");
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => res.render("index"));
 
@@ -133,7 +132,8 @@ app.post("/signup", (req, res) => {
                     return trx('security_table').insert({
                         username: req.body.username,
                         password: hash,
-                        user_id: user_id[0].student_id  // Use the returned user_id
+                        user_id: userIds[0].user_id,
+                        is_admin: false // Use the returned user_id
                     });
                 })
         })
