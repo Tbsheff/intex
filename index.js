@@ -303,7 +303,7 @@ app.post("/survey", (req, res) => {
 
             await trx.commit();
             console.log({ survey_id: surveyId[0] });
-            res.render("/");
+            res.redirect("/");
         }
         catch (error) {
             await trx.rollback();
