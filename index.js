@@ -89,11 +89,17 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
   
         .then(surveyresults => {
             console.log(surveryresults);
-            res.render("results", { surveyresults});
+            res.render("results", {mysurveyresults : surveyresults});
         })
 
 }
 );
+
+app.get("/", (req, res) => {
+    knex.select().from("bands").then(bands => {
+        res.render("displayData", {mybands : bands});
+    });
+});            
 
 app.get("/", (req, res) => res.render("index"));
 
