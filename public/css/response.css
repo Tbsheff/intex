@@ -60,8 +60,16 @@ body {
 }
 
 .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #7da8b3;
+    background-color: white;
+    color: #7da8b3;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
     display: block;
-    width: 90%;
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     margin-left: auto;
@@ -70,12 +78,46 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control:hover {
+    border-color: #0aa6bd;
+    /* Darker shade of blue for hover effect */
+}
+
+.form-control:focus {
+    border-color: #0aa6bd;
+    /* Darker shade of blue for focus */
+    box-shadow: 0 0 5px rgba(10, 166, 189, 0.5);
+    /* Subtle shadow to indicate focus */
+}
+
+
+.form-control::placeholder,
+/* For input, textarea, etc. */
+.dropdown select::placeholder {
+    /* For select elements, if they support placeholders */
+    color: #7da8b3;
+    /* Light blue placeholder text color */
+    opacity: 1;
+    /* Ensure full opacity */
+}
+
+/* For browser compatibility */
+.form-control:-ms-input-placeholder,
+.dropdown select:-ms-input-placeholder {
+    color: #7da8b3;
+}
+
+.form-control::-ms-input-placeholder,
+.dropdown select::-ms-input-placeholder {
+    color: #7da8b3;
+}
+
+.form-control::-webkit-input-placeholder,
+.dropdown select::-webkit-input-placeholder {
+    color: #7da8b3;
 }
 
 .form-title {
@@ -94,6 +136,59 @@ body {
 .survey-form {
     width: 100% !important;
 }
+
+
+
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown::after {
+    content: '\25BC';
+    /* Downward arrow */
+    font-size: 12px;
+    color: #7da8b3;
+    /* Light blue arrow */
+    position: absolute;
+    right: 10px;
+    /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.dropdown select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #7da8b3;
+    background-color: white;
+    color: #7da8b3;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    /* Removes default style for Safari */
+    -moz-appearance: none;
+    /* Removes default style for Firefox */
+    appearance: none;
+    /* Removes default style */
+    outline: none;
+    /* Removes focus outline */
+}
+
+.dropdown select:hover {
+    border-color: #0aa6bd;
+    /* Darker shade of blue for hover effect */
+}
+
+.dropdown select:focus {
+    border-color: #0aa6bd;
+    /* Darker shade of blue for focus */
+    box-shadow: 0 0 5px rgba(10, 166, 189, 0.5);
+    /* Subtle shadow to indicate focus */
+}
+
 
 
 /* Media Query for screens less than 560px */
@@ -146,4 +241,30 @@ body {
         height: 25px;
         /* Reduce height */
     }
+}
+
+.checkbox-container {
+    margin-left: 20px;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #fff;
+    text-align: left;
+    width: fit-content;
+    color: #7da8b3;
+}
+
+
+.input-field input[type="checkbox"] {
+    accent-color: #7da8b3;
+    /* Sets the check color to your accent color */
+    cursor: pointer;
+    /* Ensures the cursor is a pointer to indicate an interactive element */
+}
+
+
+
+
+/* Removes the bottom margin from the last input field for consistency */
+.checkbox-container .input-field:last-child {
+    margin-bottom: 0;
 }

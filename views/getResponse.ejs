@@ -62,7 +62,7 @@
         Fixed Navigation
         ==================================== -->
     <header id="navigation" class="fixed-top animated-header">
-        <div class="container">
+        <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="/">
                     <img class="img-fluid" src="images/logo.png" alt="">
@@ -103,7 +103,7 @@
                         <input type="number" name="age" class="form-control" placeholder="Your Age">
                     </div>
 
-                    <div class="input-field">
+                    <div class="input-field dropdown">
                         <select name="gender" id="gender">
                             <option value="">Select Your Gender</option>
                             <option value="Male">Male</option>
@@ -113,7 +113,7 @@
                         </select>
                     </div>
 
-                    <div class="input-field">
+                    <div class="input-field dropdown">
                         <select name="relationship_status" id="relationship_status">
                             <option value="">Select Your Relationship Status</option>
                             <option value="In a Relationship">In a Relationship</option>
@@ -123,7 +123,7 @@
                         </select>
                     </div>
 
-                    <div class="input-field">
+                    <div class="input-field dropdown">
                         <select name="occupation" id="occupation">
                             <option value="">Select Your Occupation</option>
                             <option value="Salaried Worker">Salaried Worker</option>
@@ -133,6 +133,76 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
+
+                    <label for="" class="rating-title">What type of organizations are you affiliated with?
+                    </label>
+
+                    <div class="checkbox-container">
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Company"> Company</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Government">
+                                Government</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Private"> Private</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="School"> School</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="University">
+                                University</label>
+                        </div>
+                    </div>
+
+                    <label for="" class="rating-title">Do you use social media?
+                    </label>
+
+                    <div class="question-container">
+                        <div class="input-field">
+                            <label><input type="radio" name="social_media_use" value="yes"> Yes</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="social_media_use" value="no"> No</label>
+                        </div>
+                    </div>
+
+                    <label for="" class="rating-title">What social media platforms do you commonly use?
+                    </label>
+
+                    <div class="checkbox-container">
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Instagram"> Instagram</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="YouTube"> YouTube</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Twitter"> Twitter</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="TikTok"> TikTok</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Discord"> Discord</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Pinterest"> Pinterest</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Reddit"> Reddit</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Facebook"> Facebook</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Snapchat"> Snapchat</label>
+                        </div>
+                    </div>
+
+
                     <label for="" class="rating-title">How often do you find yourself using Social media without a
                         specific purpose?
                     </label>
