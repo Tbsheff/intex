@@ -134,17 +134,21 @@
             // Get the input value
             var input = document.getElementById("searchInput").value.toLowerCase();
 
+
             // Get the table body
             var surveyResultsTable = document.getElementById("surveyResultsTable");
 
+
             // Get all rows in the table body
             var rows = surveyResultsTable.getElementsByTagName("tr");
+
 
             // Loop through rows and hide/show based on the search query
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 var cells = row.getElementsByTagName("td");
                 var rowVisible = false;
+
 
                 // Loop through cells and check if any cell contains the search query
                 for (var j = 0; j < cells.length; j++) {
@@ -154,6 +158,7 @@
                         break;
                     }
                 }
+
 
                 // Show/hide the row based on visibility
                 if (rowVisible) {
@@ -169,23 +174,21 @@
             var selectedRelationship = document.getElementById("relationshipFilter").value;
             var selectedOccupation = document.getElementById("occupationFilter").value;
 
+
             var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+
 
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
                 var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
-                var relationshipCell = row.getElementsByTagName("td")[5]; // Assuming relationship is the sixth column
-                var occupationCell = row.getElementsByTagName("td")[6]; // Assuming occupation is the seventh column
 
                 // Reset the row to be visible
                 row.style.display = "";
 
-                // Check if the gender, location, relationship, and occupation match the selected values
+                // Check if the gender and location match the selected values
                 var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
                 var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
-                var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
-                var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
 
                 // Hide the row if any of the filters don't match
                 if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch) {
@@ -227,25 +230,8 @@
                                 <!-- Add more location options as needed -->
                             </select>
                         </th>
-                        <th>Relationship
-                            <select id="relationshipFilter" onchange="filterResults()">
-                                <option value="all">All</option>
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                                <option value="divorced">Divorced</option>
-                                <!-- Add more relationship options as needed -->
-                            </select>
-                        </th>
-                        <th>Occupation
-                            <select id="occupationFilter" onchange="filterResults()">
-                                <option value="all">All</option>
-                                <option value="University Student">University Student</option>
-                                <option value="school student">School Student</option>
-                                <option value="salaried worker">Salaried Worker</option>
-                                <option value="retired">Retired</option>
-                                <!-- Add more occupation options as needed -->
-                            </select>
-                        </th>
+                        <th>Relationship</th>
+                        <th>Occupation</th>
                         <th>See More</th>
                     </tr>
                 </thead>
