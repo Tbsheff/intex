@@ -1,0 +1,12 @@
+.edit-form td {
+    padding: 10px;
+    background-color: #f9f9f9;
+    /* Light background for the form */
+    border-top: 1px solid #ddd;
+    /* Optional border for separation */
+}
+
+.edit-form input,
+.edit-form button {
+    /* Style your inputs and buttons here */
+}

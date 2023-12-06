@@ -5,16 +5,12 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-
-
 app.use(session({
     secret: 'asd;lfkja;ldfkjlk123389akjdhla987897akjh78111ih',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
 }));
-
-
 
 let path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
@@ -25,7 +21,7 @@ let knex = require("knex")({
         host: process.env.RDS_HOSTNAME || "awseb-e-ee3vw2q82p-stack-awsebrdsdatabase-moo0bhesoomr.cf6qafoa0mp0.us-east-2.rds.amazonaws.com",
         user: process.env.RDS_USERNAME || "ebroot",
         password: process.env.RDS_PASSWORD || "cougarcruiser",
-        database: process.env.RDS_DB_NAME || "social_sense",
+        database: "social_sense",
         port: process.env.RDS_PORT || 5432
     },
     debug: true
@@ -48,6 +44,29 @@ function isAuthenticated(req, res, next) {
 
 
 app.get("/results", (req, res) => {
+    knex.select(
+        's.survey_id',
+        's.time_stamp',
+        's.age',
+        's.location',
+        'g.gender_description',
+        'rs.relationship_status_description',
+        'o.occupation_description',
+    )
+        .from('survey as s')
+        .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
+        .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+
+        .then(results => {
+            console.log(results);
+            res.render("results", { surveyresults: results });
+        })
+
+}
+);
+
+app.get("/choosesurvey/:surveyID", (req, res) => {
     knex.select(
         's.survey_id',
         's.time_stamp',
@@ -78,6 +97,7 @@ app.get("/results", (req, res) => {
         'sm.social_media_number',
         'sm.social_media_platform'
     )
+        
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
@@ -85,13 +105,14 @@ app.get("/results", (req, res) => {
         .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
         .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
 
-        .then(results => {
-            console.log(results);
-            res.render("displayresults", { surveyresults : results });
-        })
-
-}
-);
+        .where("s.survey_id", req.params.surveyID)
+        .then(result => {
+        res.render("displayresult", {resultobject : result});
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({err});
+        });
+});
 
 app.get("/", (req, res) => res.render("index"));
 
@@ -312,6 +333,16 @@ app.post("/survey", (req, res) => {
     }).catch(err => {
         res.status(500).json({ error: err.message });
     });
+});
+
+app.get("/accounts", (req, res) => {
+    knex.select("*")
+        .from("user_table as ut")
+        .join("security_table as st", "st.user_id", "ut.user_id")
+        .then(results => {
+            console.log(results);
+            res.render("viewAccounts", { allAccounts: results });
+        });
 });
 
 
