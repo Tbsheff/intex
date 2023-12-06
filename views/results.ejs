@@ -90,9 +90,11 @@
                                 <% } else if (user && user.admin) { %>
                                     <!-- Show this if user has specific permissions -->
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                    <a class="nav-link" href="/logout">Logout</a>
                                     <% } else { %>
                                         <!-- Show this for general logged-in users -->
                                         <a class="nav-link" href="/account" id="account">My Account</a>
+                                        <a class="nav-link" href="/logout">Logout</a>
                                         <% } %>
                         </li>-
 
@@ -126,7 +128,7 @@
                                 <%= surveyresults[iCount].survey_id %>
                             </td>
                             <td>
-                                <%= surveyresults[iCount].time_stamp %>
+                                <%= surveyresults[iCount].formatted_time_stamp %>
                             </td>
                             <td>
                                 <%= surveyresults[iCount].gender_description %>
@@ -144,9 +146,10 @@
                                 <%= surveyresults[iCount].occupation_description %>
                             </td>
                             <td>
-                                <button><a href="/choosesurvey/<%=surveyresults[iCount].survey_id%>">See
-                                        More</a></button>
+                                <a class="see-more" href="/choosesurvey/<%= surveyresults[iCount].survey_id %>">See
+                                    More</a>
                             </td>
+
                         </tr>
 
                         <% } %>

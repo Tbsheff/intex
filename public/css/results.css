@@ -103,3 +103,55 @@
     background-color: #f2f2f2;
     font-weight: bold;
 }
+
+.grid-container {
+    display: grid;
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    grid-template-columns: auto auto;
+    /* Four column layout */
+    /* Adjust the gap between grid items as needed */
+}
+
+.grid-item {
+    padding: 5px;
+    border: 1px solid black;
+    /* Padding for content */
+    /* Add any additional styling you need */
+}
+
+.grid-container .grid-item:nth-child(odd) {
+    background-color: #7da8b3;
+    color: white;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.see-more {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    background-color: #0aa6bd;
+    /* Primary color */
+    color: white;
+    /* Text color */
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    /* Remove underline from link */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    /* Add a hover effect */
+    &:hover {
+        background-color: #7da8b3;
+        /* Darker shade for hover */
+        color: white;
+        text-decoration: none;
+        /* Ensure underline doesn't reappear */
+    }
+}

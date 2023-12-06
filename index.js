@@ -2,6 +2,7 @@ let express = require("express");
 let session = require('express-session');
 let app = express();
 const port = process.env.PORT || 3000;
+let format = require('date-fns/format');
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
@@ -61,7 +62,15 @@ app.get("/results", isAuthenticated, (req, res) => {
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
         .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-
+        .then(rows => {
+            let formattedRows = rows.map(row => {
+                return {
+                    ...row,
+                    formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+                };
+            });
+            return formattedRows;
+        })
         .then(results => {
             console.log(results);
             res.render("results", { surveyresults: results, user: req.session.user });
@@ -96,10 +105,17 @@ app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
         'g.gender_description',
         'rs.relationship_status_description',
         'o.occupation_description',
-        'og.organization_number',
-        'og.organization',
-        'sm.social_media_number',
-        'sm.social_media_platform'
+        knex.raw(`(
+            SELECT string_agg(social_media_platform, ', ')
+            FROM social_media
+            WHERE social_media.survey_id = s.survey_id
+            GROUP BY social_media.survey_id
+        ) AS social_media_platforms`),
+        knex.raw(`(
+            SELECT string_agg(organization.organization, ', ')
+            FROM organization
+            WHERE organization.survey_id = s.survey_id
+        ) AS organizations`)
     )
 
         .from('survey as s')
@@ -110,8 +126,17 @@ app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
         .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
 
         .where("s.survey_id", req.params.surveyID)
-        .then(result => {
-            res.render("displayresult", { resultobject: result, user: req.session.user });
+        .then(rows => {
+            let formattedRows = rows.map(row => {
+                return {
+                    ...row,
+                    formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+                };
+            });
+            return formattedRows;
+        })
+        .then(formattedRows => {
+            res.render("displayresult", { resultobject: formattedRows, user: req.session.user });
         }).catch(err => {
             console.log(err);
             res.status(500).json({ err });
@@ -171,6 +196,30 @@ app.post("/login", (req, res) => {
             res.status(500).json({ error: error.message || error });
         });
 });
+
+const isLoggedIn = (req, res, next) => {
+    if (req.session && req.session.user) {
+      return next();
+    } else {
+      return res.redirect('/');
+    }
+  };
+  
+  // Routes
+app.get('/', isLoggedIn, (req, res) => {
+res.send('You are logged in. <a href="/logout">Logout</a>');
+});
+
+app.get('/logout', (req, res) => {
+    // Destroy the session to log the user out
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+      }
+      res.redirect('/');
+    });
+});
+
 
 
 app.get("/signup", isAuthenticated, (req, res) => res.render("signup", { user: req.session.user }));

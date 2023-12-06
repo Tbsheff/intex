@@ -90,9 +90,11 @@
                                 <% } else if (user && user.admin) { %>
                                     <!-- Show this if user has specific permissions -->
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                    <a class="nav-link" href="/logout">Logout</a>
                                     <% } else { %>
                                         <!-- Show this for general logged-in users -->
                                         <a class="nav-link" href="/account" id="account">My Account</a>
+                                        <a class="nav-link" href="/logout">Logout</a>
                                         <% } %>
                         </li>
                     </ul>
@@ -106,170 +108,131 @@
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
     <section class="service-2 section">
-        <table class="table-style">
-            <thead>
-                <tr>
-                    <th>
-                        Survey Number
-                    </th>
-                    <th>
-                        Time Stamp
-                    </th>
-                    <th>
-                        Age
-                    </th>
-                    <th>
-                        Location
-                    </th>
-                    <th>
-                        SM Usage
-                    </th>
-                    <th>
-                        Time Spent
-                    </th>
-                    <th>
-                        freqdistract
-                    </th>
-                    <th>
-                        oftendistract
-                    </th>
-                    <th>
-                        restless
-                    </th>
-                    <th>
-                        easilydistract
-                    </th>
-                    <th>
-                        howmuchworry
-                    </th>
-                    <th>
-                        difficultyconcentrating
-                    </th>
-                    <th>
-                        oftencomparison
-                    </th>
-                    <th>
-                        comparefeel
-                    </th>
-                    <th>
-                        seekvalid
-                    </th>
-                    <th>
-                        feeldepressed
-                    </th>
-                    <th>
-                        changeinterest
-                    </th>
-                    <th>
-                        sleepissues
-                    </th>
-                    <th>
-                        gender
-                    </th>
-                    <th>
-                        relationship
-                    </th>
-                    <th>
-                        occupation
-                    </th>
-                    <th>
-                        organNum
-                    </th>
-                    <th>
-                        organization
-                    </th>
-                    <th>
-                        socialNum
-                    </th>
-                    <th>
-                        social
-                    </th>
+        <div class="grid-container">
+            <% for (let iCount=0; iCount < 1; iCount++) { %>
 
+                <div class="grid-item">Survey Number</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].survey_id %>
+                </div>
 
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let iCount=0; iCount < resultobject.length; iCount++) { %>
-                    <tr>
-                        <td>
-                            <%= resultobject[iCount].survey_id %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].time_stamp %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].age %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].location %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].use_social %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].time_spent_on_social_media %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].frequency_of_social_media_distraction %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_often_distracted %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].feel_restless %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_easily_distracted %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_much_worry %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].difficulty_concentrating %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_often_compare %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].comparison_feelings %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].seek_validation_from_social_media %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_often_depressed %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].frequency_of_changing_interests %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].how_often_sleep_issues %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].gender_description %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].relationship_status_description %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].occupation_description %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].organization_number %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].organization %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].social_media_number %>
-                        </td>
-                        <td>
-                            <%= resultobject[iCount].social_media_platform %>
-                        </td>
-                    </tr>
-                    <% } %>
-            </tbody>
-        </table>
+                <div class="grid-item">Time Stamp</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].formatted_time_stamp %>
+                </div>
+
+                <div class="grid-item">Age</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].age %>
+                </div>
+
+                <div class="grid-item">gender</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].gender_description %>
+                </div>
+
+                <div class="grid-item">relationship</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].relationship_status_description %>
+                </div>
+
+                <div class="grid-item">occupation</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].occupation_description %>
+                </div>
+
+                <div class="grid-item">Location</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].location %>
+                </div>
+
+                <div class="grid-item">SM Usage</div>
+                <div class="grid-item capitalize">
+                    <%= resultobject[iCount].use_social %>
+                </div>
+
+                <div class="grid-item">Social Media Used</div>
+                <div class="grid-item">
+
+                    <%= resultobject[iCount].social_media_platforms%>
+
+                </div>
+
+                <div class="grid-item">Organizations</div>
+                <div class="grid-item">
+
+                    <%= resultobject[iCount].organizations%>
+
+                </div>
+
+                <div class="grid-item">Daily usage of social media</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].time_spent_on_social_media %>
+                </div>
+
+                <div class="grid-item">How often using social media without purpose</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].frequency_of_social_media_distraction %>
+                </div>
+
+                <div class="grid-item">How often distracted by social media</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_often_distracted %>
+                </div>
+
+                <div class="grid-item">Do you feel restless without using social media</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].feel_restless %>
+                </div>
+
+                <div class="grid-item">How easily distracted</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_easily_distracted %>
+                </div>
+
+                <div class="grid-item">How much are you bothered by worries</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_much_worry %>
+                </div>
+
+                <div class="grid-item">Difficulty concentrating</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].difficulty_concentrating %>
+                </div>
+
+                <div class="grid-item">How often comparing self to others on social media</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_often_compare %>
+                </div>
+
+                <div class="grid-item">How you feel regarding comparisons</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].comparison_feelings %>
+                </div>
+
+                <div class="grid-item">How often seeking validation from social media</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].seek_validation_from_social_media %>
+                </div>
+
+                <div class="grid-item">How often feeling depressed</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_often_depressed %>
+                </div>
+
+                <div class="grid-item">Fluctuation of interest in activities</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].frequency_of_changing_interests %>
+                </div>
+
+                <div class="grid-item">How often facing sleep issues</div>
+                <div class="grid-item">
+                    <%= resultobject[iCount].how_often_sleep_issues %>
+                </div>
+
+                <% } %>
+        </div>
+
     </section>
 
     <footer id="footer">
