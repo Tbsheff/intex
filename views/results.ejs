@@ -82,6 +82,9 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/survey">Take The Survey</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <% if (!user) { %>
@@ -178,6 +181,25 @@
                 }
                 }
         }
+        function filterByLocation() {
+        var selectedLocation = document.getElementById("locationFilter").value;
+        var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
+
+            // Reset the row to be visible
+            row.style.display = "";
+
+            // Check if the location matches the selected location
+            if (selectedLocation !== "all" && locationCell.innerText.toLowerCase() !== selectedLocation) {
+                // Hide the row if it doesn't match
+                row.style.display = "none";
+            }
+        }
+    }
+
     </script>
 
     <main class="site-content" role="main">
@@ -193,6 +215,7 @@
                         <th>Time Stamp</th>
                         <th>Gender
                             <select id="genderFilter" onchange="filterByGender()">
+                                <option value="all">All</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="non-binary">Non-binary</option>
@@ -202,7 +225,14 @@
                             </select>
                         </th>
                         <th>Age</th>
-                        <th>Location</th>
+                        <th>Location
+                            <select id="locationFilter" onchange="filterByLocation()">
+                                <option value="all">All</option>
+                                <option value="provo">Provo</option>
+                                <option value="plainsville">Plainsville</option>
+                                <!-- Add more location options as needed -->
+                            </select>
+                        </th>
                         <th>Relationship</th>
                         <th>Occupation</th>
                         <th>See More</th>
