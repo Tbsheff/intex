@@ -134,10 +134,6 @@
                     <th>
                         Username
                     </th>
-
-                    <th>
-                        Is Admin?
-                    </th>
                     <th>
                         Edit
                     </th>
@@ -160,16 +156,17 @@
                             <td>
                                 <%= allAccounts[iCount].username%>
                             </td>
-                            <td>
-                                <%= allAccounts[iCount].is_admin%>
-                            </td>
+
                             <td>
                                 <button class="edit-btn" data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
                             <td colspan="100%">
-                                <form action="/modify-user" method="post">
+                                <form action="/modify-user" method="post" class="modify-user">
+                                    <label for="">User ID</label>
+                                    <input type="text" name="user_id" id="user_id"
+                                        value="<%= allAccounts[iCount].user_id %>" readonly required>
                                     <label for="">First Name</label>
                                     <input type="text" name="first_name" value="<%= allAccounts[iCount].first_name %>"
                                         required>
@@ -181,23 +178,11 @@
                                     <label for="">Username</label>
                                     <input type="text" name="username" value="<%= allAccounts[iCount].last_name %>"
                                         required>
-                                    <label for="">New Password</label>
+                                    <label for="">Update Password</label>
                                     <input type="password" name="password" value="">
-                                    <label>Is Admin?</label>
-                                    <% if(allAccounts[iCount].is_admin) { %>
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="yes" checked> Yes
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="no"> No
-                                        <% } else { %>
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="yes"> Yes
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="no" checked> No
-                                            <% } %>
 
 
-                                                <button type="submit">Save Changes</button>
+                                    <button type="submit" style="grid-column: 2;">Save Changes</button>
                                 </form>
 
 

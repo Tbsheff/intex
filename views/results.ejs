@@ -140,6 +140,21 @@
                 }
             }
         }
+        function filterByGender() {
+        var selectedGender = document.getElementById("genderFilter").value;
+        var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
+
+            if (selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        }
+    }
     </script>
 
     <main class="site-content" role="main">
@@ -153,7 +168,16 @@
                     <tr>
                         <th>Survey Number</th>
                         <th>Time Stamp</th>
-                        <th>Gender</th>
+                        <th>Gender
+                            <select id="genderFilter" onchange="filterByGender()">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="all">Non-binary</option>
+                                <option value="all">Trans</option>
+                                <option value="all">Other</option>
+                                <!-- Add more gender options as needed -->
+                            </select>
+                        </th>
                         <th>Age</th>
                         <th>Location</th>
                         <th>Relationship</th>
