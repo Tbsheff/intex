@@ -47,10 +47,7 @@ function isAuthenticated(req, res, next) {
 }
 
 
-
-app.get("/results", (req, res) => res.render("results"));
-
-app.get("/displayresults", isAuthenticated, (req, res) => {
+app.get("/displayresults", (req, res) => {
     knex.select(
         's.survey_id',
         's.time_stamp',
@@ -94,7 +91,7 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
         })
 
 }
-);        
+);
 
 app.get("/", (req, res) => res.render("index"));
 
@@ -317,13 +314,6 @@ app.post("/survey", (req, res) => {
     });
 });
 
-
-app.get("/displayresults", (req, res) => {
-    knex.select("*")
-        .from("survey s")
-        .join("occupation p on o.occupation_id = s.occupation_id")
-}
-)
 
 
 
