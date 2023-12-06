@@ -47,7 +47,7 @@ function isAuthenticated(req, res, next) {
 }
 
 
-app.get("/displayresults", (req, res) => {
+app.get("/results", (req, res) => {
     knex.select(
         's.survey_id',
         's.time_stamp',
