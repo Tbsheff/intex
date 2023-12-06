@@ -83,7 +83,7 @@ app.get("/results", (req, res) => {
 
         .then(results => {
             console.log(results);
-            res.render("displayresults", { surveyresults : results });
+            res.render("results", { surveyresults: results });
         })
 
 }
