@@ -439,7 +439,11 @@ app.post("/modify-user", (req, res) => {
                 .then(() => {
                     // Transaction is committed
                     console.log('Transaction complete.');
-                    res.redirect("/account");
+                    if (user.is_admin) {
+                        res.redirect("/accounts")
+                    } else {
+                        res.redirect('/account');
+                    }
                 })
                 .catch(err => {
                     // Transaction failed and was rolled back
