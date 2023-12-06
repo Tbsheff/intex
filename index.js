@@ -94,13 +94,7 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
         })
 
 }
-);
-
-app.get("/", (req, res) => {
-    knex.select().from("bands").then(bands => {
-        res.render("displayData", {mybands : bands});
-    });
-});            
+);         
 
 app.get("/", (req, res) => res.render("index"));
 
