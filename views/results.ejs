@@ -94,7 +94,125 @@
         </div>
     </header>
 
+    <section class="service-2 section">
+		<table>
+			<thead>
+				<tr>
+					<th>
+						Start City
+					</th>
+					<th>
+						Start State
+					</th>
+					<th>
+						Time Leaving
+					</th>
+					<th>
+						Date Leaving
+					</th>
+					<th>
+						End City
+					</th>
+					<th>
+						End State
+					</th>
+					<th>
+						Spots Remaining
+					</th>
+					<th>
+						Join Ride
+					</th>
 
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
+					<tr>
+						<td>
+							<%= surveyresults[iCount].survey_id %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].time_stamp %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].age %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].location %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].use_social %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].time_spent_on_social_media %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].frequency_of_social_media_distraction %>
+						</td>
+
+                        <td>
+							<%= surveyresults[iCount].how_often_distracted %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].feel_restless %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_easily_distracted %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_much_worry %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].difficulty_concentrating %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount]. %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_much_worry %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_much_worry %>
+						</td>
+
+            's.difficulty_concentrating',
+            's.how_often_compare',
+            's.comparison_feelings',
+            's.seek_validation_from_social_media',
+            's.how_often_depressed',
+            's.frequency_of_changing_interests',
+            's.how_often_sleep_issues',
+            'g.gender_description',
+            'rs.relationship_status_description',
+            'o.occupation_description',
+            'og.organization_number',
+            'og.organization',
+            'sm.social_media_number',
+            'sm.social_media_platform'
+						
+						<td>
+							<a href="/joinride/<%= allRides[iCount].ride_id%>">Join Ride</a>
+						</td>
+					</tr>
+					<% } %>
+			</tbody>
+		</table>
+	</section>
+
+            .from('survey as s')
+            .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
+            .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+            .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+            .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
+            .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
+      
+            .then(surveyresults => {
+                console.log(surveryresults);
+                res.render("results", { surveyresults});
+            })
+    
+    }
+    );
 
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
