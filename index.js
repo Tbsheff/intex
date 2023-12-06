@@ -207,6 +207,29 @@ app.get('/logout', (req, res) => {
     });
 });
 
+app.post("/filter", (req, res) => {
+    knex.select(
+        's.survey_id',
+        's.time_stamp',
+        'g.gender_description',
+        's.age',
+        's.location',
+        'rs.relationship_status_description',
+        'o.occupation_description'
+    )
+    .from('surveys as s')
+    .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
+    .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+    .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+    .where('g.gender_description', req.body.genderFilter)  // Corrected where clause
+    .then(users => {
+        res.render("results", { surveyresults: users, user: req.session.user });  // Corrected variable name to users
+    })
+    .catch(error => {
+        console.error(error);  // Log any errors that occur
+        res.status(500).json({ error: 'Internal Server Error' });  // Sending an error response
+    });
+});
 
 
 app.get("/signup", isAuthenticated, (req, res) => res.render("signup", { user: req.session.user }));
