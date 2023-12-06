@@ -32,6 +32,7 @@ let knex = require("knex")({
 });
 
 let bcrypt = require('bcrypt');
+const { timeStamp } = require("console");
 let saltRounds = 10;
 
 function isAuthenticated(req, res, next) {
@@ -52,44 +53,44 @@ app.get("/results", (req, res) => res.render("results"));
 app.get("/displayresults", isAuthenticated, (req, res) => {
     knex.select(
         's.survey_id',
-		's.time_stamp',
-		's.age',
-		's.gender_id',
-		's.relationship_status_id',
-		's.occupation_id',
-		's.location',
-		's.use_social',
-		's.time_spent_on_social_media',
-		's.frequency_of_social_media_distraction',
-		's.how_often_distracted',
-		's.feel_restless',
-		's.how_easily_distracted',
-		's.how_much_worry',
-		's.difficulty_concentrating',
-		's.how_often_compare',
-		's.comparison_feelings',
-		's.seek_validation_from_social_media',
-		's.how_often_depressed',
-		's.frequency_of_changing_interests',
-		's.how_often_sleep_issues',
-		'g.gender_description',
-		'rs.relationship_status_description',
-		'o.occupation_description',
-		'og.organization_number',
-		'og.organization',
-		'sm.social_media_number',
-		'sm.social_media_platform'
+        's.time_stamp',
+        's.age',
+        's.gender_id',
+        's.relationship_status_id',
+        's.occupation_id',
+        's.location',
+        's.use_social',
+        's.time_spent_on_social_media',
+        's.frequency_of_social_media_distraction',
+        's.how_often_distracted',
+        's.feel_restless',
+        's.how_easily_distracted',
+        's.how_much_worry',
+        's.difficulty_concentrating',
+        's.how_often_compare',
+        's.comparison_feelings',
+        's.seek_validation_from_social_media',
+        's.how_often_depressed',
+        's.frequency_of_changing_interests',
+        's.how_often_sleep_issues',
+        'g.gender_description',
+        'rs.relationship_status_description',
+        'o.occupation_description',
+        'og.organization_number',
+        'og.organization',
+        'sm.social_media_number',
+        'sm.social_media_platform'
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-		.leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-		.leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-		.leftJoin('organization as og', 'og.survey_id', 's.survey_id')
-		.leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
-  
+        .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+        .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
+        .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
+
         .then(surveyresults => {
             console.log(surveryresults);
-            res.render("results", { surveyresults});
+            res.render("results", { surveyresults });
         })
 
 }
@@ -224,6 +225,29 @@ app.post("/survey", (req, res) => {
     let relationshipStatusId = relationshipStatusMap[req.body.relationship_status];
     let occupationId = occupationMap[req.body.occupation];
     let genderId = genderMap[req.body.gender];
+    let organizationTypes = req.body.organization_type;
+
+    if (!organizationTypes) {
+        return res.status(400).json({ error: 'No organization type selected' });
+    }
+
+    // If only one checkbox is checked, make sure it's treated as an array
+    if (!Array.isArray(organizationTypes)) {
+        organizationTypes = [organizationTypes];
+    }
+
+    let socialMediaPlatforms = req.body.social_media;
+
+    // Check if any social media platform is selected
+    if (!socialMediaPlatforms) {
+        return res.status(400).json({ error: 'No social media platform selected' });
+    }
+
+    // If only one checkbox is checked, make sure it's treated as an array
+    if (!Array.isArray(socialMediaPlatforms)) {
+        socialMediaPlatforms = [socialMediaPlatforms];
+    }
+
 
     // Check if we got valid IDs
     if (!occupationId) {
@@ -260,6 +284,20 @@ app.post("/survey", (req, res) => {
                 how_often_sleep_issues: req.body.sleepIssues,
                 use_social: req.body.social_media_use
             }, 'survey_id');
+
+            for (const type of organizationTypes) {
+                await trx('survey_organization_types').insert({
+                    survey_id: surveyId[0],
+                    organization_type: type
+                });
+            };
+
+            for (const platform of socialMediaPlatforms) {
+                await trx('survey_social_media').insert({
+                    survey_id: surveyId[0],
+                    social_media_platform: platform
+                });
+            }
 
             await trx.commit();
             console.log({ survey_id: surveyId[0] });
