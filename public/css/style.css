@@ -701,7 +701,7 @@ main>section {
 
 .service-item p {
   color: #7e848e;
-  font-weight: 200;
+  font-weight: 500;
 }
 
 /*=================================================================
@@ -1655,4 +1655,8 @@ textarea.form-control {
 /*# sourceMappingURL=style.css.map */
 .img-fluid {
   height: 50px;
+}
+
+.section-title h2 {
+  line-height: 2rem;
 }

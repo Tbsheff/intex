@@ -97,29 +97,29 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/results">Survey Results</a>
                                 </li>
-                        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
                                 </li>
-                        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Logout</a>
                                 </li>
-                        
+
                                 <% } else { %>
                                     <!-- Show this for general logged-in users -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="/results">Survey Results</a>
                                     </li>
-                        
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/account" id="account">My Account</a>
                                     </li>
-                        
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/logout">Logout</a>
                                     </li>
-                        
+
                                     <% } %>
 
 
@@ -157,9 +157,7 @@
                         Username
                     </th>
 
-                    <th>
-                        Is Admin?
-                    </th>
+
                     <th>
                         Edit
                     </th>
@@ -182,44 +180,34 @@
                             <td>
                                 <%= allAccounts[iCount].username%>
                             </td>
-                            <td>
-                                <%= allAccounts[iCount].is_admin%>
-                            </td>
+
                             <td>
                                 <button class="edit-btn" data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
                             <td colspan="100%">
-                                <form action="">
+                                <form action="/modify-user" method="post" class="modify-user">
+                                    <label for="">User ID</label>
+                                    <input type="text" name="user_id" id="user_id"
+                                        value="<%= allAccounts[iCount].user_id %>" readonly required>
                                     <label for="">First Name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].first_name %>">
+                                    <input type="text" value="<%= allAccounts[iCount].first_name%>" required>
                                     <label for="">Last name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
+                                    <input type="text" value="<%= allAccounts[iCount].last_name%>" required>
                                     <label for="">Email</label>
-                                    <input type="email" value="<%= allAccounts[iCount].email %>">
+                                    <input type="email" value="<%= allAccounts[iCount].email%>" required>
                                     <label for="">Username</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
-                                    <label for="">New Password</label>
-                                    <input type="password" value="">
-                                    <label>Is Admin?</label>
-                                    <% if(allAccounts[iCount].is_admin) { %>
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="yes" checked> Yes
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="no"> No
-                                        <% } else { %>
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="yes"> Yes
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="no" checked> No
-                                            <% } %>
+                                    <input type="text" value="<%= allAccounts[iCount].username%>" required>
+                                    <label for="">Update Password</label>
+                                    <input type="password" name="password" value="">
 
 
 
+                                    <button type="submit" style="grid-column: 2;">Save Changes</button>
                                 </form>
 
-                                <button>Save Changes</button>
+
                             </td>
                         </tr>
                         <% } %>

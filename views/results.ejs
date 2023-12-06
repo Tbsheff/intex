@@ -163,38 +163,26 @@
                 }
             }
         }
-        function filterByGender() {
+        function filterResults() {
             var selectedGender = document.getElementById("genderFilter").value;
+            var selectedLocation = document.getElementById("locationFilter").value;
+
             var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
 
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
-
-                // Reset the row to be visible
-                row.style.display = "";
-
-                // Check if the gender matches the selected gender
-                if (selectedGender !== "all" && genderCell.innerText.toLowerCase() !== selectedGender) {
-                    // Hide the row if it doesn't match
-                    row.style.display = "none";
-                }
-                }
-        }
-        function filterByLocation() {
-            var selectedLocation = document.getElementById("locationFilter").value;
-            var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
-
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
                 var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
 
                 // Reset the row to be visible
                 row.style.display = "";
 
-                // Check if the location matches the selected location
-                if (selectedLocation !== "all" && locationCell.innerText.toLowerCase() !== selectedLocation) {
-                    // Hide the row if it doesn't match
+                // Check if the gender and location match the selected values
+                var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
+                var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
+
+                // Hide the row if either gender or location doesn't match
+                if (!genderMatch || !locationMatch) {
                     row.style.display = "none";
                 }
             }
