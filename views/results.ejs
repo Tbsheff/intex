@@ -229,33 +229,35 @@
                 var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
                 var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
 
-                var timestamp = timestampCell.innerText; // Get the timestamp value
-                var timestampParts = timestamp.split(' '); // Split timestamp into date and time parts
-                var dateParts = timestampParts[0].split('-'); // Split date into month, day, and year parts
-                var timeParts = timestampParts[1].split(':'); // Split time into hour and minute parts
+                // Parse the timestamp
+                var timestamp = timestampCell.innerText;
+                var parsedTimestamp = new Date(timestamp);
 
-                var monthMatch = selectedMonth === "all" || dateParts[0] === selectedMonth;
-                var dayMatch = selectedDay === "all" || dateParts[1] === selectedDay;
-                var yearMatch = selectedYear === "all" || dateParts[2] === selectedYear;
+                // Check if the month, day, and year match
+                var monthMatch = selectedMonth === "all" || (parsedTimestamp.getMonth() + 1).toString().padStart(2, '0') === selectedMonth;
+                var dayMatch = selectedDay === "all" || parsedTimestamp.getDate().toString().padStart(2, '0') === selectedDay;
+                var yearMatch = selectedYear === "all" || parsedTimestamp.getFullYear().toString() === selectedYear;
 
                 // Check if the time part contains PM
-                var isPM = timestampParts[2] === 'PM';
+                var isPM = timestamp.includes('PM');
 
                 // Convert the hour part to 24-hour format if it's PM
-                var hour = parseInt(timeParts[0]);
+                var hour = parsedTimestamp.getHours();
                 if (isPM && hour < 12) {
                     hour += 12;
                 }
 
-                // Combine date and time parts for comparison
-                var timestampMatch = monthMatch && dayMatch && yearMatch && hour.toString() === timeParts[0] && timeParts[1];
+                // Check if the hour and minute match
+                var timestampMatch = hour.toString().padStart(2, '0') === parsedTimestamp.getHours().toString().padStart(2, '0') &&
+                    parsedTimestamp.getMinutes().toString().padStart(2, '0');
 
                 // Hide the row if any of the filters don't match
-                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !timestampMatch) {
+                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !monthMatch || !dayMatch || !yearMatch || !timestampMatch) {
                     row.style.display = "none";
                 }
             }
         }
+
     </script>
 
 
@@ -287,6 +289,7 @@
                                 <!-- Add more month options as needed -->
                             </select>
                             <select id="dayFilter" onchange="filterResults()">
+                                <option value="all">All</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

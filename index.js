@@ -491,7 +491,7 @@ app.post("/modify-user", (req, res) => {
 
 });
 
-
+app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
 
 
 app.listen(port, () => console.log("Website started"));    
