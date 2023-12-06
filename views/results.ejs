@@ -94,7 +94,124 @@
         </div>
     </header>
 
+    <section class="service-2 section">
+		<table>
+			<thead>
+				<tr>
+					<th>
+						Start City
+					</th>
+					<th>
+						Start State
+					</th>
+					<th>
+						Time Leaving
+					</th>
+					<th>
+						Date Leaving
+					</th>
+					<th>
+						End City
+					</th>
+					<th>
+						End State
+					</th>
+					<th>
+						Spots Remaining
+					</th>
+					<th>
+						Join Ride
+					</th>
 
+				</tr>
+			</thead>
+			<tbody>
+				<% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
+					<tr>
+						<td>
+							<%= surveyresults[iCount].survey_id %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].time_stamp %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].age %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].location %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].use_social %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].time_spent_on_social_media %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].frequency_of_social_media_distraction %>
+						</td>
+
+                        <td>
+							<%= surveyresults[iCount].how_often_distracted %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].feel_restless %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_easily_distracted %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_much_worry %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].difficulty_concentrating %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_often_compare %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].comparison_feelings %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].seek_validation_from_social_media %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_often_depressed %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].frequency_of_changing_interests %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_often_sleep_issues %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].gender_description %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].relationship_status_description %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].occupation_description %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].organization_number %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].organization %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].social_media_number %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].social_media_platform %>
+						</td>
+                        <td>
+							<%= surveyresults[iCount].how_much_worry %>
+						</td>
+					</tr>
+					<% } %>
+			</tbody>
+		</table>
+	</section>
 
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
