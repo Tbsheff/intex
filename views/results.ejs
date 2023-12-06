@@ -182,24 +182,23 @@
                 }
         }
         function filterByLocation() {
-        var selectedLocation = document.getElementById("locationFilter").value;
-        var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+            var selectedLocation = document.getElementById("locationFilter").value;
+            var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
 
-        for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
 
-            // Reset the row to be visible
-            row.style.display = "";
+                // Reset the row to be visible
+                row.style.display = "";
 
-            // Check if the location matches the selected location
-            if (selectedLocation !== "all" && locationCell.innerText.toLowerCase() !== selectedLocation) {
-                // Hide the row if it doesn't match
-                row.style.display = "none";
+                // Check if the location matches the selected location
+                if (selectedLocation !== "all" && locationCell.innerText.toLowerCase() !== selectedLocation) {
+                    // Hide the row if it doesn't match
+                    row.style.display = "none";
+                }
             }
         }
-    }
-
     </script>
 
     <main class="site-content" role="main">

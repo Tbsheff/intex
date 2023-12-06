@@ -93,29 +93,29 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/results">Survey Results</a>
                                 </li>
-                        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
                                 </li>
-                        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Logout</a>
                                 </li>
-                        
+
                                 <% } else { %>
                                     <!-- Show this for general logged-in users -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="/results">Survey Results</a>
                                     </li>
-                        
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/account" id="account">My Account</a>
                                     </li>
-                        
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/logout">Logout</a>
                                     </li>
-                        
+
                                     <% } %>
                     </ul>
                 </div>
@@ -173,14 +173,16 @@
 
                     <div class="checkbox-container">
                         <div class="input-field">
-                            <label><input type="checkbox" name="organization_type" value="Company"> Public Company</label>
+                            <label><input type="checkbox" name="organization_type" value="Company"> Public
+                                Company</label>
                         </div>
                         <div class="input-field">
                             <label><input type="checkbox" name="organization_type" value="Government">
                                 Government</label>
                         </div>
                         <div class="input-field">
-                            <label><input type="checkbox" name="organization_type" value="Private"> Private Company</label>
+                            <label><input type="checkbox" name="organization_type" value="Private"> Private
+                                Company</label>
                         </div>
                         <div class="input-field">
                             <label><input type="checkbox" name="organization_type" value="School"> School</label>
@@ -529,10 +531,6 @@
                         <label class="end-label right">Always</label>
                     </div>
 
-                    <div>
-                        <p id="hiddenMessage">At this time we are only accepting responses from residents who use Social
-                            Media. <br>Thank you for your interest!</p>
-                    </div>
                     <div class="input-field">
                         <input type="submit" class="btn btn-blue btn-effect" value="Submit Survey" id="subBtn">
                     </div>
@@ -629,56 +627,6 @@
 
     <script src="js/main.js"></script>
 
-    <script>
-        function makeVisible() {
-            document.getElementById("social-media-checkbox-container").style.display = "block";
-            document.getElementById("social_media_title").style.display = "block";
-            document.getElementById("subBtn").style.display = "inline-block";
-            document.getElementById("time-spent-social-media-checkbox-container").style.display = "inline-block";
-
-            // Get all elements with the class name "rating-container"
-            var elements = document.getElementsByClassName("rating-container");
-
-            // Loop through the elements and set their display style to "none"
-            for (var iCount = 0; iCount < elements.length; iCount++) {
-                elements[iCount].style.display = "grid";
-            }
-
-            var titles = document.getElementsByClassName("rating-title");
-
-            // Loop through the elements and set their display style to "none"
-            for (var iCount = 0; iCount < titles.length; iCount++) {
-                titles[iCount].style.display = "inline-block";
-            }
-
-            document.getElementById("hiddenMessage").style.display = "none";
-        }
-
-        function makeInvisible() {
-            document.getElementById("social-media-checkbox-container").style.display = "none";
-            document.getElementById("subBtn").style.display = "none";
-            document.getElementById("time-spent-social-media-checkbox-container").style.display = "none";
-
-            // Get all elements with the class name "rating-container"
-            var elements = document.getElementsByClassName("rating-container");
-
-            // Loop through the elements and set their display style to "none"
-            for (var iCount = 0; iCount < elements.length; iCount++) {
-                elements[iCount].style.display = "none";
-            }
-
-            var titles = document.getElementsByClassName("rating-title");
-
-            // Loop through the elements and set their display style to "none"
-            for (var iCount = 0; iCount < titles.length; iCount++) {
-                titles[iCount].style.display = "none";
-            }
-            document.getElementById("orgTitle").style.display = "block";
-            document.getElementById("socialTitle").style.display = "block";
-            document.getElementById("hiddenMessage").style.display = "block";
-
-        }
-    </script>
 
 </body>
 
