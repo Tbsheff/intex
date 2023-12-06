@@ -337,3 +337,7 @@ body {
     position: relative;
     /* Required for positioning pseudo-elements */
 }
+
+#hiddenMessage {
+    display: none;
+}

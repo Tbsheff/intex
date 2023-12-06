@@ -48,38 +48,15 @@ app.get("/results", (req, res) => {
         's.survey_id',
         's.time_stamp',
         's.age',
-        's.gender_id',
-        's.relationship_status_id',
-        's.occupation_id',
         's.location',
-        's.use_social',
-        's.time_spent_on_social_media',
-        's.frequency_of_social_media_distraction',
-        's.how_often_distracted',
-        's.feel_restless',
-        's.how_easily_distracted',
-        's.how_much_worry',
-        's.difficulty_concentrating',
-        's.how_often_compare',
-        's.comparison_feelings',
-        's.seek_validation_from_social_media',
-        's.how_often_depressed',
-        's.frequency_of_changing_interests',
-        's.how_often_sleep_issues',
         'g.gender_description',
         'rs.relationship_status_description',
         'o.occupation_description',
-        'og.organization_number',
-        'og.organization',
-        'sm.social_media_number',
-        'sm.social_media_platform'
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
         .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-        .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
-        .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
 
         .then(results => {
             console.log(results);
@@ -308,6 +285,16 @@ app.post("/survey", (req, res) => {
     }).catch(err => {
         res.status(500).json({ error: err.message });
     });
+});
+
+app.get("/accounts", (req, res) => {
+    knex.select("*")
+        .from("user_table as ut")
+        .join("security_table as st", "st.user_id", "ut.user_id")
+        .then(results => {
+            console.log(results);
+            res.render("viewAccounts", { allAccounts: results });
+        });
 });
 
 
