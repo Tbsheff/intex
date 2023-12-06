@@ -206,6 +206,44 @@
                         </div>
                     </div>
 
+                    <label for="" class="rating-title" id="time_spent_social_media_title">How much time do you commonly
+                        spend on social
+                        media?</label>
+
+                    <div class="checkbox-container" id="time-spent-social-media-checkbox-container">
+
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 1 and 2 hours">
+                                Between 1 and 2
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 2 and 3 hours">
+                                Between 2 and 3
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 3 and 4 hours">
+                                Between 3 and 4
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 4 and 5 hours">
+                                Between 4 and 5
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Less than an Hour"> Less
+                                than an
+                                Hour</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="More than 5 hours"> More
+                                than 5
+                                hours</label>
+                        </div>
+
+                    </div>
 
                     <label for="" class="rating-title">How often do you find yourself using Social media without a
                         specific purpose?
@@ -562,6 +600,7 @@
             document.getElementById("social-media-checkbox-container").style.display = "block";
             document.getElementById("social_media_title").style.display = "block";
             document.getElementById("subBtn").style.display = "inline-block";
+            document.getElementById("time-spent-social-media-checkbox-container").style.display = "inline-block";
 
             // Get all elements with the class name "rating-container"
             var elements = document.getElementsByClassName("rating-container");
@@ -584,6 +623,7 @@
         function makeInvisible() {
             document.getElementById("social-media-checkbox-container").style.display = "none";
             document.getElementById("subBtn").style.display = "none";
+            document.getElementById("time-spent-social-media-checkbox-container").style.display = "none";
 
             // Get all elements with the class name "rating-container"
             var elements = document.getElementsByClassName("rating-container");

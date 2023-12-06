@@ -83,14 +83,14 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-		.leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-		.leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-		.leftJoin('organization as og', 'og.survey_id', 's.survey_id')
-		.leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
-  
+        .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+        .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
+        .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
+
         .then(results => {
             console.log(results);
-            res.render("results", {surveyresults : results});
+            res.render("results", { surveyresults: results });
         })
 
 }
@@ -98,9 +98,9 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
 
 app.get("/", (req, res) => {
     knex.select().from("bands").then(bands => {
-        res.render("displayData", {mybands : bands});
+        res.render("displayData", { mybands: bands });
     });
-});            
+});
 
 app.get("/", (req, res) => res.render("index"));
 
@@ -275,6 +275,7 @@ app.post("/survey", (req, res) => {
                 gender_id: genderId,
                 relationship_status_id: relationshipStatusId,
                 occupation_id: occupationId,
+                time_spent_on_social_media: req.body.time_spent_social_media,
                 location: 'Provo',
                 frequency_of_social_media_distraction: req.body.rating,
                 how_often_distracted: req.body.distracted,
@@ -290,24 +291,30 @@ app.post("/survey", (req, res) => {
                 how_often_sleep_issues: req.body.sleepIssues,
                 use_social: req.body.social_media_use
             }, 'survey_id');
-
+            let iCount = 1;
             for (const type of organizationTypes) {
-                await trx('survey_organization_types').insert({
-                    survey_id: surveyId[0],
-                    organization_type: type
+                await trx('organization').insert({
+                    survey_id: surveyId[0].survey_id,
+                    organization_number: iCount,
+                    organization: type
                 });
+                iCount++;
             };
-
+            iCount = 1;
             for (const platform of socialMediaPlatforms) {
-                await trx('survey_social_media').insert({
-                    survey_id: surveyId[0],
+                await trx('social_media').insert({
+                    survey_id: surveyId[0].survey_id,
+                    social_media_number: iCount,
                     social_media_platform: platform
                 });
+                iCount++;
             }
 
             await trx.commit();
             console.log({ survey_id: surveyId[0] });
-        } catch (error) {
+            res.render("/");
+        }
+        catch (error) {
             await trx.rollback();
             res.status(500).json({ error: error.message });
         }
