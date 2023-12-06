@@ -210,9 +210,7 @@
             var selectedDay = document.getElementById("dayFilter").value;
             var selectedYear = document.getElementById("yearFilter").value;
 
-
             var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
-
 
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
@@ -222,23 +220,38 @@
                 var occupationCell = row.getElementsByTagName("td")[6]; // Assuming occupation is the seventh column
                 var timestampCell = row.getElementsByTagName("td")[1]; // Assuming timestamp is the second column
 
-
                 // Reset the row to be visible
                 row.style.display = "";
-
 
                 // Check if the gender, location, relationship, occupation, and timestamp match the selected values
                 var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
                 var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
                 var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
                 var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
-                var monthMatch = selectedMonth === "all" || timestampCell.innerText.split('-')[1] === selectedMonth;
-                var dayMatch = selectedDay === "all" || timestampCell.innerText.split('-')[2] === selectedDay;
-                var yearMatch = selectedYear === "all" || timestampCell.innerText.split('-')[0] === selectedYear;
 
+                var timestamp = timestampCell.innerText; // Get the timestamp value
+                var timestampParts = timestamp.split(' '); // Split timestamp into date and time parts
+                var dateParts = timestampParts[0].split('-'); // Split date into month, day, and year parts
+                var timeParts = timestampParts[1].split(':'); // Split time into hour and minute parts
+
+                var monthMatch = selectedMonth === "all" || dateParts[0] === selectedMonth;
+                var dayMatch = selectedDay === "all" || dateParts[1] === selectedDay;
+                var yearMatch = selectedYear === "all" || dateParts[2] === selectedYear;
+
+                // Check if the time part contains PM
+                var isPM = timestampParts[2] === 'PM';
+
+                // Convert the hour part to 24-hour format if it's PM
+                var hour = parseInt(timeParts[0]);
+                if (isPM && hour < 12) {
+                    hour += 12;
+                }
+
+                // Combine date and time parts for comparison
+                var timestampMatch = monthMatch && dayMatch && yearMatch && hour.toString() === timeParts[0] && timeParts[1];
 
                 // Hide the row if any of the filters don't match
-                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !monthMatch || !dayMatch || !yearMatch) {
+                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !timestampMatch) {
                     row.style.display = "none";
                 }
             }
