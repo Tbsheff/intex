@@ -81,23 +81,39 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
-                        <li class="nav-item">
-                            <% if (!user) { %>
-                                <a class="nav-link" href="/login" id="login">Login</a>
-                                <% } else if (user && user.admin) { %>
-                                    <!-- Show this if user has specific permissions -->
-                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                        <% } else { %>
-                            <!-- Show this for general logged-in users -->
-                            <a class="nav-link" href="/account" id="account">My Account</a>
+                        <% if (!user) { %>
                             <li class="nav-item">
-                                <a class="nav-link" href="/logout">Logout</a>
+                                <a class="nav-link" href="/login" id="login">Login</a>
                             </li>
-                            <% } %>
+                            <% } else if (user && user.admin) { %>
+                                <!-- Show this if user has admin permissions -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/results">Survey Results</a>
                                 </li>
+                        
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                </li>
+                        
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+                        
+                                <% } else { %>
+                                    <!-- Show this for general logged-in users -->
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/results">Survey Results</a>
+                                    </li>
+                        
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/account" id="account">My Account</a>
+                                    </li>
+                        
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Logout</a>
+                                    </li>
+                        
+                                    <% } %>
                     </ul>
                 </div>
             </nav>
