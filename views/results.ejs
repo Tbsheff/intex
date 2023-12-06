@@ -106,32 +106,48 @@
     </header>
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
-    <!-- Add this within your existing HTML code -->
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <button onclick="search()">Search</button>
-    </div>
-
     <script>
         function search() {
             // Get the input value
             var input = document.getElementById("searchInput").value.toLowerCase();
     
-            // Loop through grid items and hide those that don't match the search query
-            var gridItems = document.querySelectorAll('.grid-item');
-            gridItems.forEach(function (item) {
-                var text = item.innerText.toLowerCase();
-                if (text.includes(input)) {
-                    item.style.display = "";
-                } else {
-                    item.style.display = "none";
+            // Get the table body
+            var surveyResultsTable = document.getElementById("surveyResultsTable");
+    
+            // Get all rows in the table body
+            var rows = surveyResultsTable.getElementsByTagName("tr");
+    
+            // Loop through rows and hide/show based on the search query
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var cells = row.getElementsByTagName("td");
+                var rowVisible = false;
+    
+                // Loop through cells and check if any cell contains the search query
+                for (var j = 0; j < cells.length; j++) {
+                    var cellText = cells[j].innerText.toLowerCase();
+                    if (cellText.includes(input)) {
+                        rowVisible = true;
+                        break;
+                    }
                 }
-            });
+    
+                // Show/hide the row based on visibility
+                if (rowVisible) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
         }
     </script>
 
     <main class="site-content" role="main">
         <section class="service-2 section results-page">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <button onclick="search()">Search</button>
+            </div>
             <table class="table-style">
                 <thead>
                     <tr>
@@ -145,7 +161,7 @@
                         <th>See More</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="surveyResultsTable">
                     <% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
                         <tr>
                             <td>

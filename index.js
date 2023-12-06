@@ -421,60 +421,71 @@ app.post("/modify-user", (req, res) => {
 
             // Start a transaction
             knex.transaction(trx => {
-                // insert into the user table
-                return trx.update({
-                    first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    email: req.body.email
-                })
-                    .into('user_table')
-                    .returning('user_id')
-                    .then(userIds => {
-                        // insert into the Security table
-                        console.log('Updated user ID:', userIds[0]);
-
-                        return trx('security_table').update({
-                            username: req.body.username,
-                            password: hash
-                        });
+                // Start the transaction
+                return trx('user_table')
+                    .where('user_id', '=', req.body.user_id) // Assuming you pass the user_id in the request body
+                    .update({
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
+                        email: req.body.email
                     })
+                    .then(() => {
+                        console.log('Updated user ID:', req.body.user_id);
+                        // Assuming you want to update the security_table with a corresponding user_id column
+                        return trx('security_table')
+                            .where('user_id', '=', req.body.user_id)
+                            .update({
+                                username: req.body.username,
+                                password: hash // Ensure 'hash' is defined and holds the hashed password
+                            });
+                    })
+                    .then(trx.commit) // Commit the transaction if all updates are successful
+                    .catch(trx.rollback); // Rollback the transaction on error
             })
                 .then(() => {
-                    res.redirect("/"); // Redirect if the transaction is successful
+                    // Transaction is committed
+                    console.log('Transaction complete.');
+                    res.redirect("/account");
                 })
-                .catch(error => {
-                    res.status(500).json({ error }); // Handle errors
+                .catch(err => {
+                    // Transaction failed and was rolled back
+                    console.error('Transaction error:', err);
                 });
         });
     }
     else {
         // Start a transaction
         knex.transaction(trx => {
-            // insert into the user table
-            return trx.insert({
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                email: req.body.email
-            })
-                .into('user_table')
-                .returning('user_id')
-                .then(userIds => {
-                    // insert into the Security table
-                    console.log('Inserted user ID:', userIds[0]);
-
-                    return trx('security_table').update({
-                        username: req.body.username,
-                        user_id: userIds[0].user_id,
-                        is_admin: false // Use the returned user_id
-                    });
+            // Start the transaction
+            return trx('user_table')
+                .where('user_id', '=', req.body.user_id) // Assuming you pass the user_id in the request body
+                .update({
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email
                 })
+                .then(() => {
+                    console.log('Updated user ID:', req.body.user_id);
+                    // Assuming you want to update the security_table with a corresponding user_id column
+                    return trx('security_table')
+                        .where('user_id', '=', req.body.user_id)
+                        .update({
+                            username: req.body.username
+                        });
+                })
+                .then(trx.commit) // Commit the transaction if all updates are successful
+                .catch(trx.rollback); // Rollback the transaction on error
         })
             .then(() => {
-                res.redirect("/"); // Redirect if the transaction is successful
+                // Transaction is committed
+                console.log('Transaction complete.');
+                res.redirect("/account");
             })
-            .catch(error => {
-                res.status(500).json({ error }); // Handle errors
+            .catch(err => {
+                // Transaction failed and was rolled back
+                console.error('Transaction error:', err);
             });
+
 
     }
 
