@@ -105,7 +105,7 @@ app.get("/choosesurvey/:surveyID", (req, res) => {
         .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
         .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
 
-        .where("survey_id", req.params.surveyID)
+        .where("s.survey_id", req.params.surveyID)
         .then(result => {
         res.render("displayresult", {resultobject : result});
         }).catch(err => {
