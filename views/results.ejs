@@ -43,6 +43,7 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/response.css">
+    <link rel="stylesheet" href="css/results.css">
 
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
@@ -95,17 +96,17 @@
     </header>
 
     <section class="service-2 section">
-		<table>
-			<thead>
-				<tr>
-					<th>
+        <table class="table-style">
+            <thead>
+                <tr>
+                    <th>
                         Survey Number
                     </th>
                     <th>
                         Time Stamp
                     </th>
                     <th>
-                        Age 
+                        Age
                     </th>
                     <th>
                         Location
@@ -170,92 +171,92 @@
                     <th>
                         social
                     </th>
-                    
-				</tr>
-			</thead>
-			<tbody>
-				<% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
-					<tr>
-						<td>
-							<%= surveyresults[iCount].survey_id %>
-						</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
+                    <tr>
                         <td>
-							<%= surveyresults[iCount].time_stamp %>
-						</td>
+                            <%= surveyresults[iCount].survey_id %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].age %>
-						</td>
+                            <%= surveyresults[iCount].time_stamp %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].location %>
-						</td>
+                            <%= surveyresults[iCount].age %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].use_social %>
-						</td>
+                            <%= surveyresults[iCount].location %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].time_spent_on_social_media %>
-						</td>
+                            <%= surveyresults[iCount].use_social %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].frequency_of_social_media_distraction %>
-						</td>
+                            <%= surveyresults[iCount].time_spent_on_social_media %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_often_distracted %>
-						</td>
+                            <%= surveyresults[iCount].frequency_of_social_media_distraction %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].feel_restless %>
-						</td>
+                            <%= surveyresults[iCount].how_often_distracted %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_easily_distracted %>
-						</td>
+                            <%= surveyresults[iCount].feel_restless %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_much_worry %>
-						</td>
+                            <%= surveyresults[iCount].how_easily_distracted %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].difficulty_concentrating %>
-						</td>
+                            <%= surveyresults[iCount].how_much_worry %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_often_compare %>
-						</td>
+                            <%= surveyresults[iCount].difficulty_concentrating %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].comparison_feelings %>
-						</td>
+                            <%= surveyresults[iCount].how_often_compare %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].seek_validation_from_social_media %>
-						</td>
+                            <%= surveyresults[iCount].comparison_feelings %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_often_depressed %>
-						</td>
+                            <%= surveyresults[iCount].seek_validation_from_social_media %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].frequency_of_changing_interests %>
-						</td>
+                            <%= surveyresults[iCount].how_often_depressed %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].how_often_sleep_issues %>
-						</td>
+                            <%= surveyresults[iCount].frequency_of_changing_interests %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].gender_description %>
-						</td>
+                            <%= surveyresults[iCount].how_often_sleep_issues %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].relationship_status_description %>
-						</td>
+                            <%= surveyresults[iCount].gender_description %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].occupation_description %>
-						</td>
+                            <%= surveyresults[iCount].relationship_status_description %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].organization_number %>
-						</td>
+                            <%= surveyresults[iCount].occupation_description %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].organization %>
-						</td>
+                            <%= surveyresults[iCount].organization_number %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].social_media_number %>
-						</td>
+                            <%= surveyresults[iCount].organization %>
+                        </td>
                         <td>
-							<%= surveyresults[iCount].social_media_platform %>
-						</td>
-					</tr>
-					<% } %>
-			</tbody>
-		</table>
-	</section>
+                            <%= surveyresults[iCount].social_media_number %>
+                        </td>
+                        <td>
+                            <%= surveyresults[iCount].social_media_platform %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </section>
 
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
