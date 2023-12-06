@@ -88,7 +88,7 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
 		.leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
   
         .then(surveyresults => {
-            console.log(surveryresults);
+            console.log(surveyresults);
             res.render("results", {mysurveyresults : surveyresults});
         })
 
