@@ -83,18 +83,24 @@ app.get("/displayresults", isAuthenticated, (req, res) => {
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-        .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-        .leftJoin('organization as og', 'og.survey_id', 's.survey_id')
-        .leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
-
-        .then(surveyresults => {
-            console.log(surveryresults);
-            res.render("results", { surveyresults });
+		.leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+		.leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+		.leftJoin('organization as og', 'og.survey_id', 's.survey_id')
+		.leftJoin('social_media as sm', 'sm.survey_id', 's.survey_id')
+  
+        .then(results => {
+            console.log(results);
+            res.render("results", {surveyresults : results});
         })
 
 }
 );
+
+app.get("/", (req, res) => {
+    knex.select().from("bands").then(bands => {
+        res.render("displayData", {mybands : bands});
+    });
+});            
 
 app.get("/", (req, res) => res.render("index"));
 
