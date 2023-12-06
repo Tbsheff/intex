@@ -110,21 +110,44 @@
     margin: auto;
     margin-top: 2rem;
     grid-template-columns: auto auto;
-    /* Four column layout */
-    /* Adjust the gap between grid items as needed */
+    font-family: 'Arial', sans-serif;
 }
 
 .grid-item {
-    padding: 5px;
-    border: 1px solid black;
-    /* Padding for content */
-    /* Add any additional styling you need */
+    padding: 10px;
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .grid-container .grid-item:nth-child(odd) {
-    background-color: #7da8b3;
-    color: white;
+    font-weight: bold;
+    background-color: #eaeaea;
+    color: #333;
 }
+
+.grid-container .grid-item:nth-child(even) {
+    background-color: #fff;
+    color: #333;
+}
+
+
+/* Hover effect */
+.grid-container .grid-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-item {
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid #e1e1e1;
+    }
+}
+
 
 .capitalize {
     text-transform: capitalize;
@@ -134,8 +157,8 @@
     display: inline-block;
     padding: 10px 20px;
     margin: 5px 0;
-    background-color: #0aa6bd;
-    /* Primary color */
+    background-color: #008da1;
+    /* Darker shade of primary theme color */
     color: white;
     /* Text color */
     text-align: center;
@@ -144,14 +167,27 @@
     /* Remove underline from link */
     font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+    /* Optional: add a border */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
     /* Add a hover effect */
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: #7da8b3;
-        /* Darker shade for hover */
+        /* Secondary theme color for hover */
         color: white;
         text-decoration: none;
         /* Ensure underline doesn't reappear */
+        border-color: #008da1;
+        /* Darker shade of primary theme color for border */
     }
+}
+.search-bar {
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    padding: 5px;
+    width: 200px;
 }

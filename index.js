@@ -197,26 +197,19 @@ app.post("/login", (req, res) => {
         });
 });
 
-const isLoggedIn = (req, res, next) => {
-    if (req.session && req.session.user) {
-      return next();
-    } else {
-      return res.redirect('/');
-    }
-  };
-  
-  // Routes
-app.get('/', isLoggedIn, (req, res) => {
-res.send('You are logged in. <a href="/logout">Logout</a>');
+
+// Routes
+app.get('/', isAuthenticated, (req, res) => {
+    res.send('You are logged in. <a href="/logout">Logout</a>');
 });
 
 app.get('/logout', (req, res) => {
-    // Destroy the session to log the user out
+    // Clears session to log the user out
     req.session.destroy((err) => {
-      if (err) {
-        console.error(err);
-      }
-      res.redirect('/');
+        if (err) {
+            console.error(err);
+        }
+        res.redirect('/');
     });
 });
 
@@ -412,6 +405,83 @@ app.get("/account", isAuthenticated, (req, res) => {
             console.log(results);
             res.render("viewMyAccount", { allAccounts: results, user: req.session.user });
         });
+});
+
+app.post("/modify-user", (req, res) => {
+    console.log(req.body);
+    if (req.body.password != "") {
+        let plainTextPassword = req.body.password;
+
+        // Hash the password
+        bcrypt.hash(plainTextPassword, saltRounds, (err, hash) => {
+            if (err) {
+                res.status(500).json({ error: 'Error hashing password' });
+                return;
+            }
+
+            // Start a transaction
+            knex.transaction(trx => {
+                // insert into the user table
+                return trx.insert({
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email
+                })
+                    .into('user_table')
+                    .returning('user_id')
+                    .then(userIds => {
+                        // insert into the Security table
+                        console.log('Inserted user ID:', userIds[0]);
+
+                        return trx('security_table').update({
+                            username: req.body.username,
+                            password: hash,
+                            user_id: userIds[0].user_id,
+                            is_admin: false // Use the returned user_id
+                        });
+                    })
+            })
+                .then(() => {
+                    res.redirect("/"); // Redirect if the transaction is successful
+                })
+                .catch(error => {
+                    res.status(500).json({ error }); // Handle errors
+                });
+        });
+    }
+    else {
+            // Start a transaction
+            knex.transaction(trx => {
+                // insert into the user table
+                return trx.insert({
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email
+                })
+                    .into('user_table')
+                    .returning('user_id')
+                    .then(userIds => {
+                        // insert into the Security table
+                        console.log('Inserted user ID:', userIds[0]);
+
+                        return trx('security_table').update({
+                            username: req.body.username
+                            user_id: userIds[0].user_id,
+                            is_admin: false // Use the returned user_id
+                        });
+                    })
+            })
+                .then(() => {
+                    res.redirect("/"); // Redirect if the transaction is successful
+                })
+                .catch(error => {
+                    res.status(500).json({ error }); // Handle errors
+                });
+
+    }
+    
+
+
 });
 
 

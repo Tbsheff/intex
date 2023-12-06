@@ -169,17 +169,17 @@
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
                             <td colspan="100%">
-                                <form action="">
+                                <form action="/modify-user" method="post">
                                     <label for="">First Name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].first_name %>">
+                                    <input type="text" name="first_name" value="<%= allAccounts[iCount].first_name %>" required>
                                     <label for="">Last name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
+                                    <input type="text" name="last_name" value="<%= allAccounts[iCount].last_name %>" required>
                                     <label for="">Email</label>
-                                    <input type="email" value="<%= allAccounts[iCount].email %>">
+                                    <input type="email" name="email" value="<%= allAccounts[iCount].email %>" required>
                                     <label for="">Username</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
+                                    <input type="text" name="username" value="<%= allAccounts[iCount].last_name %>" required>
                                     <label for="">New Password</label>
-                                    <input type="password" value="">
+                                    <input type="password" name="password" value="" required>
                                     <label>Is Admin?</label>
                                     <% if(allAccounts[iCount].is_admin) { %>
                                         <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
