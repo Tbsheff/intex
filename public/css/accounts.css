@@ -1,0 +1,15 @@
+/* CSS to hide passwords */
+.password {
+    /* Simple way: just display asterisks */
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 120px;
+    /* Adjust as needed */
+}
+
+/* CSS when passwords are shown */
+.show-passwords .password {
+    max-width: none;
+}

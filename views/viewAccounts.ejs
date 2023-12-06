@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/response.css">
 
+    <link rel="stylesheet" href="css/accounts.css">
+
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
 
@@ -100,6 +102,11 @@
 
         <section class="container">
 
+            <label>
+                <input type="checkbox" id="toggle-passwords"> Show Passwords
+            </label>
+
+
             <table>
                 <thead>
                     <th>
@@ -143,7 +150,9 @@
                                 <%= allAccounts[iCount].username%>
                             </td>
                             <td>
-                                <%= allAccounts[iCount].password%>
+                                <span class="password">
+                                    <%= allAccounts[iCount].password %>
+                                </span>
                             </td>
                             <td>
                                 <%= allAccounts[iCount].is_admin%>
@@ -227,6 +236,20 @@
 
     <script src="js/main.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkbox = document.getElementById('toggle-passwords');
+            var table = document.querySelector('table');
+
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    table.classList.add('show-passwords');
+                } else {
+                    table.classList.remove('show-passwords');
+                }
+            });
+        });
+    </script>
 
 
 </body>
