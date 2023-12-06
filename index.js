@@ -5,16 +5,12 @@ const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-
-
 app.use(session({
     secret: 'asd;lfkja;ldfkjlk123389akjdhla987897akjh78111ih',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
 }));
-
-
 
 let path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
@@ -25,7 +21,7 @@ let knex = require("knex")({
         host: process.env.RDS_HOSTNAME || "awseb-e-ee3vw2q82p-stack-awsebrdsdatabase-moo0bhesoomr.cf6qafoa0mp0.us-east-2.rds.amazonaws.com",
         user: process.env.RDS_USERNAME || "ebroot",
         password: process.env.RDS_PASSWORD || "cougarcruiser",
-        database: process.env.RDS_DB_NAME || "social_sense",
+        database: "social_sense",
         port: process.env.RDS_PORT || 5432
     },
     debug: true
@@ -45,7 +41,6 @@ function isAuthenticated(req, res, next) {
     // User is not authenticated
     res.redirect('/login');
 }
-
 
 app.get("/displayresults", (req, res) => {
     knex.select(
