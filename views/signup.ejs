@@ -84,8 +84,22 @@
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <% if (!user) { %>
+                                <a class="nav-link" href="/login" id="login">Login</a>
+                                <% } else if (user && user.admin) { %>
+                                    <!-- Show this if user has specific permissions -->
+                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
                         </li>
+                        <% } else { %>
+                            <!-- Show this for general logged-in users -->
+                            <a class="nav-link" href="/account" id="account">My Account</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                            <% } %>
+                                </li>
 
 
                     </ul>

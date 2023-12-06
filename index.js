@@ -197,12 +197,6 @@ app.post("/login", (req, res) => {
         });
 });
 
-
-// Routes
-app.get('/', isAuthenticated, (req, res) => {
-    res.send('You are logged in. <a href="/logout">Logout</a>');
-});
-
 app.get('/logout', (req, res) => {
     // Clears session to log the user out
     req.session.destroy((err) => {

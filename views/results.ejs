@@ -90,13 +90,17 @@
                                 <% } else if (user && user.admin) { %>
                                     <!-- Show this if user has specific permissions -->
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
-                                    <a class="nav-link" href="/logout">Logout</a>
-                                    <% } else { %>
-                                        <!-- Show this for general logged-in users -->
-                                        <a class="nav-link" href="/account" id="account">My Account</a>
-                                        <a class="nav-link" href="/logout">Logout</a>
-                                        <% } %>
-                        </li>-
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        <% } else { %>
+                            <!-- Show this for general logged-in users -->
+                            <a class="nav-link" href="/account" id="account">My Account</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Logout</a>
+                            </li>
+                            <% } %>
+                                </li>-
 
 
                     </ul>
@@ -110,19 +114,19 @@
         function search() {
             // Get the input value
             var input = document.getElementById("searchInput").value.toLowerCase();
-    
+
             // Get the table body
             var surveyResultsTable = document.getElementById("surveyResultsTable");
-    
+
             // Get all rows in the table body
             var rows = surveyResultsTable.getElementsByTagName("tr");
-    
+
             // Loop through rows and hide/show based on the search query
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 var cells = row.getElementsByTagName("td");
                 var rowVisible = false;
-    
+
                 // Loop through cells and check if any cell contains the search query
                 for (var j = 0; j < cells.length; j++) {
                     var cellText = cells[j].innerText.toLowerCase();
@@ -131,7 +135,7 @@
                         break;
                     }
                 }
-    
+
                 // Show/hide the row based on visibility
                 if (rowVisible) {
                     row.style.display = "";
@@ -141,20 +145,23 @@
             }
         }
         function filterByGender() {
-        var selectedGender = document.getElementById("genderFilter").value;
-        var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+            var selectedGender = document.getElementById("genderFilter").value;
+            var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
 
-        for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
 
-            if (selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender) {
+                // Reset the row to be visible
                 row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
+
+                // Check if the gender matches the selected gender
+                if (selectedGender !== "all" && genderCell.innerText.toLowerCase() !== selectedGender) {
+                    // Hide the row if it doesn't match
+                    row.style.display = "none";
+                }
+                }
         }
-    }
     </script>
 
     <main class="site-content" role="main">
