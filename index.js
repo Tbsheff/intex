@@ -42,7 +42,8 @@ function isAuthenticated(req, res, next) {
     res.redirect('/login');
 }
 
-app.get("/displayresults", (req, res) => {
+
+app.get("/results", (req, res) => {
     knex.select(
         's.survey_id',
         's.time_stamp',
@@ -82,7 +83,7 @@ app.get("/displayresults", (req, res) => {
 
         .then(results => {
             console.log(results);
-            res.render("results", { surveyresults: results });
+            res.render("displayresults", { surveyresults : results });
         })
 
 }
