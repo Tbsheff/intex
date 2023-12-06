@@ -82,7 +82,15 @@
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <% if (!user) { %>
+                                <a class="nav-link" href="/login" id="login">Login</a>
+                                <% } else if (user && user.admin) { %>
+                                    <!-- Show this if user has specific permissions -->
+                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                    <% } else { %>
+                                        <!-- Show this for general logged-in users -->
+                                        <a class="nav-link" href="/account" id="account">My Account</a>
+                                        <% } %>
                         </li>
                     </ul>
                 </div>
@@ -112,12 +120,13 @@
                                 <div class="caption-content">
                                     <h2 class="animated fadeInDown">
                                         Social Media & Mental Health in
-                                        <h2 class="animated fadeInDown">Pr<img src="/images/provo.png" class="img-fluid animated fadeInDown" style="position: relative;">vo
-                                    </h2>
-                                    <p class="animated fadeInDown" style="font-weight: bold;">
-                                        Take this survey to help our town know how best to serve you
-                                    </p>
-                                    <a href="/survey" class="btn btn-blue btn-effect">Take Survey</a>
+                                        <h2 class="animated fadeInDown">Pr<img src="/images/provo.png"
+                                                class="img-fluid animated fadeInDown" style="position: relative;">vo
+                                        </h2>
+                                        <p class="animated fadeInDown" style="font-weight: bold;">
+                                            Take this survey to help our town know how best to serve you
+                                        </p>
+                                        <a href="/survey" class="btn btn-blue btn-effect">Take Survey</a>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +140,8 @@
                             <div class="caption-content">
                                 <h2 class="animated fadeInDown">Mental Health Near You</h2>
                                 <p class="animated fadeInDown">
-                                    Visit our dashboard to learn more about the effects of social media on mental health in our Provo community
+                                    Visit our dashboard to learn more about the effects of social media on mental health
+                                    in our Provo community
                                 </p>
                                 <a href="/dashboard" class="btn btn-blue btn-effect">Dashboard</a>
                             </div>
@@ -195,9 +205,10 @@
                             <ul class="social-button">
                                 <li class="wow animated zoomIn"><a href="https://www.facebook.com/provocity/"><i
                                             class="ion-social-facebook"></i></a></li>
-                                <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://twitter.com/provocity"><i
-                                            class="ion-social-twitter"></i></a></li>
-                                <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.instagram.com/provocity/"><i
+                                <li class="wow animated zoomIn" data-wow-delay="0.3s"><a
+                                        href="https://twitter.com/provocity"><i class="ion-social-twitter"></i></a></li>
+                                <li class="wow animated zoomIn" data-wow-delay="0.6s"><a
+                                        href="https://www.instagram.com/provocity/"><i
                                             class="ion-social-instagram"></i></a></li>
                             </ul>
                         </div>

@@ -56,7 +56,7 @@ body {
     padding: 12px 40px;
     text-transform: uppercase;
     border-radius: 40px;
-    margin-top: 1rem;
+    margin-top: 1.75rem;
 }
 
 .form-control {
@@ -189,7 +189,19 @@ body {
     /* Subtle shadow to indicate focus */
 }
 
+.dropdown-wrapper {
+    margin: auto;
+    margin-top: 2rem;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
 
+.age-select {
+    height: 100%;
+    margin-top: 0;
+}
 
 /* Media Query for screens less than 560px */
 @media (max-width: 560px) {
@@ -240,6 +252,14 @@ body {
         /* Reduce width */
         height: 25px;
         /* Reduce height */
+    }
+
+    .dropdown-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .age-wrapper {
+        height: 47.43px;
     }
 }
 

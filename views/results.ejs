@@ -85,8 +85,16 @@
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
+                            <% if (!user) { %>
+                                <a class="nav-link" href="/login" id="login">Login</a>
+                                <% } else if (user && user.admin) { %>
+                                    <!-- Show this if user has specific permissions -->
+                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                    <% } else { %>
+                                        <!-- Show this for general logged-in users -->
+                                        <a class="nav-link" href="/account" id="account">My Account</a>
+                                        <% } %>
+                        </li>-
 
 
                     </ul>
@@ -101,28 +109,14 @@
             <table class="table-style">
                 <thead>
                     <tr>
-                        <th>
-                            Survey Number
-                        </th>
-                        <th>
-                            Time Stamp
-                        </th>
-                        <th>
-                            Gender
-                        </th>
-                        <th>
-                            Age
-                        </th>
-                        <th>
-                            Location
-                        </th>
-                        <th>
-                            Relationship
-                        </th>
-                        <th>
-                            Occupation
-                        </th>
-
+                        <th>Survey Number</th>
+                        <th>Time Stamp</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Location</th>
+                        <th>Relationship</th>
+                        <th>Occupation</th>
+                        <th>See More</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,11 +143,16 @@
                             <td>
                                 <%= surveyresults[iCount].occupation_description %>
                             </td>
-
+                            <td>
+                                <button><a href="/choosesurvey/<%=surveyresults[iCount].survey_id%>">See
+                                        More</a></button>
+                            </td>
                         </tr>
+
                         <% } %>
                 </tbody>
             </table>
+
         </section>
     </main>
     <!-- Twitter Bootstrap -->
@@ -167,7 +166,28 @@
 
     <script src="js/main.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var editButtons = document.querySelectorAll('.edit-btn');
 
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var userId = this.getAttribute('data-survey-id');
+                    var editForm = document.getElementById('edit-form-' + userId);
+
+                    // Toggle the display of the edit form
+                    if (editForm.style.display === 'none') {
+                        editForm.style.display = 'table-row';
+                    } else {
+                        editForm.style.display = 'none';
+                    }
+                });
+            });
+
+            // Add logic for saving changes here
+            // ...
+        });
+    </script>
 
 </body>
 

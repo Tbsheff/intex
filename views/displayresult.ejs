@@ -25,27 +25,28 @@
 		================================================== -->
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
-    <link rel="shortcut icon" type="image/x-icon" href="/images/icon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="../images/icon.png" />
     <!-- Fontawesome Icon font -->
-    <link rel="stylesheet" href="plugins/font-awesome.min.css">
+    <link rel="stylesheet" href="../plugins/font-awesome.min.css">
     <!-- Ion Icons Font -->
-    <link rel="stylesheet" href="plugins/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins/ionicons.min.css">
     <!-- bootstrap.min -->
-    <link rel="stylesheet" href="plugins/jquery.fancybox.css">
+    <link rel="stylesheet" href="../plugins/jquery.fancybox.css">
     <!-- bootstrap.min -->
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
     <!-- bootstrap.min -->
-    <link rel="stylesheet" href="plugins/owl.carousel.css">
+    <link rel="stylesheet" href="../plugins/owl.carousel.css">
     <!-- bootstrap.min -->
-    <link rel="stylesheet" href="plugins/slit-slider.css">
+    <link rel="stylesheet" href="../plugins/slit-slider.css">
     <!-- bootstrap.min -->
-    <link rel="stylesheet" href="plugins/animate.css">
+    <link rel="stylesheet" href="../plugins/animate.css">
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/response.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/response.css">
+    <link rel="stylesheet" href="../css/results.css">
 
     <!-- Modernizer Script for old Browsers -->
-    <script src="plugins/modernizr-2.6.2.min.js"></script>
+    <script src="../plugins/modernizr-2.6.2.min.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="/">
-                    <img class="img-fluid" src="images/logo.png" alt="">
+                    <img class="img-fluid" src="../images/logo.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -84,7 +85,15 @@
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                            <% if (!user) { %>
+                                <a class="nav-link" href="/login" id="login">Login</a>
+                                <% } else if (user && user.admin) { %>
+                                    <!-- Show this if user has specific permissions -->
+                                    <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
+                                    <% } else { %>
+                                        <!-- Show this for general logged-in users -->
+                                        <a class="nav-link" href="/account" id="account">My Account</a>
+                                        <% } %>
                         </li>
                     </ul>
                 </div>
@@ -94,8 +103,8 @@
     <!--
               End Fixed Navigation
               ==================================== -->
-    <div class="buffer" id="buffer"></div>
-    
+    <div class="buffer" id="buffer" style="height: 116px;"></div>
+
     <section class="service-2 section">
         <table class="table-style">
             <thead>
@@ -269,7 +278,7 @@
                 <div class="col-md-4">
                     <h4>
                         <a href="">
-                            <img class="img-responsive" src="images/logo.png" alt="">
+                            <img class="img-responsive" src="../images/logo.png" alt="">
                         </a>
                     </h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias ullam numquam repudiandae
@@ -323,24 +332,24 @@
 		================================================== -->
 
     <!-- Twitter Bootstrap -->
-    <script src="plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="../plugins/bootstrap/bootstrap.min.js"></script>
     <!-- Single Page Nav -->
-    <script src="plugins/jquery.singlePageNav.min.js"></script>
+    <script src="../plugins/jquery.singlePageNav.min.js"></script>
     <!-- jquery.fancybox.pack -->
-    <script src="plugins/jquery.fancybox.pack.js"></script>
+    <script src="../plugins/jquery.fancybox.pack.js"></script>
     <!-- Owl Carousel -->
-    <script src="plugins/owl.carousel.min.js"></script>
+    <script src="../plugins/owl.carousel.min.js"></script>
     <!-- jquery easing -->
-    <script src="plugins/isotope.pkgd.min.js"></script>
-    <script src="plugins/jquery.easing.min.js"></script>
+    <script src="../plugins/isotope.pkgd.min.js"></script>
+    <script src="../plugins/jquery.easing.min.js"></script>
     <!-- Fullscreen slider -->
-    <script src="plugins/jquery.slitslider.js"></script>
-    <script src="plugins/jquery.ba-cond.min.js"></script>
+    <script src="../plugins/jquery.slitslider.js"></script>
+    <script src="../plugins/jquery.ba-cond.min.js"></script>
     <!-- onscroll animation -->
-    <script src="plugins/wow.min.js"></script>
+    <script src="../plugins/wow.min.js"></script>
 
 
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 
 
 
