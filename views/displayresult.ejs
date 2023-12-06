@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <!-- Always force latest IE rendering engine or request Chrome Frame -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Social Sense | Sign Up</title>
+    <title>Blue Pro</title>
     <!-- Meta Description -->
     <meta name="description" content="Blue One Page Creative HTML5 Template">
     <meta name="keywords" content="one page, single page, onepage, responsive, parallax, creative, business, 
@@ -43,8 +43,6 @@
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/response.css">
-    <link rel="stylesheet" href="css/results.css">
-    <link rel="stylesheet" href="css/accounts.css">
 
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
@@ -66,7 +64,7 @@
         Fixed Navigation
         ==================================== -->
     <header id="navigation" class="fixed-top animated-header">
-        <div class="container">
+        <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="/">
                     <img class="img-fluid" src="images/logo.png" alt="">
@@ -88,113 +86,182 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
-
-
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
-
-
+    <!--
+              End Fixed Navigation
+              ==================================== -->
     <div class="buffer" id="buffer"></div>
-    <main class="site-content" role="main">
-
-        <section class="container">
-
-            <table class="table-style">
-                <thead>
+    
+    <section class="service-2 section">
+        <table class="table-style">
+            <thead>
+                <tr>
                     <th>
-                        User ID
+                        Survey Number
                     </th>
                     <th>
-                        First name
+                        Time Stamp
                     </th>
                     <th>
-                        Last Name
+                        Age
                     </th>
                     <th>
-                        Email
+                        Location
                     </th>
                     <th>
-                        Username
-                    </th>
-
-                    <th>
-                        Is Admin?
+                        SM Usage
                     </th>
                     <th>
-                        Edit
+                        Time Spent
                     </th>
-                </thead>
-                <tbody>
-                    <% for (let iCount=0; iCount < allAccounts.length; iCount++) { %>
-                        <tr>
-                            <td>
-                                <%= allAccounts[iCount].user_id%>
-                            </td>
-                            <td>
-                                <%= allAccounts[iCount].first_name%>
-                            </td>
-                            <td>
-                                <%= allAccounts[iCount].last_name%>
-                            </td>
-                            <td>
-                                <%= allAccounts[iCount].email%>
-                            </td>
-                            <td>
-                                <%= allAccounts[iCount].username%>
-                            </td>
-                            <td>
-                                <%= allAccounts[iCount].is_admin%>
-                            </td>
-                            <td>
-                                <button class="edit-btn" data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
-                            </td>
-                        </tr>
-                        <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
-                            <td colspan="100%">
-                                <form action="">
-                                    <label for="">First Name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].first_name %>">
-                                    <label for="">Last name</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
-                                    <label for="">Email</label>
-                                    <input type="email" value="<%= allAccounts[iCount].email %>">
-                                    <label for="">Username</label>
-                                    <input type="text" value="<%= allAccounts[iCount].last_name %>">
-                                    <label for="">New Password</label>
-                                    <input type="password" value="">
-                                    <label>Is Admin?</label>
-                                    <% if(allAccounts[iCount].is_admin) { %>
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="yes" checked> Yes
-                                        <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                            value="no"> No
-                                        <% } else { %>
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="yes"> Yes
-                                            <input type="radio" name="is_admin_<%= allAccounts[iCount].user_id %>"
-                                                value="no" checked> No
-                                            <% } %>
+                    <th>
+                        freqdistract
+                    </th>
+                    <th>
+                        oftendistract
+                    </th>
+                    <th>
+                        restless
+                    </th>
+                    <th>
+                        easilydistract
+                    </th>
+                    <th>
+                        howmuchworry
+                    </th>
+                    <th>
+                        difficultyconcentrating
+                    </th>
+                    <th>
+                        oftencomparison
+                    </th>
+                    <th>
+                        comparefeel
+                    </th>
+                    <th>
+                        seekvalid
+                    </th>
+                    <th>
+                        feeldepressed
+                    </th>
+                    <th>
+                        changeinterest
+                    </th>
+                    <th>
+                        sleepissues
+                    </th>
+                    <th>
+                        gender
+                    </th>
+                    <th>
+                        relationship
+                    </th>
+                    <th>
+                        occupation
+                    </th>
+                    <th>
+                        organNum
+                    </th>
+                    <th>
+                        organization
+                    </th>
+                    <th>
+                        socialNum
+                    </th>
+                    <th>
+                        social
+                    </th>
 
 
-
-                                </form>
-
-                                <button>Save Changes</button>
-                            </td>
-                        </tr>
-                        <% } %>
-                </tbody>
-            </table>
-
-
-        </section>
-
-
-
-    </main>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let iCount=0; iCount < resultobject.length; iCount++) { %>
+                    <tr>
+                        <td>
+                            <%= resultobject[iCount].survey_id %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].time_stamp %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].age %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].location %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].use_social %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].time_spent_on_social_media %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].frequency_of_social_media_distraction %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_often_distracted %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].feel_restless %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_easily_distracted %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_much_worry %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].difficulty_concentrating %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_often_compare %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].comparison_feelings %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].seek_validation_from_social_media %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_often_depressed %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].frequency_of_changing_interests %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].how_often_sleep_issues %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].gender_description %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].relationship_status_description %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].occupation_description %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].organization_number %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].organization %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].social_media_number %>
+                        </td>
+                        <td>
+                            <%= resultobject[iCount].social_media_platform %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </section>
 
     <footer id="footer">
         <div class="container">
@@ -252,42 +319,28 @@
         </div>
     </section>
 
+    <!-- Essential jQuery Plugins
+		================================================== -->
 
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
     <!-- Single Page Nav -->
     <script src="plugins/jquery.singlePageNav.min.js"></script>
-
+    <!-- jquery.fancybox.pack -->
+    <script src="plugins/jquery.fancybox.pack.js"></script>
+    <!-- Owl Carousel -->
+    <script src="plugins/owl.carousel.min.js"></script>
+    <!-- jquery easing -->
+    <script src="plugins/isotope.pkgd.min.js"></script>
+    <script src="plugins/jquery.easing.min.js"></script>
+    <!-- Fullscreen slider -->
+    <script src="plugins/jquery.slitslider.js"></script>
+    <script src="plugins/jquery.ba-cond.min.js"></script>
     <!-- onscroll animation -->
     <script src="plugins/wow.min.js"></script>
-    <!-- Custom Functions -->
+
 
     <script src="js/main.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var editButtons = document.querySelectorAll('.edit-btn');
-
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var userId = this.getAttribute('data-user-id');
-                    var editForm = document.getElementById('edit-form-' + userId);
-
-                    // Toggle the display of the edit form
-                    if (editForm.style.display === 'none') {
-                        editForm.style.display = 'table-row';
-                    } else {
-                        editForm.style.display = 'none';
-                    }
-                });
-            });
-
-            // Add logic for saving changes here
-            // ...
-        });
-    </script>
-
-
 
 
 

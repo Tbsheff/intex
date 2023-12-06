@@ -10,7 +10,7 @@
 
 /* Header styling */
 .table-style thead th {
-    background-color: #4CAF50;
+    background-color: #7da8b3;
     color: white;
     text-align: left;
     padding: 8px;
@@ -79,4 +79,9 @@
         content: attr(data-label);
         font-weight: bold;
     }
+}
+
+.results-page {
+    width: 90%;
+    margin: auto;
 }

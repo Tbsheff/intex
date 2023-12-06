@@ -94,66 +94,68 @@
             </nav>
         </div>
     </header>
+    <div class="buffer" id="buffer" style="height: 116px;"></div>
 
-    <section class="service-2 section">
-        <table class="table-style">
-            <thead>
-                <tr>
-                    <th>
-                        Survey Number
-                    </th>
-                    <th>
-                        Time Stamp
-                    </th>
-                    <th>
-                        Gender
-                    </th>
-                    <th>
-                        Age
-                    </th>
-                    <th>
-                        Location
-                    </th>
-                    <th>
-                        Relationship
-                    </th>
-                    <th>
-                        Occupation
-                    </th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
+    <main class="site-content" role="main">
+        <section class="service-2 section results-page">
+            <table class="table-style">
+                <thead>
                     <tr>
-                        <td>
-                            <%= surveyresults[iCount].survey_id %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].time_stamp %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].gender_description %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].age %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].location %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].relationship_status_description %>
-                        </td>
-                        <td>
-                            <%= surveyresults[iCount].occupation_description %>
-                        </td>
-       
-                    </tr>
-                    <% } %>
-            </tbody>
-        </table>
-    </section>
+                        <th>
+                            Survey Number
+                        </th>
+                        <th>
+                            Time Stamp
+                        </th>
+                        <th>
+                            Gender
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
+                            Location
+                        </th>
+                        <th>
+                            Relationship
+                        </th>
+                        <th>
+                            Occupation
+                        </th>
 
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let iCount=0; iCount < surveyresults.length; iCount++) { %>
+                        <tr>
+                            <td>
+                                <%= surveyresults[iCount].survey_id %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].time_stamp %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].gender_description %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].age %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].location %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].relationship_status_description %>
+                            </td>
+                            <td>
+                                <%= surveyresults[iCount].occupation_description %>
+                            </td>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
     <!-- Single Page Nav -->
