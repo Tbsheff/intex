@@ -245,6 +245,20 @@ app.post("/survey", (req, res) => {
                 gender_id: genderId,
                 relationship_status_id: relationshipStatusId,
                 occupation_id: occupationId,
+                location: 'Provo',
+                frequency_of_social_media_distraction: req.body.rating,
+                how_often_distracted: req.body.distracted,
+                feel_restless: req.body.restless,
+                how_easily_distracted: req.body.easydistracted,
+                how_much_worry: req.body.worries,
+                difficulty_concentrating: req.body.concentration,
+                how_often_compare: req.body.comparison,
+                comparison_feelings: req.body.feelings,
+                seek_validation_from_social_media: req.body.validation,
+                how_often_depressed: req.body.depression,
+                frequency_of_changing_interests: req.body.interestFluctuation,
+                how_often_sleep_issues: req.body.sleepIssues,
+                use_social: req.body.social_media_use
             }, 'survey_id');
 
             await trx.commit();

@@ -134,7 +134,7 @@
                         </select>
                     </div>
 
-                    <label for="" class="rating-title">What type of organizations are you affiliated with?
+                    <label for="" class="rating-title" id="orgTitle">What type of organizations are you affiliated with?
                     </label>
 
                     <div class="checkbox-container">
@@ -157,22 +157,26 @@
                         </div>
                     </div>
 
-                    <label for="" class="rating-title">Do you use social media?
+                    <label for="" class="rating-title" id="socialTitle">Do you use social media?
                     </label>
 
                     <div class="question-container">
-                        <div class="input-field">
-                            <label><input type="radio" name="social_media_use" value="yes"> Yes</label>
+                        <div class="social-use">
+                            <label><input type="radio" name="social_media_use" value="true" id="social_yes"
+                                    onclick="makeVisible()"> Yes</label>
                         </div>
-                        <div class="input-field">
-                            <label><input type="radio" name="social_media_use" value="no"> No</label>
+                        <div class="social-use">
+                            <label><input type="radio" name="social_media_use" value="false" onclick="makeInvisible()">
+                                No</label>
                         </div>
                     </div>
 
-                    <label for="" class="rating-title">What social media platforms do you commonly use?
+                    <label for="" class="rating-title" id="social_media_title">What social media platforms do you
+                        commonly use?
                     </label>
 
-                    <div class="checkbox-container">
+                    <div class="checkbox-container" id="social-media-checkbox-container">
+
                         <div class="input-field">
                             <label><input type="checkbox" name="social_media" value="Instagram"> Instagram</label>
                         </div>
@@ -453,8 +457,12 @@
                         <label class="end-label right">Always</label>
                     </div>
 
+                    <div>
+                        <p id="hiddenMessage">At this time we are only accepting responses from residents who use Social
+                            Media. <br>Thank you for your interest!</p>
+                    </div>
                     <div class="input-field">
-                        <input type="submit" class="btn btn-blue btn-effect" value="Submit Survey">
+                        <input type="submit" class="btn btn-blue btn-effect" value="Submit Survey" id="subBtn">
                     </div>
 
 
@@ -549,7 +557,54 @@
 
     <script src="js/main.js"></script>
 
+    <script>
+        function makeVisible() {
+            document.getElementById("social-media-checkbox-container").style.display = "block";
+            document.getElementById("social_media_title").style.display = "block";
+            document.getElementById("subBtn").style.display = "inline-block";
 
+            // Get all elements with the class name "rating-container"
+            var elements = document.getElementsByClassName("rating-container");
+
+            // Loop through the elements and set their display style to "none"
+            for (var iCount = 0; iCount < elements.length; iCount++) {
+                elements[iCount].style.display = "grid";
+            }
+
+            var titles = document.getElementsByClassName("rating-title");
+
+            // Loop through the elements and set their display style to "none"
+            for (var iCount = 0; iCount < titles.length; iCount++) {
+                titles[iCount].style.display = "inline-block";
+            }
+
+            document.getElementById("hiddenMessage").style.display = "none";
+        }
+
+        function makeInvisible() {
+            document.getElementById("social-media-checkbox-container").style.display = "none";
+            document.getElementById("subBtn").style.display = "none";
+
+            // Get all elements with the class name "rating-container"
+            var elements = document.getElementsByClassName("rating-container");
+
+            // Loop through the elements and set their display style to "none"
+            for (var iCount = 0; iCount < elements.length; iCount++) {
+                elements[iCount].style.display = "none";
+            }
+
+            var titles = document.getElementsByClassName("rating-title");
+
+            // Loop through the elements and set their display style to "none"
+            for (var iCount = 0; iCount < titles.length; iCount++) {
+                titles[iCount].style.display = "none";
+            }
+            document.getElementById("orgTitle").style.display = "block";
+            document.getElementById("socialTitle").style.display = "block";
+            document.getElementById("hiddenMessage").style.display = "block";
+
+        }
+    </script>
 
 </body>
 
