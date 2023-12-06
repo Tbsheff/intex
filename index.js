@@ -422,7 +422,7 @@ app.post("/modify-user", (req, res) => {
             // Start a transaction
             knex.transaction(trx => {
                 // insert into the user table
-                return trx.insert({
+                return trx.update({
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
                     email: req.body.email
@@ -431,13 +431,11 @@ app.post("/modify-user", (req, res) => {
                     .returning('user_id')
                     .then(userIds => {
                         // insert into the Security table
-                        console.log('Inserted user ID:', userIds[0]);
+                        console.log('Updated user ID:', userIds[0]);
 
                         return trx('security_table').update({
                             username: req.body.username,
-                            password: hash,
-                            user_id: userIds[0].user_id,
-                            is_admin: false // Use the returned user_id
+                            password: hash
                         });
                     })
             })
@@ -450,36 +448,36 @@ app.post("/modify-user", (req, res) => {
         });
     }
     else {
-            // Start a transaction
-            knex.transaction(trx => {
-                // insert into the user table
-                return trx.insert({
-                    first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    email: req.body.email
-                })
-                    .into('user_table')
-                    .returning('user_id')
-                    .then(userIds => {
-                        // insert into the Security table
-                        console.log('Inserted user ID:', userIds[0]);
-
-                        return trx('security_table').update({
-                            username: req.body.username
-                            user_id: userIds[0].user_id,
-                            is_admin: false // Use the returned user_id
-                        });
-                    })
+        // Start a transaction
+        knex.transaction(trx => {
+            // insert into the user table
+            return trx.insert({
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email
             })
-                .then(() => {
-                    res.redirect("/"); // Redirect if the transaction is successful
+                .into('user_table')
+                .returning('user_id')
+                .then(userIds => {
+                    // insert into the Security table
+                    console.log('Inserted user ID:', userIds[0]);
+
+                    return trx('security_table').update({
+                        username: req.body.username,
+                        user_id: userIds[0].user_id,
+                        is_admin: false // Use the returned user_id
+                    });
                 })
-                .catch(error => {
-                    res.status(500).json({ error }); // Handle errors
-                });
+        })
+            .then(() => {
+                res.redirect("/"); // Redirect if the transaction is successful
+            })
+            .catch(error => {
+                res.status(500).json({ error }); // Handle errors
+            });
 
     }
-    
+
 
 
 });
