@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 
+
 <html lang="en" class="no-js">
+
+
+
 
 <head>
     <!-- meta character set -->
@@ -10,18 +14,22 @@
     <title>Social Sense Results</title>
     <!-- Meta Description -->
     <meta name="description" content="Blue One Page Creative HTML5 Template">
-    <meta name="keywords" content="one page, single page, onepage, responsive, parallax, creative, business, 
+    <meta name="keywords" content="one page, single page, onepage, responsive, parallax, creative, business,
         html5, css3, css3 animation, mental, health, social media, facebook, instagram, reddit, discord, YouTube">
     <meta name="author" content="Tyler Sheffield, Allan Foote, Mikayla Randall, Rai Martin">
+
 
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <!-- theme meta -->
     <meta name="theme-name" content="blue-pro" />
 
+
     <!-- CSS
         ================================================== -->
+
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
     <link rel="shortcut icon" type="image/x-icon" href="/images/icon.png" />
@@ -44,11 +52,18 @@
     <link rel="stylesheet" href="css/response.css">
     <link rel="stylesheet" href="css/results.css">
 
+
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
+
+
+
+
 </head>
 
+
 <body id="body">
+
 
     <!-- preloader -->
     <!-- <div id="preloader">
@@ -58,7 +73,10 @@
         </div> -->
     <!-- end preloader -->
 
-    <!-- Fixed Navigation ==================================== -->
+
+    <!--
+        Fixed Navigation
+        ==================================== -->
     <header id="navigation" class="fixed-top animated-header">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -70,6 +88,7 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto text-center" id="nav">
@@ -91,30 +110,38 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/results">Survey Results</a>
                                 </li>
-                        
+
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/accounts" id="accounts">View Accounts</a>
                                 </li>
-                        
+
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">Logout</a>
                                 </li>
-                        
+
+
                                 <% } else { %>
                                     <!-- Show this for general logged-in users -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="/results">Survey Results</a>
                                     </li>
-                        
+
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/account" id="account">My Account</a>
                                     </li>
-                        
+
+
                                     <li class="nav-item">
                                         <a class="nav-link" href="/logout">Logout</a>
                                     </li>
-                        
+
+
                                     <% } %>-
+
+
 
 
                     </ul>
@@ -124,48 +151,100 @@
     </header>
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to get unique values from a column
-            function getUniqueValues(columnIndex) {
-                var uniqueValues = new Set();
-                var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
 
-                for (var i = 0; i < rows.length; i++) {
-                    var cell = rows[i].getElementsByTagName("td")[columnIndex];
-                    var cellText = cell.innerText.toLowerCase().trim();
-                    uniqueValues.add(cellText);
+    <script>
+        function search() {
+            // Get the input value
+            var input = document.getElementById("searchInput").value.toLowerCase();
+
+
+
+
+            // Get the table body
+            var surveyResultsTable = document.getElementById("surveyResultsTable");
+
+
+
+
+            // Get all rows in the table body
+            var rows = surveyResultsTable.getElementsByTagName("tr");
+
+
+
+
+            // Loop through rows and hide/show based on the search query
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var cells = row.getElementsByTagName("td");
+                var rowVisible = false;
+
+
+
+
+                // Loop through cells and check if any cell contains the search query
+                for (var j = 0; j < cells.length; j++) {
+                    var cellText = cells[j].innerText.toLowerCase();
+                    if (cellText.includes(input)) {
+                        rowVisible = true;
+                        break;
+                    }
                 }
 
-                return Array.from(uniqueValues);
+
+
+
+                // Show/hide the row based on visibility
+                if (rowVisible) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
             }
+        }
+        function filterResults() {
+            var selectedGender = document.getElementById("genderFilter").value;
+            var selectedLocation = document.getElementById("locationFilter").value;
+            var selectedRelationship = document.getElementById("relationshipFilter").value;
+            var selectedOccupation = document.getElementById("occupationFilter").value;
+            var selectedMonth = document.getElementById("monthFilter").value;
+            var selectedDay = document.getElementById("dayFilter").value;
+            var selectedYear = document.getElementById("yearFilter").value;
 
-            // Function to update dropdown options
-            function updateDropdownOptions(dropdownId, uniqueValues) {
-                var dropdown = document.getElementById(dropdownId);
-                dropdown.innerHTML = '<option value="all">All</option>'; // Reset dropdown
 
-                uniqueValues.forEach(function (value) {
-                    var option = document.createElement("option");
-                    option.value = value;
-                    option.text = value;
-                    dropdown.add(option);
-                });
+            var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
+
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
+                var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
+                var relationshipCell = row.getElementsByTagName("td")[5]; // Assuming relationship is the sixth column
+                var occupationCell = row.getElementsByTagName("td")[6]; // Assuming occupation is the seventh column
+                var timestampCell = row.getElementsByTagName("td")[1]; // Assuming timestamp is the second column
+
+
+                // Reset the row to be visible
+                row.style.display = "";
+
+
+                // Check if the gender, location, relationship, occupation, and timestamp match the selected values
+                var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
+                var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
+                var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
+                var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
+                var monthMatch = selectedMonth === "all" || timestampCell.innerText.split('-')[1] === selectedMonth;
+                var dayMatch = selectedDay === "all" || timestampCell.innerText.split('-')[2] === selectedDay;
+                var yearMatch = selectedYear === "all" || timestampCell.innerText.split('-')[0] === selectedYear;
+
+
+                // Hide the row if any of the filters don't match
+                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !monthMatch || !dayMatch || !yearMatch) {
+                    row.style.display = "none";
+                }
             }
-
-            // Populate dropdowns on page load
-            var dropdowns = document.querySelectorAll('.filter-dropdown');
-
-            dropdowns.forEach(function (dropdown) {
-                var columnIndex; // Set this to the appropriate column index for each dropdown
-                var uniqueValues = getUniqueValues(columnIndex);
-                updateDropdownOptions(dropdown.id, uniqueValues);
-            });
-
-            // Add logic for saving changes here
-            // ...
-        });
+        }
     </script>
+
 
     <main class="site-content" role="main">
         <section class="service-2 section results-page">
@@ -178,39 +257,101 @@
                     <tr>
                         <th>Survey Number</th>
                         <th>Time Stamp
-                            <select id="monthFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="monthFilter" onchange="filterResults()">
                                 <option value="all">All</option>
-                               
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
                                 <!-- Add more month options as needed -->
                             </select>
-                            <select id="dayFilter" class="filter-dropdown" onchange="filterResults()">
-                                <option value="all">All</option>
+                            <select id="dayFilter" onchange="filterResults()">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
                                 <!-- Add more day options as needed -->
                             </select>
-                            <select id="yearFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="yearFilter" onchange="filterResults()">
                                 <option value="all">All</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
                                 <!-- Add more year options as needed -->
                             </select>
                         </th>
                         <th>Gender
-                            <select id="genderFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="genderFilter" onchange="filterResults()">
                                 <option value="all">All</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="non-binary">Non-binary</option>
+                                <option value="trans">Trans</option>
+                                <option value="other">Other</option>
+                                <!-- Add more gender options as needed -->
                             </select>
                         </th>
                         <th>Age</th>
                         <th>Location
-                            <select id="locationFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="locationFilter" onchange="filterResults()">
                                 <option value="all">All</option>
+                                <option value="provo">Provo</option>
+                                <option value="plainsville">Plainsville</option>
+                                <!-- Add more location options as needed -->
                             </select>
                         </th>
                         <th>Relationship
-                            <select id="relationshipFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="relationshipFilter" onchange="filterResults()">
                                 <option value="all">All</option>
+                                <option value="single">Single</option>
+                                <option value="in a relationship">In a relationship</option>
+                                <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                                <!-- Add more relationship options as needed -->
                             </select>
                         </th>
                         <th>Occupation
-                            <select id="occupationFilter" class="filter-dropdown" onchange="filterResults()">
+                            <select id="occupationFilter" onchange="filterResults()">
                                 <option value="all">All</option>
+                                <option value="university student">University Student</option>
+                                <option value="school student">School Student</option>
+                                <option value="salaried worker">Salaried Worker</option>
+                                <option value="retired">Retired</option>
+                                <!-- Add more occupation options as needed -->
                             </select>
                         </th>
                         <th>See More</th>
@@ -244,10 +385,16 @@
                                 <a class="see-more" href="/choosesurvey/<%= surveyresults[iCount].survey_id %>">See
                                     More</a>
                             </td>
+
+
                         </tr>
+
+
                         <% } %>
                 </tbody>
             </table>
+
+
         </section>
     </main>
     <!-- Twitter Bootstrap -->
@@ -255,18 +402,25 @@
     <!-- Single Page Nav -->
     <script src="plugins/jquery.singlePageNav.min.js"></script>
 
+
     <!-- onscroll animation -->
     <script src="plugins/wow.min.js"></script>
     <!-- Custom Functions -->
+
+
     <script src="js/main.js"></script>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var editButtons = document.querySelectorAll('.edit-btn');
+
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     var userId = this.getAttribute('data-survey-id');
                     var editForm = document.getElementById('edit-form-' + userId);
+
 
                     // Toggle the display of the edit form
                     if (editForm.style.display === 'none') {
@@ -277,10 +431,14 @@
                 });
             });
 
+
             // Add logic for saving changes here
             // ...
         });
     </script>
+
+
 </body>
+
 
 </html>
