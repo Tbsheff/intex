@@ -28,3 +28,13 @@
 button {
     border-radius: 9px;
 }
+
+.account-title {
+    margin-bottom: 1.5rem;
+    text-align: right;
+}
+
+.account-title label {
+    margin-right: 0.5rem;
+
+}
