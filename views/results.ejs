@@ -65,7 +65,7 @@
         Fixed Navigation
         ==================================== -->
     <header id="navigation" class="fixed-top animated-header">
-        <div class="container">
+        <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="/">
                     <img class="img-fluid" src="images/logo.png" alt="">
@@ -173,10 +173,11 @@
             var selectedLocation = document.getElementById("locationFilter").value;
             var selectedRelationship = document.getElementById("relationshipFilter").value;
             var selectedOccupation = document.getElementById("occupationFilter").value;
-
+            var selectedMonth = document.getElementById("monthFilter").value;
+            var selectedDay = document.getElementById("dayFilter").value;
+            var selectedYear = document.getElementById("yearFilter").value;
 
             var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
-
 
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
@@ -184,21 +185,22 @@
                 var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
                 var relationshipCell = row.getElementsByTagName("td")[5]; // Assuming relationship is the sixth column
                 var occupationCell = row.getElementsByTagName("td")[6]; // Assuming occupation is the seventh column
-
+                var timestampCell = row.getElementsByTagName("td")[1]; // Assuming timestamp is the second column
 
                 // Reset the row to be visible
                 row.style.display = "";
 
-
-                // Check if the gender, location, relationship, and occupation match the selected values
+                // Check if the gender, location, relationship, occupation, and timestamp match the selected values
                 var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
                 var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
                 var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
                 var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
-
+                var monthMatch = selectedMonth === "all" || timestampCell.innerText.split('-')[1] === selectedMonth;
+                var dayMatch = selectedDay === "all" || timestampCell.innerText.split('-')[2] === selectedDay;
+                var yearMatch = selectedYear === "all" || timestampCell.innerText.split('-')[0] === selectedYear;
 
                 // Hide the row if any of the filters don't match
-                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch) {
+                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !monthMatch || !dayMatch || !yearMatch) {
                     row.style.display = "none";
                 }
             }
@@ -215,7 +217,64 @@
                 <thead>
                     <tr>
                         <th>Survey Number</th>
-                        <th>Time Stamp</th>
+                        <th>Time Stamp
+                            <select id="monthFilter" onchange="filterResults()">
+                                <option value="all">All</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                                <!-- Add more month options as needed -->
+                            </select>
+                            <select id="dayFilter" onchange="filterResults()">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <!-- Add more day options as needed -->
+                            </select>
+                            <select id="yearFilter" onchange="filterResults()">
+                                <option value="all">All</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <!-- Add more year options as needed -->
+                            </select>
+                        </th>
                         <th>Gender
                             <select id="genderFilter" onchange="filterResults()">
                                 <option value="all">All</option>
