@@ -263,8 +263,77 @@ body {
 
 
 
-
 /* Removes the bottom margin from the last input field for consistency */
 .checkbox-container .input-field:last-child {
     margin-bottom: 0;
+}
+
+/* Base styles for layout */
+.question-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.social-use {
+    margin-bottom: 10px;
+    /* Spacing between the radio buttons */
+    position: relative;
+
+}
+
+/* Custom radio button appearance */
+.social-use input[type="radio"] {
+    -webkit-appearance: none;
+    /* Remove default styling in WebKit/Blink */
+    -moz-appearance: none;
+    /* Remove default styling in Firefox */
+    appearance: none;
+    /* Remove default styling */
+    margin-right: 10px;
+    /* Space between the radio button and the label */
+    outline: none;
+    /* Remove default outline */
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #7da8b3;
+    /* Custom border */
+    border-radius: 50%;
+    /* Rounded border */
+    position: relative;
+    /* For the checkmark positioning */
+    cursor: pointer;
+    /* Change cursor to pointer to indicate an interactive element */
+    vertical-align: middle;
+    /* Aligns radio button vertically with the text */
+}
+
+/* Change background color when the radio button is checked */
+.social-use input[type="radio"]:checked {
+    background-color: #0aa6bd;
+    /* This color will be the background of the checked radio button */
+}
+
+/* Checkmark style when radio is checked */
+.social-use input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background-color: #0aa6bd;
+    /* Color for the checkmark */
+    border-radius: 50%;
+}
+
+/* Label style */
+.social-use label {
+    cursor: pointer;
+    display: inline-block;
+    /* Aligns label in line with the radio button */
+    position: relative;
+    /* Required for positioning pseudo-elements */
 }
