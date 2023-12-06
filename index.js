@@ -34,7 +34,17 @@ let saltRounds = 10;
 function isAuthenticated(req, res, next) {
     console.log(req.session.user);
     if (req.session && req.session.user) {
-        console.log(req.session.user);
+
+        return next(); // User is authenticated, proceed to the next function
+
+    }
+    // User is not authenticated
+    res.redirect('/login');
+}
+
+function isAdmin(req, res, next) {
+    console.log(req.session.user);
+    if (req.session && req.session.user && req.session.user.admin) {
         return next(); // User is authenticated, proceed to the next function
 
     }
@@ -43,15 +53,9 @@ function isAuthenticated(req, res, next) {
 }
 
 
-app.get("/results", (req, res) => {
+app.get("/results", isAuthenticated, (req, res) => {
     knex.select(
-        's.survey_id',
-        's.time_stamp',
-        's.age',
-        's.location',
-        'g.gender_description',
-        'rs.relationship_status_description',
-        'o.occupation_description',
+        '*'
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
@@ -60,13 +64,13 @@ app.get("/results", (req, res) => {
 
         .then(results => {
             console.log(results);
-            res.render("results", { surveyresults: results });
+            res.render("results", { surveyresults: results, user: req.session.user });
         })
 
 }
 );
 
-app.get("/choosesurvey/:surveyID", (req, res) => {
+app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
     knex.select(
         's.survey_id',
         's.time_stamp',
@@ -97,7 +101,7 @@ app.get("/choosesurvey/:surveyID", (req, res) => {
         'sm.social_media_number',
         'sm.social_media_platform'
     )
-        
+
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
@@ -107,28 +111,28 @@ app.get("/choosesurvey/:surveyID", (req, res) => {
 
         .where("s.survey_id", req.params.surveyID)
         .then(result => {
-        res.render("displayresult", {resultobject : result});
+            res.render("displayresult", { resultobject: result, user: req.session.user });
         }).catch(err => {
             console.log(err);
-            res.status(500).json({err});
+            res.status(500).json({ err });
         });
 });
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index", { user: req.session.user }));
 
 app.get("/respond", (req, res) => {
-    res.render("getResponse");
+    res.render("getResponse", { user: req.session.user });
 }
 );
 
-app.get("/login", (req, res) => res.render("login", { req }));
+app.get("/login", (req, res) => res.render("login", { req: req, user: req.session.user }));
 
 app.post("/login", (req, res) => {
     // Extract the username and plain text password from the request
     const { username, password } = req.body;
 
     // Retrieve the user's hashed password from the database
-    knex.select('*').from('security').where({ username })
+    knex.select('*').from('security_table').where({ username })
         .then(users => {
             if (users.length === 0) {
                 res.status(401).json({ error: 'Invalid username or password' });
@@ -147,9 +151,14 @@ app.post("/login", (req, res) => {
 
                 if (result) {
                     // Login successful
-                    req.session.user = { username: user.username, id: user.student_id };
+                    req.session.user = { username: user.username, id: user.user_id, admin: user.is_admin };
                     console.log(req.session.user)
-                    res.redirect('/rides');
+                    if (user.is_admin) {
+                        res.redirect("/accounts")
+                    } else {
+                        res.redirect('/account');
+                    }
+
 
                 } else {
                     // Passwords do not match
@@ -164,7 +173,7 @@ app.post("/login", (req, res) => {
 });
 
 
-app.get("/signup", (req, res) => res.render("signup"));
+app.get("/signup", isAuthenticated, (req, res) => res.render("signup", { user: req.session.user }));
 
 app.post("/signup", (req, res) => {
     console.log(req.body);
@@ -210,7 +219,7 @@ app.post("/signup", (req, res) => {
 });
 
 
-app.get("/survey", (req, res) => res.render("getResponse"));
+app.get("/survey", (req, res) => res.render("getResponse", { user: req.session.user }));
 
 app.post("/survey", (req, res) => {
     console.log(req.body);
@@ -335,13 +344,24 @@ app.post("/survey", (req, res) => {
     });
 });
 
-app.get("/accounts", (req, res) => {
+app.get("/accounts", isAuthenticated, isAdmin, (req, res) => {
     knex.select("*")
         .from("user_table as ut")
         .join("security_table as st", "st.user_id", "ut.user_id")
         .then(results => {
             console.log(results);
-            res.render("viewAccounts", { allAccounts: results });
+            res.render("viewAccounts", { allAccounts: results, user: req.session.user });
+        });
+});
+
+app.get("/account", isAuthenticated, (req, res) => {
+    knex.select("*")
+        .from("user_table as ut")
+        .join("security_table as st", "st.user_id", "ut.user_id")
+        .where("st.user_id", "=", req.session.user.id)
+        .then(results => {
+            console.log(results);
+            res.render("viewMyAccount", { allAccounts: results, user: req.session.user });
         });
 });
 

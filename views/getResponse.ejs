@@ -99,41 +99,42 @@
             <div class="col-md-7 contact-form survey-form">
                 <form action="/survey" class="survey" method="post">
                     <h2>Social Media and Mental Health</h2>
-                    <div class="input-field">
-                        <input type="number" name="age" class="form-control" placeholder="Your Age">
-                    </div>
+                    <div class="dropdown-wrapper">
+                        <div class="input-field age-wrapper">
+                            <input type="number" name="age" class="form-control age-select" placeholder="Your Age">
+                        </div>
 
-                    <div class="input-field dropdown">
-                        <select name="gender" id="gender">
-                            <option value="">Select Your Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                            <option value="notSay">Prefer Not To Say</option>
-                        </select>
-                    </div>
+                        <div class="input-field dropdown">
+                            <select name="gender" id="gender">
+                                <option value="">Select Your Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                                <option value="notSay">Prefer Not To Say</option>
+                            </select>
+                        </div>
 
-                    <div class="input-field dropdown">
-                        <select name="relationship_status" id="relationship_status">
-                            <option value="">Select Your Relationship Status</option>
-                            <option value="In a relationship">In a Relationship</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Divorced">Divorced</option>
-                        </select>
-                    </div>
+                        <div class="input-field dropdown">
+                            <select name="relationship_status" id="relationship_status">
+                                <option value="">Select Your Relationship Status</option>
+                                <option value="In a relationship">In a Relationship</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                            </select>
+                        </div>
 
-                    <div class="input-field dropdown">
-                        <select name="occupation" id="occupation">
-                            <option value="">Select Your Occupation</option>
-                            <option value="Salaried Worker">Salaried Worker</option>
-                            <option value="Retired">Retired</option>
-                            <option value="School Student">School Student</option>
-                            <option value="University Student">University Student</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <div class="input-field dropdown">
+                            <select name="occupation" id="occupation">
+                                <option value="">Select Your Occupation</option>
+                                <option value="Salaried Worker">Salaried Worker</option>
+                                <option value="Retired">Retired</option>
+                                <option value="School Student">School Student</option>
+                                <option value="University Student">University Student</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
                     </div>
-
                     <label for="" class="rating-title" id="orgTitle">What type of organizations are you affiliated with?
                     </label>
 
