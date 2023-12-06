@@ -62,6 +62,9 @@
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 
 
 
@@ -384,8 +387,8 @@
                 </div>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-export"></span> Export <span class="caret"></span>
+                <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-export"></span> Export
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" onClick="$('#results-table').tableExport({type:'json', escape:'false'});">JSON</a>
@@ -412,7 +415,7 @@
                 </ul>
             </div>
 
-            <a href="#" id="filterButton">Filter Results</a>
+            <a href="#" id="filterButton" class="btn btn-blue btn-sm">Filter Results</a>
 
             <table class="table-style" id="results-table">
 
