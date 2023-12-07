@@ -157,122 +157,8 @@
     </header>
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
-    <!-- 
-    <script>
-        function search() {
-            // Get the input value
-            var input = document.getElementById("searchInput").value.toLowerCase();
-
-
-
-
-            // Get the table body
-            var surveyResultsTable = document.getElementById("surveyResultsTable");
-
-
-
-
-            // Get all rows in the table body
-            var rows = surveyResultsTable.getElementsByTagName("tr");
-
-
-
-
-            // Loop through rows and hide/show based on the search query
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var cells = row.getElementsByTagName("td");
-                var rowVisible = false;
-
-
-
-
-                // Loop through cells and check if any cell contains the search query
-                for (var j = 0; j < cells.length; j++) {
-                    var cellText = cells[j].innerText.toLowerCase();
-                    if (cellText.includes(input)) {
-                        rowVisible = true;
-                        break;
-                    }
-                }
-
-
-
-
-                // Show/hide the row based on visibility
-                if (rowVisible) {
-                    row.style.display = "";
-                } else {
-                    row.style.display = "none";
-                }
-            }
-        }
-        function filterResults() {
-            var selectedGender = document.getElementById("genderFilter").value;
-            var selectedLocation = document.getElementById("locationFilter").value;
-            var selectedRelationship = document.getElementById("relationshipFilter").value;
-            var selectedOccupation = document.getElementById("occupationFilter").value;
-            var selectedMonth = document.getElementById("monthFilter").value;
-            var selectedDay = document.getElementById("dayFilter").value;
-            var selectedYear = document.getElementById("yearFilter").value;
-
-            var rows = document.getElementById("surveyResultsTable").getElementsByTagName("tr");
-
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var genderCell = row.getElementsByTagName("td")[2]; // Assuming gender is the third column
-                var locationCell = row.getElementsByTagName("td")[4]; // Assuming location is the fifth column
-                var relationshipCell = row.getElementsByTagName("td")[5]; // Assuming relationship is the sixth column
-                var occupationCell = row.getElementsByTagName("td")[6]; // Assuming occupation is the seventh column
-                var timestampCell = row.getElementsByTagName("td")[1]; // Assuming timestamp is the second column
-
-                // Reset the row to be visible
-                row.style.display = "";
-
-                // Check if the gender, location, relationship, occupation, and timestamp match the selected values
-                var genderMatch = selectedGender === "all" || genderCell.innerText.toLowerCase() === selectedGender;
-                var locationMatch = selectedLocation === "all" || locationCell.innerText.toLowerCase() === selectedLocation;
-                var relationshipMatch = selectedRelationship === "all" || relationshipCell.innerText.toLowerCase() === selectedRelationship;
-                var occupationMatch = selectedOccupation === "all" || occupationCell.innerText.toLowerCase() === selectedOccupation;
-
-                // Parse the timestamp
-                var timestamp = timestampCell.innerText;
-                var parsedTimestamp = new Date(timestamp);
-
-                // Check if the month, day, and year match
-                var monthMatch = selectedMonth === "all" || (parsedTimestamp.getMonth() + 1).toString().padStart(2, '0') === selectedMonth;
-                var dayMatch = selectedDay === "all" || parsedTimestamp.getDate().toString().padStart(2, '0') === selectedDay;
-                var yearMatch = selectedYear === "all" || parsedTimestamp.getFullYear().toString() === selectedYear;
-
-                // Check if the time part contains PM
-                var isPM = timestamp.includes('PM');
-
-                // Convert the hour part to 24-hour format if it's PM
-                var hour = parsedTimestamp.getHours();
-                if (isPM && hour < 12) {
-                    hour += 12;
-                }
-
-                // Check if the hour and minute match
-                var timestampMatch = hour.toString().padStart(2, '0') === parsedTimestamp.getHours().toString().padStart(2, '0') &&
-                    parsedTimestamp.getMinutes().toString().padStart(2, '0');
-
-                // Hide the row if any of the filters don't match
-                if (!genderMatch || !locationMatch || !relationshipMatch || !occupationMatch || !monthMatch || !dayMatch || !yearMatch || !timestampMatch) {
-                    row.style.display = "none";
-                }
-            }
-        }
-
-    </script>
-    -->
-
     <main class="site-content" role="main">
         <section class="service-2 section results-page">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button onclick="search()">Search</button>
-            </div>
 
             <form class="filters" method="post" action="/results">
                 <div>
@@ -382,7 +268,7 @@
                 <select id="relationshipFilter" name="relationship">
                     <option value="all" <%=filters.relationship==='all' ? 'selected' : '' %>>All</option>
                     <option value="Single" <%=filters.relationship==='single' ? 'selected' : '' %>>Single</option>
-                    <option value="In a Relationship" <%=filters.relationship==='In a Relationship' ? 'selected' : '' %>
+                    <option value="In a relationship" <%=filters.relationship==='In a relationship' ? 'selected' : '' %>
                         >In a
                         relationship</option>
                     <option value="Married" <%=filters.relationship==='Married' ? 'selected' : '' %>>Married</option>
