@@ -374,7 +374,8 @@ app.post("/survey", (req, res) => {
         'University Student': 1,
         'School Student': 2,
         'Salaried Worker': 3,
-        'Retired': 4
+        'Retired': 4,
+        'Other': 5
     };
 
     // Mapping for gender
