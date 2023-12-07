@@ -614,7 +614,7 @@ option {
 }
 
 #export-button {
-    padding: 12px 25px;
+    padding: 6px 20px;
 }
 
 .btn:hover {
@@ -642,6 +642,7 @@ option {
 
 .results-button-wrapper .btn {
     margin: 0;
+    padding: 6px 20px;
 }
 
 #filter-button {
@@ -680,4 +681,20 @@ option {
 #filter-button:hover {
     color: #0AA6BD;
     background-color: white;
+}
+
+#filter-form-button {
+    display: inline-flex;
+    align-items: center;
+    justify-items: center;
+
+}
+
+.section {
+    padding-top: 1rem;
+}
+
+.Survey-Title {
+    margin-top: 1.25rem;
+    margin-bottom: 0;
 }

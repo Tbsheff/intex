@@ -156,6 +156,7 @@
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
     <main class="site-content" role="main">
+        <h2 class="Survey-Title">Survey Results</h2>
         <section class="service-2 section results-page">
 
             <div id="filters-wrapper">
@@ -319,7 +320,7 @@
                         <span class="ripple"></span></button>
                 </div>
 
-                <form method="post" action="/clear-filters">
+                <form method="post" action="/clear-filters" id="filter-form-button">
                     <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters">
                 </form>
 
@@ -440,7 +441,6 @@
                     var userId = this.getAttribute('data-survey-id');
                     var editForm = document.getElementById('edit-form-' + userId);
 
-
                     // Toggle the display of the edit form
                     if (editForm.style.display === 'none') {
                         editForm.style.display = 'table-row';
@@ -450,14 +450,6 @@
                 });
             });
 
-
-            // Add logic for saving changes here
-            // ...
-        });
-    </script>
-    <script>
-        document.getElementById('clearFilters').addEventListener('click', function () {
-            document.getElementById('filterForm').reset();
         });
     </script>
 

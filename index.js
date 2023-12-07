@@ -253,7 +253,11 @@ app.get("/respond", (req, res) => {
 }
 );
 
-app.get("/login", (req, res) => res.render("login", { req: req, user: req.session.user }));
+app.get("/login", (req, res) => {
+    let error = req.query.error; // Extract the error message from query parameter
+    res.render("login", { req: req, user: req.session.user, error: error });
+}
+);
 
 app.post("/login", (req, res) => {
     // Extract the username and plain text password from the request
@@ -290,7 +294,10 @@ app.post("/login", (req, res) => {
 
                 } else {
                     // Passwords do not match
-                    res.status(401).json({ error: 'Invalid username or password' });
+                    // let error = "noMatch";
+                    // res.render("login", { req: req, user: req.session.user, error: error });
+
+                    res.redirect('/login?error=noMatch');
                 }
             });
         })

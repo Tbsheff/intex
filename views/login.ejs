@@ -133,6 +133,7 @@
         <section class="container">
 
             <div class="row justify-content-center login-row">
+
                 <form action="/login" method="post">
                     <div class="form-group">
                         <h2>Social Sense </h2>
@@ -146,9 +147,15 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password"
                             required>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-main btn-blue btn-effect" style="margin: 0;" value="Login">
-                    </div>
+                    <% if(error==='noMatch' ){%>
+                        <div>
+                            <p style="color: crimson; margin-bottom: 1rem;">Error: Incorrect Username or Password</p>
+                        </div>
+                        <% }%>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-main btn-blue btn-effect" style="margin: 0;"
+                                    value="Login">
+                            </div>
                 </form>
 
             </div>
