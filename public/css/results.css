@@ -120,7 +120,7 @@
 
 .grid-container .grid-item:nth-child(odd) {
     font-weight: bold;
-    background-color: #eaeaea;
+    background-color: #7da8b393;
     color: #333;
 }
 

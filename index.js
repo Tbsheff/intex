@@ -631,6 +631,38 @@ app.post("/delete-user/:id", (req, res) => {
         });
 });
 
+app.post("/delete/logout-user/:id", (req, res) => {
+    knex.transaction((trx) => {
+        knex("security_table")
+            .transacting(trx)
+            .where("user_id", req.params.id)
+            .del()
+            .then(() => {
+                return knex("user_table")
+                    .transacting(trx)
+                    .where("user_id", req.params.id)
+                    .del();
+            })
+            .then(trx.commit)
+            .catch(trx.rollback);
+    })
+    .then(() => {
+        // Session destruction logic
+        req.session.destroy((err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: "Failed to destroy session" });
+            } else {
+                res.redirect("/accounts");
+            }
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    });
+});
+
 
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
 
