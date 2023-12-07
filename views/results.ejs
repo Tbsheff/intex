@@ -61,9 +61,7 @@
 
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 
 
 
@@ -71,27 +69,7 @@
 
 </head>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-      $(document).ready(function () {
-        // Function to check screen size and hide/show navigation links
-        function checkWindowSize() {
-          if ($(window).width() <= 600) { // Set the desired maximum width
-            $("#nav").hide();
-          } else {
-            $("#nav").show();
-          }
-        }
-    
-        // Initial check on page load
-        checkWindowSize();
-    
-        // Re-check on window resize
-        $(window).resize(function () {
-          checkWindowSize();
-        });
-      });
-</script>
+
 <body id="body">
 
 
@@ -102,7 +80,7 @@
                 </div>
         </div> -->
     <!-- end preloader -->
-    
+
 
     <!--
         Fixed Navigation
@@ -180,171 +158,204 @@
     <main class="site-content" role="main">
         <section class="service-2 section results-page">
 
-            <form class="filters" method="post" action="/results">
-                <div class="form-row">
-                    <!-- Survey Filter -->
-                    <div class="form-group col-md-2 input-field dropdown">
-                        <select id="surveyFilter" name="survey_id">
-                            <option value="all" <%=filters.survey_id==='all' ? 'selected' : '' %>>All Survey Ids
-                            </option>
-                            <% for(let iCount=1; iCount <=surveys.length ; iCount++) { %>
-                                <option value="<%= iCount %>" <%=filters.survey_id===String(iCount) ? 'selected' : '' %>
-                                    ><%= iCount %>
+            <div id="filters-wrapper">
+                <form class="filters" method="post" id="table-filters" action="/results">
+                    <div>
+                        <h2>Filters</h2>
+                    </div>
+                    <div class="form-row">
+                        <!-- Survey Filter -->
+                        <div class="form-group col-md-2 input-field dropdown">
+                            <select id="surveyFilter" name="survey_id">
+                                <option value="all" <%=filters.survey_id==='all' ? 'selected' : '' %>>All Survey Ids
                                 </option>
-                                <% } %>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2 input-field dropdown">
-                        <!-- Month Filter -->
-                        <select id="monthFilter" name="month" class="">
-                            <option value="all" <%=filters.month==='all' ? 'selected' : '' %>>All Months</option>
-                            <option value="01" <%=filters.month==='01' ? 'selected' : '' %>>January</option>
-                            <option value="02" <%=filters.month==='02' ? 'selected' : '' %>>February</option>
-                            <option value="03" <%=filters.month==='03' ? 'selected' : '' %>>March</option>
-                            <option value="04" <%=filters.month==='04' ? 'selected' : '' %>>April</option>
-                            <option value="05" <%=filters.month==='05' ? 'selected' : '' %>>May</option>
-                            <option value="06" <%=filters.month==='06' ? 'selected' : '' %>>June</option>
-                            <option value="07" <%=filters.month==='07' ? 'selected' : '' %>>July</option>
-                            <option value="08" <%=filters.month==='08' ? 'selected' : '' %>>August</option>
-                            <option value="09" <%=filters.month==='09' ? 'selected' : '' %>>September</option>
-                            <option value="10" <%=filters.month==='10' ? 'selected' : '' %>>October</option>
-                            <option value="11" <%=filters.month==='11' ? 'selected' : '' %>>November</option>
-                            <option value="12" <%=filters.month==='12' ? 'selected' : '' %>>December</option>
-                        </select>
-
-                    </div>
-                    <div class="form-group col-md-2  input-field dropdown">
-                        <!-- Day Filter -->
-                        <select id="dayFilter" name="day">
-                            <option value="all" <%=filters.day==='all' ? 'selected' : '' %>>All Days</option>
-                            <% for(let i=1; i <=31; i++) { %>
-                                <% let day=i < 10 ? '0' + i : '' + i; %>
-                                    <option value="<%= day %>" <%=filters.day===day ? 'selected' : '' %>><%= i %>
+                                <% for(let iCount=1; iCount <=surveys.length ; iCount++) { %>
+                                    <option value="<%= iCount %>" <%=filters.survey_id===String(iCount) ? 'selected'
+                                        : '' %>
+                                        ><%= iCount %>
                                     </option>
                                     <% } %>
-                        </select>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 input-field dropdown">
+                            <!-- Month Filter -->
+                            <select id="monthFilter" name="month" class="">
+                                <option value="all" <%=filters.month==='all' ? 'selected' : '' %>>All Months</option>
+                                <option value="01" <%=filters.month==='01' ? 'selected' : '' %>>January</option>
+                                <option value="02" <%=filters.month==='02' ? 'selected' : '' %>>February</option>
+                                <option value="03" <%=filters.month==='03' ? 'selected' : '' %>>March</option>
+                                <option value="04" <%=filters.month==='04' ? 'selected' : '' %>>April</option>
+                                <option value="05" <%=filters.month==='05' ? 'selected' : '' %>>May</option>
+                                <option value="06" <%=filters.month==='06' ? 'selected' : '' %>>June</option>
+                                <option value="07" <%=filters.month==='07' ? 'selected' : '' %>>July</option>
+                                <option value="08" <%=filters.month==='08' ? 'selected' : '' %>>August</option>
+                                <option value="09" <%=filters.month==='09' ? 'selected' : '' %>>September</option>
+                                <option value="10" <%=filters.month==='10' ? 'selected' : '' %>>October</option>
+                                <option value="11" <%=filters.month==='11' ? 'selected' : '' %>>November</option>
+                                <option value="12" <%=filters.month==='12' ? 'selected' : '' %>>December</option>
+                            </select>
 
-                    </div>
+                        </div>
+                        <div class="form-group col-md-2  input-field dropdown">
+                            <!-- Day Filter -->
+                            <select id="dayFilter" name="day">
+                                <option value="all" <%=filters.day==='all' ? 'selected' : '' %>>All Days</option>
+                                <% for(let i=1; i <=31; i++) { %>
+                                    <% let day=i < 10 ? '0' + i : '' + i; %>
+                                        <option value="<%= day %>" <%=filters.day===day ? 'selected' : '' %>><%= i %>
+                                        </option>
+                                        <% } %>
+                            </select>
 
-                    <!-- Year Filter -->
-                    <div class="form-group col-md-2 input-field dropdown">
-                        <select id="yearFilter" name="year">
-                            <option value="all" <%=filters.year==='all' ? 'selected' : '' %>>All Years</option>
-                            <% for(let year=2022; year <=2023; year++) { %>
-                                <option value="<%= year %>" <%=filters.year===String(year) ? 'selected' : '' %>><%= year
-                                        %>
+                        </div>
+
+                        <!-- Year Filter -->
+                        <div class="form-group col-md-2 input-field dropdown">
+                            <select id="yearFilter" name="year">
+                                <option value="all" <%=filters.year==='all' ? 'selected' : '' %>>All Years</option>
+                                <% for(let year=2022; year <=2023; year++) { %>
+                                    <option value="<%= year %>" <%=filters.year===String(year) ? 'selected' : '' %>><%=
+                                            year %>
+                                    </option>
+                                    <% } %>
+                            </select>
+                        </div>
+
+
+                        <!-- Gender Filter -->
+                        <div class="form-group col-md-2  input-field dropdown">
+                            <select id="genderFilter" name="gender">
+                                <option value="all" <%=filters.gender==='all' ? 'selected' : '' %>>All Genders</option>
+                                <option value="Male" <%=filters.gender==='Male' ? 'selected' : '' %>>Male</option>
+                                <option value="Female" <%=filters.gender==='Female' ? 'selected' : '' %>>Female</option>
+                                <option value="Non-binary" <%=filters.gender==='Non-binary' ? 'selected' : '' %>
+                                    >Non-binary
                                 </option>
-                                <% } %>
-                        </select>
+                                <option value="Trans" <%=filters.gender==='Trans' ? 'selected' : '' %>>Trans</option>
+                                <option value="Other" <%=filters.gender==='Other' ? 'selected' : '' %>>Other</option>
+                            </select>
+                        </div>
+
+
+                        <!-- Location Filter -->
+                        <div class="form-group col-md-2  input-field dropdown">
+                            <select id="locationFilter" name="location">
+                                <option value="all" <%=filters.location==='all' ? 'selected' : '' %>>All Locations
+                                </option>
+                                <option value="Provo" <%=filters.location==='Provo' ? 'selected' : '' %>>Provo</option>
+                                <option value="Plainsville" <%=filters.location==='Plainsville' ? 'selected' : '' %>
+                                    >Plainsville
+                                </option>
+                                <!-- Add more location options as needed -->
+                            </select>
+                        </div>
+                        <!-- Occupation Filter -->
+                        <div class="form-group col-md-2 input-field dropdown">
+                            <select id="occupationFilter" name="occupation">
+                                <option value="all" <%=filters.occupation==='all' ? 'selected' : '' %>>All Occupations
+                                </option>
+                                <option value="University Student" <%=filters.occupation==='University Student'
+                                    ? 'selected' : '' %>>University
+                                    Student</option>
+                                <option value="School Student" <%=filters.occupation==='School Student' ? 'selected'
+                                    : '' %>
+                                    >School Student
+                                </option>
+                                <option value="Salaried Worker" <%=filters.occupation==='Salaried Worker' ? 'selected'
+                                    : '' %>
+                                    >Salaried Worker
+                                </option>
+                                <option value="Retired" <%=filters.occupation==='Retired' ? 'selected' : '' %>>Retired
+                                </option>
+                                <!-- Add more occupation options as needed -->
+                            </select>
+                        </div>
+
+                        <!-- Relationship Filter -->
+                        <div class="form-group col-md-2  input-field dropdown">
+
+                            <select id="relationshipFilter" name="relationship">
+                                <option value="all" <%=filters.relationship==='all' ? 'selected' : '' %>>All
+                                    Relationships
+                                </option>
+                                <option value="Single" <%=filters.relationship==='single' ? 'selected' : '' %>>Single
+                                </option>
+                                <option value="In a relationship" <%=filters.relationship==='In a relationship'
+                                    ? 'selected' : '' %>>In a
+                                    relationship</option>
+                                <option value="Married" <%=filters.relationship==='Married' ? 'selected' : '' %>>Married
+                                </option>
+                                <option value="Divorced" <%=filters.relationship==='Divorced' ? 'selected' : '' %>
+                                    >Divorced
+                                </option>
+                                <!-- Add more relationship options as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="submit" name="submit" id="" value="Apply Filter" class="btn btn-blue btn-sm">
+                        </div>
                     </div>
 
 
-                    <!-- Gender Filter -->
-                    <div class="form-group col-md-2  input-field dropdown">
-                        <select id="genderFilter" name="gender">
-                            <option value="all" <%=filters.gender==='all' ? 'selected' : '' %>>All Genders</option>
-                            <option value="Male" <%=filters.gender==='Male' ? 'selected' : '' %>>Male</option>
-                            <option value="Female" <%=filters.gender==='Female' ? 'selected' : '' %>>Female</option>
-                            <option value="Non-binary" <%=filters.gender==='Non-binary' ? 'selected' : '' %>>Non-binary
-                            </option>
-                            <option value="Trans" <%=filters.gender==='Trans' ? 'selected' : '' %>>Trans</option>
-                            <option value="Other" <%=filters.gender==='Other' ? 'selected' : '' %>>Other</option>
-                        </select>
-                    </div>
 
-
-                    <!-- Location Filter -->
-                    <div class="form-group col-md-2  input-field dropdown">
-                        <select id="locationFilter" name="location">
-                            <option value="all" <%=filters.location==='all' ? 'selected' : '' %>>All Locations</option>
-                            <option value="Provo" <%=filters.location==='Provo' ? 'selected' : '' %>>Provo</option>
-                            <option value="Plainsville" <%=filters.location==='Plainsville' ? 'selected' : '' %>
-                                >Plainsville
-                            </option>
-                            <!-- Add more location options as needed -->
-                        </select>
-                    </div>
-                    <!-- Occupation Filter -->
-                    <div class="form-group col-md-2 input-field dropdown">
-                        <select id="occupationFilter" name="occupation">
-                            <option value="all" <%=filters.occupation==='all' ? 'selected' : '' %>>All Occupations
-                            </option>
-                            <option value="University Student" <%=filters.occupation==='University Student' ? 'selected'
-                                : '' %>>University
-                                Student</option>
-                            <option value="School Student" <%=filters.occupation==='School Student' ? 'selected' : '' %>
-                                >School Student
-                            </option>
-                            <option value="Salaried Worker" <%=filters.occupation==='Salaried Worker' ? 'selected' : ''
-                                %>
-                                >Salaried Worker
-                            </option>
-                            <option value="Retired" <%=filters.occupation==='Retired' ? 'selected' : '' %>>Retired
-                            </option>
-                            <!-- Add more occupation options as needed -->
-                        </select>
-                    </div>
-
-                    <!-- Relationship Filter -->
-                    <div class="form-group col-md-2  input-field dropdown">
-
-                        <select id="relationshipFilter" name="relationship">
-                            <option value="all" <%=filters.relationship==='all' ? 'selected' : '' %>>All Relationships
-                            </option>
-                            <option value="Single" <%=filters.relationship==='single' ? 'selected' : '' %>>Single
-                            </option>
-                            <option value="In a relationship" <%=filters.relationship==='In a relationship' ? 'selected'
-                                : '' %>>In a
-                                relationship</option>
-                            <option value="Married" <%=filters.relationship==='Married' ? 'selected' : '' %>>Married
-                            </option>
-                            <option value="Divorced" <%=filters.relationship==='Divorced' ? 'selected' : '' %>>Divorced
-                            </option>
-                            <!-- Add more relationship options as needed -->
-                        </select>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="submit" name="submit" id="" value="Apply Filter" class="btn btn-blue btn-sm">
-                    </div>
-                </div>
-
-
-
-            </form>
-            <form method="post" action="/clear-filters">
-                <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters">
-
-            </form>
-
-            <div class="btn-group">
-                <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-export"></span> Export
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'json', escape:'false'});">JSON</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'xml', escape:'false'});">XML</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'png', escape:'false'});">PNG</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'csv', escape:'false'});">CSV</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'txt', escape:'false'});">TXT</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'sql', escape:'false'});">SQL</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'doc', escape:'false'});">MS-Word</a>
-                    </li>
-                    <li><a href="#"
-                            onClick="$('#results-table').tableExport({type:'excel', escape:'false'});">Ms-Excel</a></li>
-                    <li><a href="#"
-                            onClick="$('#results-table').tableExport({type:'ppt', escape:'false'});">Ms-Powerpoint</a>
-                    </li>
-                    <li><a href="#" onClick="$('#results-table').tableExport({type:'pdf', escape:'false'});">PDF</a>
-                    </li>
-                </ul>
+                </form>
             </div>
 
+            <div class="results-button-wrapper">
+                <div class="filterButton">
+                    <button id="filter-button" onclick="showFilters()" aria-label="Show Filters"
+                        class="nds-btn filters-btn  css-m6to1p css-b92biz ex41m6f0 btn-secondary-dark btn btn-blue"
+                        type="submit" aria-controls="left-nav" aria-describedby="Men's-Shoes-&amp;-Sneakers"
+                        aria-expanded="false"><span class="filters-btn__filter_text">Filter</span><svg
+                            aria-hidden="true" class="icon-filter-ds" focusable="false" viewBox="0 0 24 24" role="img"
+                            width="24px" height="24px" fill="none">
+                            <path stroke="currentColor" stroke-width="1.5" d="M21 8.25H10m-5.25 0H3"></path>
+                            <path stroke="currentColor" stroke-width="1.5"
+                                d="M7.5 6v0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clip-rule="evenodd"></path>
+                            <path stroke="currentColor" stroke-width="1.5" d="M3 15.75h10.75m5 0H21"></path>
+                            <path stroke="currentColor" stroke-width="1.5"
+                                d="M16.5 13.5v0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ripple"></span></button>
+                </div>
+
+                <form method="post" action="/clear-filters">
+                    <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters">
+                </form>
+
+
+                <div class="">
+                    <button type="button" class="btn" id="export-button" data-toggle="dropdown">
+                        Export <span id="export-span"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"
+                                onClick="$('#results-table').tableExport({type:'json', escape:'false'});">JSON</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'xml', escape:'false'});">XML</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'png', escape:'false'});">PNG</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'csv', escape:'false'});">CSV</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'txt', escape:'false'});">TXT</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'sql', escape:'false'});">SQL</a>
+                        </li>
+                        <li><a href="#"
+                                onClick="$('#results-table').tableExport({type:'doc', escape:'false'});">MS-Word</a>
+                        </li>
+                        <li><a href="#"
+                                onClick="$('#results-table').tableExport({type:'excel', escape:'false'});">Ms-Excel</a>
+                        </li>
+                        <li><a href="#"
+                                onClick="$('#results-table').tableExport({type:'ppt', escape:'false'});">Ms-Powerpoint</a>
+                        </li>
+                        <li><a href="#" onClick="$('#results-table').tableExport({type:'pdf', escape:'false'});">PDF</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <table class="table-style" id="results-table">
 
                 <thead>
@@ -451,10 +462,14 @@
     </script>
 
     <script>
-        window.onbeforeunload = function () {
-            // Append a refresh query parameter on page unload (refresh)
-            window.location.href = window.location.pathname + '?refresh=true';
-        };
+        function showFilters() {
+            var filters = document.getElementById("filters-wrapper");
+            if (filters.style.display === "none") {
+                filters.style.display = "block";
+            } else {
+                filters.style.display = "none";
+            }
+        }
     </script>
 
 
