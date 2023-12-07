@@ -183,6 +183,7 @@
         /* Darker shade of primary theme color for border */
     }
 }
+
 .search-bar {
     margin-bottom: 20px;
 }
@@ -192,3 +193,28 @@
     width: 200px;
 }
 
+.form-row {
+    margin: auto;
+    width: 90%;
+
+}
+
+.form-group {
+    box-sizing: border-box;
+    padding-right: 35px;
+    flex: 0 0 25%;
+    max-width: 100%;
+    align-items: flex-start;
+    margin-right: 35px;
+    border: none;
+}
+
+.form-group select,
+option {
+    width: 100%;
+    padding-right: 20px;
+}
+
+.dropdown-toggle {
+    display: none;
+}

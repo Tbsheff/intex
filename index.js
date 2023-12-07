@@ -53,6 +53,22 @@ function isAdmin(req, res, next) {
     res.redirect('/login');
 }
 
+function getDistinctSurveyIds() {
+    return knex.raw("SELECT DISTINCT survey_id FROM survey ORDER BY survey_id;")
+        .then(surveys => {
+            console.log("survey rows: ", surveys.rows);
+            return surveys.rows;
+        })
+        .catch(error => {
+            console.error(error);
+            // Handle the error
+        });
+}
+
+
+
+
+
 // app.get("/results", isAuthenticated, (req, res) => {
 //     let filters = req.session.filters || {};
 //     console.log("filters:" + filters);
@@ -79,76 +95,91 @@ function isAdmin(req, res, next) {
 // }
 // );
 
-app.get("/results", isAuthenticated, (req, res) => {
-    console.log(req.body);
-    let filters = req.session.filters || {};
-    console.log("filters:", filters);
-    let query = knex.select(
-        '*'
-    )
-        .from('survey as s')
-        .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-        .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id');
+app.get("/results", isAuthenticated, async (req, res) => {
+    try {
+        console.log(req.body);
+        let filters = req.session.filters || {};
+        if (req.query.refresh) {
+            req.session.filters = {};
+        }
 
-    // Filter by Month (if applicable)
-    if (filters.month && filters.month !== 'all') {
-        query.whereRaw('EXTRACT(MONTH FROM s.time_stamp) = ?', [filters.month]);
-    }
+        let surveys = await getDistinctSurveyIds();
+        console.log("Survey Ids: ", surveys);
+        console.log("filters:", filters);
+        let query = knex.select(
+            '*'
+        )
+            .from('survey as s')
+            .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
+            .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+            .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id');
 
-    // Filter by Day (if applicable)
-    if (filters.day && filters.day !== 'all') {
-        query.whereRaw('EXTRACT(DAY FROM s.time_stamp) = ?', [filters.day]);
-    }
+        // Filter by Month (if applicable)
+        if (filters.month && filters.month !== 'all') {
+            query.whereRaw('EXTRACT(MONTH FROM s.time_stamp) = ?', [filters.month]);
+        }
 
-    // Filter by Year (if applicable)
-    if (filters.year && filters.year !== 'all') {
-        query.whereRaw('EXTRACT(YEAR FROM s.time_stamp) = ?', [filters.year]);
-    }
+        // Filter by Day (if applicable)
+        if (filters.day && filters.day !== 'all') {
+            query.whereRaw('EXTRACT(DAY FROM s.time_stamp) = ?', [filters.day]);
+        }
 
-    // Location filter
-    if (filters.location && filters.location !== 'all') {
-        query.where('s.location', filters.location);
-    }
+        // Filter by survey_id
+        if (filters.survey_id && filters.survey_id !== 'all') {
+            query.where('s.survey_id', filters.survey_id);
+        }
 
-    // Occupation filter
-    if (filters.occupation && filters.occupation !== 'all') {
-        query.where('o.occupation_description', filters.occupation);
-    }
+        // Filter by Year (if applicable)
+        if (filters.year && filters.year !== 'all') {
+            query.whereRaw('EXTRACT(YEAR FROM s.time_stamp) = ?', [filters.year]);
+        }
 
-    // Relationship filter
-    if (filters.relationship && filters.relationship !== 'all') {
-        query.where('rs.relationship_status_description', filters.relationship);
-    }
+        // Location filter
+        if (filters.location && filters.location !== 'all') {
+            query.where('s.location', filters.location);
+        }
 
-    // Filter by Gender (if applicable)
-    if (filters.gender && filters.gender !== 'all') {
+        // Occupation filter
+        if (filters.occupation && filters.occupation !== 'all') {
+            query.where('o.occupation_description', filters.occupation);
+        }
 
-        query.where('g.gender_description', filters.gender);
-    }
+        // Relationship filter
+        if (filters.relationship && filters.relationship !== 'all') {
+            query.where('rs.relationship_status_description', filters.relationship);
+        }
 
-    // Additional filters for location, relationship, and occupation...
+        // Filter by Gender (if applicable)
+        if (filters.gender && filters.gender !== 'all') {
+            query.where('g.gender_description', filters.gender);
+        }
 
-    // Execute the query
-    query.then(rows => {
-        let formattedRows = rows.map(row => {
-            return {
-                ...row,
-                formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
-            };
-        });
-        return formattedRows;
-    })
-        .then(users => {
-            res.render('results', {
-                surveyresults: users,
-                user: req.session.user,
-                filters: filters
+
+        // Additional filters for location, relationship, and occupation...
+
+        // Execute the query
+        query.then(rows => {
+            let formattedRows = rows.map(row => {
+                return {
+                    ...row,
+                    formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+                };
+            });
+            return formattedRows;
+        })
+            .then(users => {
+                console.log("final check: ", surveys);
+                res.render('results', {
+                    surveyresults: users,
+                    user: req.session.user,
+                    filters: filters,
+                    surveys: surveys
+                })
             })
-        }).catch(error => {
-            console.error(error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
@@ -278,42 +309,6 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
-
-// app.post("/results", (req, res) => {
-//     console.log(req.body);
-//     let genderArray = req.body.gender;
-
-//     // Check if genderArray is a string and contains commas
-//     if (typeof genderArray === 'string' && genderArray.includes(',')) {
-//         // Split the string into an array
-//         genderArray = genderArray.split(',');
-//     }
-//     console.log(genderArray);
-//     knex.select(
-//         's.survey_id',
-//         's.time_stamp',
-//         'g.gender_description',
-//         's.age',
-//         's.location',
-//         'rs.relationship_status_description',
-//         'o.occupation_description'
-//     )
-//         .from('survey as s')
-//         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-//         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-//         .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-//         .whereIn('g.gender_description', genderArray)
-
-//         // Corrected where clause
-//         .then(users => {
-//             console.log(users)
-//             res.render("results", { surveyresults: users, user: req.session.user });  // Corrected variable name to users
-//         })
-//         .catch(error => {
-//             console.error(error);  // Log any errors that occur
-//             res.status(500).json({ error: 'Internal Server Error' });  // Sending an error response
-//         });
-// });
 
 app.post('/results', (req, res) => {
     console.log(req.body);
