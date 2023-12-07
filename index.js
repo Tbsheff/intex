@@ -254,7 +254,9 @@ app.get("/respond", (req, res) => {
 );
 
 app.get("/login", (req, res) => {
-    let error = req.query.error; // Extract the error message from query parameter
+    let error = req.session.error; // Retrieve error from session
+    req.session.error = null; // Clear error message from session
+
     res.render("login", { req: req, user: req.session.user, error: error });
 }
 );
@@ -296,8 +298,8 @@ app.post("/login", (req, res) => {
                     // Passwords do not match
                     // let error = "noMatch";
                     // res.render("login", { req: req, user: req.session.user, error: error });
-
-                    res.redirect('/login?error=noMatch');
+                    req.session.error = 'noMatch'
+                    res.redirect('/login');
                 }
             });
         })
