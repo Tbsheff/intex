@@ -381,3 +381,8 @@ body {
     top: -2rem;
     left: 3rem;
 }
+
+#subBtn:active,
+#subBtn:focus {
+    color: white;
+}

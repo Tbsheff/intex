@@ -477,6 +477,7 @@ app.post("/survey", (req, res) => {
                 iCount++;
             };
             iCount = 1;
+            if(socialMediaPlatforms.length)
             for (const platform of socialMediaPlatforms) {
                 await trx('social_media').insert({
                     survey_id: surveyId[0].survey_id,
@@ -609,8 +610,11 @@ app.post("/modify-user", (req, res) => {
 });
 
 app.post("/delete-user/:id", (req, res) => {
-    knex("user_table").where("user_id", req.params.id).del()
-    .then(mydeletedrecord => {
+    knex.select("*")
+        .from("user_table as ut")
+        .join("security_table as st", "st.user_id", "ut.user_id")
+        .where("st.user_id", "=", req.params.id).del()
+        .then(mydeletedrecord => {
         res.redirect("/");
     }).catch(err => {
         console.log(err);
