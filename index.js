@@ -608,7 +608,7 @@ app.post("/modify-user", (req, res) => {
 
 });
 
-app.post("/delete-user/:id", (req, res) => {
+app.post("/delete-user/:delete-user-id", (req, res) => {
     knex("user_table").where("user_id", req.params.id).del().then(mydeletedrecord => {
         res.redirect("/");
     }).catch(err => {

@@ -134,10 +134,14 @@
                     <h2>Social Media and Mental Health</h2>
                     <div class="dropdown-wrapper">
                         <div class="input-field age-wrapper">
-                            <input type="number" name="age" class="form-control age-select" placeholder="Your Age">
+                            <div>
+                                <div class="error-message2" id="age-error"></div>
+                                <input type="number" name="age" class="form-control age-select" placeholder="Your Age">
+                            </div>
                         </div>
 
                         <div class="input-field dropdown">
+                            <div class="error-message2" id="gender-error"></div>
                             <select name="gender" id="gender" required>
                                 <option value="">Select Your Gender</option>
                                 <option value="Male">Male</option>
@@ -150,7 +154,7 @@
                         </div>
 
                         <div class="input-field dropdown">
-
+                            <div class="error-message2" id="relationship-type-error"></div>
                             <select name="relationship_status" id="relationship_status" required>
                                 <option value="">Select Your Relationship Status</option>
                                 <option value="In a relationship">In a Relationship</option>
@@ -161,6 +165,8 @@
                         </div>
 
                         <div class="input-field dropdown">
+                            <div class="error-message2" id="occupation-type-error"></div>
+
                             <select name="occupation" id="occupation" required>
                                 <option value="">Select Your Occupation</option>
                                 <option value="Salaried Worker">Salaried Worker</option>
@@ -175,6 +181,8 @@
 
                     <label for="" class="rating-title" id="orgTitle">What type of organizations are you affiliated with?
                     </label>
+                    <div class="error-message" id="organization-type-error"></div>
+
                     <div class="checkbox-container">
                         <div class="input-field">
                             <label><input type="checkbox" name="organization_type" value="Company" required> Public
@@ -200,6 +208,7 @@
 
                     <label for="" class="rating-title" id="socialTitle">Do you use social media?
                     </label>
+                    <div class="error-message" id="social-media-use-error"></div>
 
                     <div class="question-container">
                         <div class="social-use">
@@ -215,9 +224,9 @@
                     <label for="" class="rating-title" id="social_media_title">What social media platforms do you
                         commonly use?
                     </label>
+                    <div class="error-message" id="social-media-platforms-error"></div>
 
                     <div class="checkbox-container" id="social-media-checkbox-container">
-
                         <div class="input-field">
                             <label><input type="checkbox" name="social_media" value="Instagram" required>
                                 Instagram</label>
@@ -251,6 +260,7 @@
                     <label for="" class="rating-title" id="time_spent_social_media_title">How much time do you commonly
                         spend on social
                         media per day?</label>
+                    <div class="error-message" id="social-media-time-error"></div>
 
                     <div class="checkbox-container" id="time-spent-social-media-checkbox-container">
                         <div class="input-field">
@@ -292,6 +302,8 @@
                         media without a
                         specific purpose?
                     </label>
+                    <div class="error-message" id="rating-error"></div>
+
                     <div class="rating-container">
                         <label class="end-label left" for="rating">Rarely</label>
                         <div class="rating-scale">
@@ -312,10 +324,11 @@
                     <label for="" class="rating-title">On a scale of 1 to 5, how often do you get distracted by Social
                         Media when you are busy
                         doing something?
-
                     </label>
+                    <div class="error-message" id="distracted-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Rarely</label>
+
                         <div class="rating-scale">
                             <input type="radio" class="tick1" name="distracted" value="1" id="distracted1" required>
                             <label for="distracted1">1</label>
@@ -334,7 +347,9 @@
 
                     <label for="" class="rating-title">Do you feel restless if you haven't used Social media in a while?
                     </label>
+                    <div class="error-message" id="restless-error"></div>
                     <div class="rating-container">
+
                         <label class="end-label left">Strongly Disagree</label>
                         <div class="rating-scale">
                             <input type="radio" class="tick1" name="restless" value="1" id="restless1" required>
@@ -353,6 +368,7 @@
 
                     <label for="" class="rating-title">On a scale of 1 to 5, how easily distracted are you?
                     </label>
+                    <div class="error-message" id="easy-distracted-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Not at all</label>
                         <div class="rating-scale">
@@ -375,6 +391,7 @@
                     <!-- Question 13 -->
                     <label for="" class="rating-title">On a scale of 1 to 5, how much are you bothered by
                         worries?</label>
+                    <div class="error-message" id="worries-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Not at all</label>
                         <div class="rating-scale">
@@ -395,6 +412,7 @@
                     <!-- Question 14 -->
                     <label for="" class="rating-title">On a scale of 1 to 5, how difficult do you find it to concentrate
                         on things?</label>
+                    <div class="error-message" id="concentration-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Not at all</label>
                         <div class="rating-scale">
@@ -417,6 +435,7 @@
                     <label for="" class="rating-title">On a scale of 1-5, how often do you compare yourself to other
                         successful people
                         through the use of social media?</label>
+                    <div class="error-message" id="comparison-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Never</label>
                         <div class="rating-scale">
@@ -439,6 +458,7 @@
                     <label for="" class="rating-title">Following the previous question, how do you feel about these
                         comparisons, generally
                         speaking?</label>
+                    <div class="error-message" id="feelings-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Extremely Negative</label>
                         <div class="rating-scale">
@@ -460,6 +480,7 @@
                     <label for="" class="rating-title">On a scale of 1 to 5, how often do you look to seek validation
                         from features of social
                         media?</label>
+                    <div class="error-message" id="validation-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Never</label>
                         <div class="rating-scale">
@@ -480,6 +501,7 @@
                     <!-- Question 18 -->
                     <label for="" class="rating-title">On a scale of 1 to 5, how often do you feel depressed or
                         down?</label>
+                    <div class="error-message" id="depression-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Never</label>
                         <div class="rating-scale">
@@ -501,6 +523,7 @@
                     <label for="" class="rating-title">On a scale of 1 to 5, how frequently does your interest in daily
                         activities
                         fluctuate?</label>
+                    <div class="error-message" id="fluctuation-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Not at all</label>
                         <div class="rating-scale">
@@ -526,6 +549,7 @@
                     <!-- Question 20 -->
                     <label for="" class="rating-title">On a scale of 1 to 5, how often do you face issues regarding
                         sleep?</label>
+                    <div class="error-message" id="sleepIssues-error"></div>
                     <div class="rating-container">
                         <label class="end-label left">Never</label>
                         <div class="rating-scale">
@@ -619,89 +643,97 @@
 
     <script>
         document.querySelector('.survey').addEventListener('submit', function (event) {
-            let errorMessage = '';
             let isValid = true;
 
-            // Check if age is entered (assuming age is required)
-            if (document.querySelector('.age-select').value === '') {
-                errorMessage += 'Please enter your age.<br>';
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(function (element) {
+                element.textContent = '';
+            });
+
+            // Validate Age
+            const age = document.querySelector('.age-select');
+            if (!age.value.trim()) {
+                document.getElementById('age-error').textContent = 'Please enter your age.';
                 isValid = false;
             }
 
-            // Check if gender is selected
-            if (document.getElementById('gender').value === '') {
-                errorMessage += 'Please select your gender.<br>';
+            // Validate Gender
+            const gender = document.getElementById('gender');
+            if (!gender.value.trim()) {
+                document.getElementById('gender-error').textContent = 'Please select your gender.';
                 isValid = false;
             }
 
-            // Check if relationship status is selected
-            if (document.getElementById('relationship_status').value === '') {
-                errorMessage += 'Please select your relationship status.<br>';
+            // Validate Relationship Status
+            const relationshipStatus = document.getElementById('relationship_status');
+            if (!relationshipStatus.value.trim()) {
+                document.getElementById('relationship-type-error').textContent = 'Please select your relationship status.';
                 isValid = false;
             }
 
-            // Check if occupation is selected
-            if (document.getElementById('occupation').value === '') {
-                errorMessage += 'Please select your occupation.<br>';
+            // Validate Occupation
+            const occupation = document.getElementById('occupation');
+            if (!occupation.value.trim()) {
+                document.getElementById('occupation-type-error').textContent = 'Please select your occupation.';
                 isValid = false;
             }
 
-            // Check if at least one organization type is selected
+            // Validate Organization Type
             if (![...document.querySelectorAll('[name="organization_type"]:checked')].length) {
-                errorMessage += 'Please select at least one organization type.<br>';
+                document.getElementById('organization-type-error').textContent = 'Please select at least one organization type.';
                 isValid = false;
             }
 
-            // Check if social media use is selected
+            // Validate Social Media Use
             if (![...document.querySelectorAll('[name="social_media_use"]:checked')].length) {
-                errorMessage += 'Please indicate if you use social media.<br>';
+                document.getElementById('social-media-use-error').textContent = 'Please indicate if you use social media.';
                 isValid = false;
             }
 
-            // Check if at least one social media platform is selected (if social media is used)
+            // Validate Social Media Platforms
             const socialMediaUsed = document.getElementById('social_yes').checked;
             if (socialMediaUsed && ![...document.querySelectorAll('[name="social_media"]:checked')].length) {
-                errorMessage += 'Please select at least one social media platform.<br>';
+                document.getElementById('social-media-platforms-error').textContent = 'Please select at least one social media platform.';
                 isValid = false;
             }
 
-            // Check if time spent on social media is selected
+            // Validate Time Spent on Social Media
             if (![...document.querySelectorAll('[name="time_spent_social_media"]:checked')].length) {
-                errorMessage += 'Please indicate how much time you spend on social media.<br>';
+                document.getElementById('social-media-time-error').textContent = 'Please indicate how much time you spend on social media.';
                 isValid = false;
             }
 
-            // Add similar checks for all the radio groups for questions
-            // Replace 'rating', 'distracted', etc., with the correct names of your radio groups
-            const questions = {
-                'rating': 'On a scale of 1 to 5, how often do you find yourself using social media without a specific purpose?',
-                'distracted': 'On a scale of 1 to 5, how often do you get distracted by social media when you are busy doing something?',
-                'restless': 'Do you feel restless if you haven’t used social media in a while?',
-                'easydistracted': 'On a scale of 1 to 5, how easily distracted are you?',
-                'worries': 'On a scale of 1 to 5, how much are you bothered by worries?',
-                'concentration': 'On a scale of 1 to 5, how difficult do you find it to concentrate on things?',
-                'comparison': 'On a scale of 1-5, how often do you compare yourself to other successful people through the use of social media?',
-                'feelings': 'Following the previous question, how do you feel about these comparisons, generally speaking?',
-                'validation': 'On a scale of 1 to 5, how often do you look to seek validation from features of social media?',
-                'depression': 'On a scale of 1 to 5, how often do you feel depressed or down?',
-                'interestFluctuation': 'On a scale of 1 to 5, how frequently does your interest in daily activities fluctuate?',
-                'sleepIssues': 'On a scale of 1 to 5, how often do you face issues regarding sleep?'
+            // Validate each rating scale question
+            const ratingQuestions = {
+                'rating': 'rating-error',
+                'distracted': 'distracted-error',
+                'restless': 'restless-error',
+                'easydistracted': 'easy-distracted-error',
+                'worries': 'worries-error',
+                'concentration': 'concentration-error',
+                'comparison': 'comparison-error',
+                'feelings': 'feelings-error',
+                'validation': 'validation-error',
+                'depression': 'depression-error',
+                'interestFluctuation': 'fluctuation-error',
+                'sleepIssues': 'sleepIssues-error'
             };
 
-            Object.keys(questions).forEach(function (group) {
-                if (![...document.querySelectorAll(`[name="${group}"]:checked`)].length) {
-                    errorMessage += `Please answer the question: "${questions[group]}"<br>`;
+            Object.keys(ratingQuestions).forEach(function (question) {
+                if (![...document.querySelectorAll(`[name="${question}"]:checked`)].length) {
+                    document.getElementById(ratingQuestions[question]).textContent = 'Please answer this question.';
                     isValid = false;
                 }
             });
 
-            // Display error message or submit form
+            // Prevent form submission if validation fails
             if (!isValid) {
-                event.preventDefault(); // Stop form submission
-                document.getElementById('error-messages').innerHTML = errorMessage;
-                document.getElementById('error-messages').style.display = 'block';
+                event.preventDefault();
+                // Scroll to top to show the first error
+                window.scrollTo(0, 0);
             }
         });
+
     </script>
 
 

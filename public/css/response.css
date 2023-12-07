@@ -364,3 +364,20 @@ body {
 #hiddenMessage {
     display: none;
 }
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    position: relative;
+    /* Adjust as needed */
+}
+
+.error-message2 {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    position: absolute;
+    top: -2rem;
+    left: 3rem;
+}
