@@ -109,7 +109,7 @@
     width: 90%;
     margin: auto;
     margin-top: 2rem;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 2fr;
     font-family: 'Arial', sans-serif;
     margin-bottom: 2rem;
 }
