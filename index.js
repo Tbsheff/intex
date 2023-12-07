@@ -608,13 +608,13 @@ app.post("/modify-user", (req, res) => {
 
 });
 
-app.post("/delete-user/:delete-user-id", (req, res) => {
-    knex("user_table").where("user_id", req.params.id).del().then(mydeletedrecord => {
+app.post("/delete-user/:user-id", (req, res) => {
+    knex("user_table").where("user_id", req.params['user-id']).del().then(mydeletedrecord => {
         res.redirect("/");
     }).catch(err => {
         console.log(err);
         res.status(500).json({err});
-    })
+    });
 });
 
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
