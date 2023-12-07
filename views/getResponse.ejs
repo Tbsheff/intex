@@ -44,54 +44,7 @@
 
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
-    <script>
-        function validateForm() {
-            // Organization Type validation
-            var orgCheckboxes = document.getElementsByName('organization_type');
-            if (!hasChecked(orgCheckboxes)) {
-                showErrorMessage('Please select at least one organization type.');
-                return false;
-            }
-    
-            // Social Media Usage validation
-            var socialRadioButtons = document.getElementsByName('social_media_use');
-            if (!hasChecked(socialRadioButtons)) {
-                showErrorMessage('Please indicate whether you use social media.');
-                return false;
-            }
-    
-            // Social Media Platforms validation
-            var socialMediaCheckboxes = document.getElementsByName('social_media');
-            if (!hasChecked(socialMediaCheckboxes)) {
-                showErrorMessage('Please select at least one social media platform.');
-                return false;
-            }
-    
-            // Time Spent on Social Media validation
-            var timeSpentRadioButtons = document.getElementsByName('time_spent_social_media');
-            if (!hasChecked(timeSpentRadioButtons)) {
-                showErrorMessage('Please select the amount of time you spend on social media.');
-                return false;
-            }
-    
-            // If all validations pass, clear error message and allow form submission
-            showErrorMessage('');
-            return true;
-        }
-    
-        function hasChecked(elements) {
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].checked) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    
-        function showErrorMessage(message) {
-            document.getElementById('errorMessage').innerText = message;
-        }
-    </script>
+
 
 </head>
 
@@ -220,100 +173,118 @@
                     </div>
 
                     
-                    <form id="surveyForm" onsubmit="return validateForm()">
-                        <!-- Organization Type -->
-                        <label for="" class="rating-title" id="orgTitle">What type of organizations are you affiliated with?</label>
-                    
-                        <div class="checkbox-container">
-                            <div class="input-field">
-                                <label><input type="checkbox" name="organization_type" value="Company"> Public Company</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="organization_type" value="Government"> Government</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="organization_type" value="Private"> Private Company</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="organization_type" value="School"> School</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="organization_type" value="University"> University</label>
-                            </div>
+                    <label for="" class="rating-title" id="orgTitle">What type of organizations are you affiliated with?
+                    </label>
+
+                    <div class="checkbox-container">
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Company"> Public
+                                Company</label>
                         </div>
-                    
-                        <!-- Social Media Usage -->
-                        <label for="" class="rating-title" id="socialTitle">Do you use social media?</label>
-                    
-                        <div class="question-container">
-                            <div class="social-use">
-                                <label><input type="radio" name="social_media_use" value="true" id="social_yes" onclick="makeVisible()"> Yes</label>
-                            </div>
-                            <div class="social-use">
-                                <label><input type="radio" name="social_media_use" value="false" onclick="makeInvisible()"> No</label>
-                            </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Government">
+                                Government</label>
                         </div>
-                    
-                        <!-- Social Media Platforms -->
-                        <label for="" class="rating-title" id="social_media_title">What social media platforms do you commonly use?</label>
-                    
-                        <div class="checkbox-container" id="social-media-checkbox-container">
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Instagram"> Instagram</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="YouTube"> YouTube</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Twitter"> Twitter</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="TikTok"> TikTok</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Discord"> Discord</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Pinterest"> Pinterest</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Reddit"> Reddit</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Facebook"> Facebook</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="checkbox" name="social_media" value="Snapchat"> Snapchat</label>
-                            </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="Private"> Private
+                                Company</label>
                         </div>
-                    
-                        <!-- Time Spent on Social Media -->
-                        <label for="" class="rating-title" id="time_spent_social_media_title">How much time do you commonly spend on social media per day?</label>
-                    
-                        <div class="checkbox-container" id="time-spent-social-media-checkbox-container">
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="Less than an Hour"> Less than an Hour</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="Between 1 and 2 hours"> Between 1 and 2 hours</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="Between 2 and 3 hours"> Between 2 and 3 hours</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="Between 3 and 4 hours"> Between 3 and 4 hours</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="Between 4 and 5 hours"> Between 4 and 5 hours</label>
-                            </div>
-                            <div class="input-field">
-                                <label><input type="radio" name="time_spent_social_media" value="More than 5 hours"> More than 5 hours</label>
-                            </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="School"> School</label>
                         </div>
-                    
-                        <p id="errorMessage" class="error-message"></p>
-                    
-                    </form>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="organization_type" value="University">
+                                University</label>
+                        </div>
+                    </div>
+
+                    <label for="" class="rating-title" id="socialTitle">Do you use social media?
+                    </label>
+
+                    <div class="question-container">
+                        <div class="social-use">
+                            <label><input type="radio" name="social_media_use" value="true" id="social_yes"
+                                    onclick="makeVisible()"> Yes</label>
+                        </div>
+                        <div class="social-use">
+                            <label><input type="radio" name="social_media_use" value="false" onclick="makeInvisible()">
+                                No</label>
+                        </div>
+                    </div>
+
+                    <label for="" class="rating-title" id="social_media_title">What social media platforms do you
+                        commonly use?
+                    </label>
+
+                    <div class="checkbox-container" id="social-media-checkbox-container">
+
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Instagram"> Instagram</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="YouTube"> YouTube</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Twitter"> Twitter</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="TikTok"> TikTok</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Discord"> Discord</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Pinterest"> Pinterest</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Reddit"> Reddit</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Facebook"> Facebook</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="checkbox" name="social_media" value="Snapchat"> Snapchat</label>
+                        </div>
+                    </div>
+
+                    <label for="" class="rating-title" id="time_spent_social_media_title">How much time do you commonly
+                        spend on social
+                        media per day?</label>
+
+                    <div class="checkbox-container" id="time-spent-social-media-checkbox-container">
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Less than an Hour"> Less
+                                than an
+                                Hour</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 1 and 2 hours">
+                                Between 1 and 2
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 2 and 3 hours">
+                                Between 2 and 3
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 3 and 4 hours">
+                                Between 3 and 4
+                                hours</label>
+                        </div>
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="Between 4 and 5 hours">
+                                Between 4 and 5
+                                hours</label>
+                        </div>
+
+                        <div class="input-field">
+                            <label><input type="radio" name="time_spent_social_media" value="More than 5 hours"> More
+                                than 5
+                                hours</label>
+                        </div>
+
+                    </div>
 
                     <label for="" class="rating-title">On a scale of 1 to 5, how often do you find yourself using Social
                         media without a
