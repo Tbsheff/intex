@@ -256,9 +256,11 @@
             </form>
 
             <div class="btn-group">
-                <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-export"></span> Export
-                </button>
+                <div class="button-container">
+                    <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-export"></span> Export
+                    </button>
+                </div>
                 <ul class="dropdown-menu">
                     <li><a href="#" onClick="$('#results-table').tableExport({type:'json', escape:'false'});">JSON</a>
                     </li>

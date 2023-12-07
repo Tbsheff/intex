@@ -53,31 +53,103 @@ function isAdmin(req, res, next) {
     res.redirect('/login');
 }
 
+// app.get("/results", isAuthenticated, (req, res) => {
+//     let filters = req.session.filters || {};
+//     console.log("filters:" + filters);
+//     knex.select(
+//         '*'
+//     )
+//         .from('survey as s')
+//         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
+//         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
+//         .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
+//         .then(rows => {
+//             let formattedRows = rows.map(row => {
+//                 return {
+//                     ...row,
+//                     formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+//                 };
+//             });
+//             return formattedRows;
+//         })
+//         .then(results => {
+//             // console.log(results);
+//             res.render("results", { surveyresults: results, user: req.session.user, filters: filters });
+//         })
+// }
+// );
+
 app.get("/results", isAuthenticated, (req, res) => {
+    console.log(req.body);
     let filters = req.session.filters || {};
-    console.log(filters);
-    knex.select(
+    console.log("filters:" + filters);
+    let query = knex.select(
         '*'
     )
         .from('survey as s')
         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-        .then(rows => {
-            let formattedRows = rows.map(row => {
-                return {
-                    ...row,
-                    formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
-                };
-            });
-            return formattedRows;
-        })
-        .then(results => {
-            // console.log(results);
-            res.render("results", { surveyresults: results, user: req.session.user, filters: filters });
-        })
-}
-);
+        .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id');
+
+    // Filter by Month (if applicable)
+    if (req.body.month && req.body.month !== 'all') {
+        query.whereRaw('EXTRACT(MONTH FROM s.time_stamp) = ?', [req.body.month]);
+    }
+
+    // Filter by Day (if applicable)
+    if (req.body.day && req.body.day !== 'all') {
+        query.whereRaw('EXTRACT(DAY FROM s.time_stamp) = ?', [req.body.day]);
+    }
+
+    // Filter by Year (if applicable)
+    if (req.body.year && req.body.year !== 'all') {
+        query.whereRaw('EXTRACT(YEAR FROM s.time_stamp) = ?', [req.body.year]);
+    }
+
+    // Location filter
+    if (req.body.location && req.body.location !== 'all') {
+        query.where('s.location', req.body.location);
+    }
+
+    // Occupation filter
+    if (req.body.occupation && req.body.occupation !== 'all') {
+        query.where('o.occupation_description', req.body.occupation);
+    }
+
+    // Relationship filter
+    if (req.body.relationship && req.body.relationship !== 'all') {
+        query.where('rs.relationship_status_description', req.body.relationship);
+    }
+
+    // Filter by Gender (if applicable)
+    if (req.body.gender && req.body.gender !== 'all') {
+
+        query.where('g.gender_description', req.body.gender);
+    }
+
+    // Additional filters for location, relationship, and occupation...
+
+    // Execute the query
+    query.then(rows => {
+        let formattedRows = rows.map(row => {
+            return {
+                ...row,
+                formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+            };
+        });
+        return formattedRows;
+    })
+        .then(users => {
+            res.render('results', {
+                surveyresults: users,
+                user: req.session.user,
+                filters: req.body // Pass the filter values back to the template
+            })
+        }).catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        });
+});
 
 app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
     knex.select(
