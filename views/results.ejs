@@ -274,9 +274,9 @@
                 <button onclick="search()">Search</button>
             </div>
 
-            <div class="filters">
+            <form class="filters" method="post" action="/results">
                 <div>
-                    <select id="monthFilter" onchange="filterResults()">
+                    <select id="monthFilter" name="month" onchange="filterResults()">
                         <option value="" disabled selected>Select a Month</option>
                         <option value="all">All Months</option>
                         <option value="01">January</option>
@@ -295,9 +295,9 @@
                     </select>
                 </div>
                 <div>
-                    <select id="dayFilter" onchange="filterResults()">
-                        <option value="" disabled selected>Select a Day</option>
-                        <option value="all">All</option>
+                    <select id="dayFilter" name="day" onchange="filterResults()">
+                        <option value="" disabled selected>Select a Date</option>
+                        <option value="all">All dates</option>
                         <option value="01">1</option>
                         <option value="02">2</option>
                         <option value="03">3</option>
@@ -334,7 +334,7 @@
                 </div>
 
                 <div>
-                    <select id="yearFilter" onchange="filterResults()">
+                    <select id="yearFilter" name="year" onchange="filterResults()">
                         <option value="" disabled selected>Select a Year</option>
                         <option value="all">All</option>
                         <option value="2023">2023</option>
@@ -344,48 +344,56 @@
                 </div>
 
                 <div>
-                    <select id="genderFilter" onchange="filterResults()">
+                    <select id="genderFilter" name="gender" onchange="filterResults()">
                         <option value="all">All</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="non-binary">Non-binary</option>
-                        <option value="trans">Trans</option>
-                        <option value="other">Other</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Non-binary">Non-binary</option>
+                        <option value="Trans">Trans</option>
+                        <option value="Other">Other</option>
                         <!-- Add more gender options as needed -->
                     </select>
                 </div>
 
-                <div>
-                    <select id="locationFilter" onchange="filterResults()">
-                        <option value="all">All</option>
-                        <option value="provo">Provo</option>
-                        <option value="plainsville">Plainsville</option>
-                        <!-- Add more location options as needed -->
-                    </select>
-                </div>
+                <!-- Location Filter -->
+                <select id="locationFilter" name="location">
+                    <option value="all" <%=filters.location==='all' ? 'selected' : '' %>>All</option>
+                    <option value="Provo" <%=filters.location==='Provo' ? 'selected' : '' %>>Provo</option>
+                    <option value="Plainsville" <%=filters.location==='Plainsville' ? 'selected' : '' %>>Plainsville
+                    </option>
+                    <!-- Add more location options as needed -->
+                </select>
 
-                <div>
-                    <select id="relationshipFilter" onchange="filterResults()">
-                        <option value="all">All</option>
-                        <option value="single">Single</option>
-                        <option value="in a relationship">In a relationship</option>
-                        <option value="married">Married</option>
-                        <option value="divorced">Divorced</option>
-                        <!-- Add more relationship options as needed -->
-                    </select>
-                </div>
+                <!-- Occupation Filter -->
+                <select id="occupationFilter" name="occupation">
+                    <option value="all" <%=filters.occupation==='all' ? 'selected' : '' %>>All</option>
+                    <option value="University Student" <%=filters.occupation==='University Student' ? 'selected' : '' %>
+                        >University
+                        Student</option>
+                    <option value="School Student" <%=filters.occupation==='School Student' ? 'selected' : '' %>>School
+                        Student</option>
+                    <option value="Salaried Worker" <%=filters.occupation==='Salaried Worker' ? 'selected' : '' %>
+                        >Salaried Worker</option>
+                    <option value="Retired" <%=filters.occupation==='Retired' ? 'selected' : '' %>>Retired</option>
+                    <!-- Add more occupation options as needed -->
+                </select>
 
-                <div>
-                    <select id="occupationFilter" onchange="filterResults()">
-                        <option value="all">All</option>
-                        <option value="university student">University Student</option>
-                        <option value="school student">School Student</option>
-                        <option value="salaried worker">Salaried Worker</option>
-                        <option value="retired">Retired</option>
-                        <!-- Add more occupation options as needed -->
-                    </select>
-                </div>
-            </div>
+                <!-- Relationship Filter -->
+                <select id="relationshipFilter" name="relationship">
+                    <option value="all" <%=filters.relationship==='all' ? 'selected' : '' %>>All</option>
+                    <option value="Single" <%=filters.relationship==='single' ? 'selected' : '' %>>Single</option>
+                    <option value="In a Relationship" <%=filters.relationship==='In a Relationship' ? 'selected' : '' %>
+                        >In a
+                        relationship</option>
+                    <option value="Married" <%=filters.relationship==='Married' ? 'selected' : '' %>>Married</option>
+                    <option value="Divorced" <%=filters.relationship==='Divorced' ? 'selected' : '' %>>Divorced</option>
+                    <!-- Add more relationship options as needed -->
+                </select>
+
+
+                <input type="submit" name="submit" id="" value="Apply Filters">
+            </form>
+
             <div class="btn-group">
                 <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-export"></span> Export
@@ -415,7 +423,7 @@
                 </ul>
             </div>
 
-            <a href="#" id="filterButton" class="btn btn-blue btn-sm">Filter Results</a>
+            <a href="#" id="filterButton" method="post" class="btn btn-blue btn-sm">Filter Results</a>
 
             <table class="table-style" id="results-table">
 
