@@ -189,11 +189,36 @@
                                     data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
                             <td class="">
-                                <form action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST"
-                                    class="edit-td">
-                                    <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
+                                <form id="logoutAndDeleteForm" action="/logout-and-delete/<%= allAccounts[iCount].user_id %>" method="POST" class="edit-td">
+                                    <input type="submit" name="LogoutAndDelete" value="Delete" class="btn delete-btn" />
                                 </form>
-                            </td>
+                                
+                                <script>
+                                    document.getElementById('logoutAndDeleteForm').onsubmit = function (event) {
+                                        event.preventDefault(); // Prevent the default form submission
+                                
+                                        // Show a confirmation dialog
+                                        if (confirm("Are you sure you want to delete the user and logout?")) {
+                                            // Use AJAX/fetch to make an asynchronous request to /logout
+                                            fetch('/logout', {
+                                                method: 'GET', // Assuming /logout is configured to handle GET requests
+                                                credentials: 'same-origin' // Include cookies
+                                            })
+                                            .then(response => {
+                                                if (!response.ok) {
+                                                    throw new Error('Logout request failed');
+                                                }
+                                                // Handle success, e.g., redirect to another page
+                                                window.location.href = '/';
+                                            })
+                                            .catch(error => {
+                                                console.error('Logout error:', error);
+                                                // Handle error, e.g., display an error message
+                                            });
+                                        }
+                                    };
+                                </script>
+                                
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
                             <td colspan="100%">
