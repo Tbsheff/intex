@@ -71,7 +71,27 @@
 
 </head>
 
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+      $(document).ready(function () {
+        // Function to check screen size and hide/show navigation links
+        function checkWindowSize() {
+          if ($(window).width() <= 600) { // Set the desired maximum width
+            $("#nav").hide();
+          } else {
+            $("#nav").show();
+          }
+        }
+    
+        // Initial check on page load
+        checkWindowSize();
+    
+        // Re-check on window resize
+        $(window).resize(function () {
+          checkWindowSize();
+        });
+      });
+</script>
 <body id="body">
 
 
@@ -82,7 +102,7 @@
                 </div>
         </div> -->
     <!-- end preloader -->
-
+    
 
     <!--
         Fixed Navigation
