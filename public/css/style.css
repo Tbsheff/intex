@@ -6,6 +6,13 @@
   grid-template-columns: 6rem auto 6rem;
 }
 
+.horizontal-line {
+  border: none;
+  border-top: 2px solid #727272;
+  width: 100%;
+  margin: 20px;
+}
+
 .rating-title {
   margin-top: 1.5rem;
   padding-top: 1rem;
