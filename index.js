@@ -420,13 +420,9 @@ app.post("/survey", (req, res) => {
 
     let socialMediaPlatforms = req.body.social_media;
 
-    // Check if any social media platform is selected
-    if (!socialMediaPlatforms) {
-        return res.status(400).json({ error: 'No social media platform selected' });
-    }
 
     // If only one checkbox is checked, make sure it's treated as an array
-    if (!Array.isArray(socialMediaPlatforms)) {
+    if (socialMediaPlatforms && !Array.isArray(socialMediaPlatforms)) {
         socialMediaPlatforms = [socialMediaPlatforms];
     }
 
@@ -476,8 +472,9 @@ app.post("/survey", (req, res) => {
                 });
                 iCount++;
             };
-            iCount = 1;
-            if (socialMediaPlatforms.length) {
+
+            if (socialMediaPlatforms && socialMediaPlatforms.length) {
+                iCount = 1;
                 for (const platform of socialMediaPlatforms) {
                     await trx('social_media').insert({
                         survey_id: surveyId[0].survey_id,
@@ -611,17 +608,29 @@ app.post("/modify-user", (req, res) => {
 });
 
 app.post("/delete-user/:id", (req, res) => {
-    knex.select("*")
-        .from("user_table as ut")
-        .join("security_table as st", "st.user_id", "ut.user_id")
-        .where("st.user_id", "=", req.params.id).del()
-        .then(mydeletedrecord => {
-            res.redirect("/");
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({ err });
-        });
+    knex.transaction((trx) => {
+        knex("security_table")
+            .transacting(trx)
+            .where("user_id", req.params.id)
+            .del()
+            .then(() => {
+                return knex("user_table")
+                    .transacting(trx)
+                    .where("user_id", req.params.id)
+                    .del();
+            })
+            .then(trx.commit)
+            .catch(trx.rollback);
+    })
+    .then(() => {
+        res.redirect("/");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    });
 });
+
 
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
 
