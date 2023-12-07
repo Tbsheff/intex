@@ -644,7 +644,7 @@ option {
     margin: 0;
 }
 
-#filterButton {
+#filter-button {
     box-sizing: border-box;
     font-family: inherit;
     overflow: visible;
@@ -660,7 +660,12 @@ option {
     background: #0AA6BD;
     border: 1px solid #0AA6BD;
     color: #fff;
-    display: inline-block;
+    display: inline-flex;
+    /* Changed from inline-block to inline-flex */
+    align-items: center;
+    /* Ensure vertical alignment */
+    justify-content: center;
+    /* Ensure horizontal alignment */
     font-size: 14px;
     letter-spacing: 1px;
     padding: 12px 40px;
@@ -668,4 +673,11 @@ option {
     border-radius: 40px;
     margin: 0;
     cursor: pointer;
+    padding: 12px 25px !important;
+    box-shadow: none;
+}
+
+#filter-button:hover {
+    color: #0AA6BD;
+    background-color: white;
 }

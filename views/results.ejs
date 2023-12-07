@@ -69,27 +69,7 @@
 
 </head>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-      $(document).ready(function () {
-        // Function to check screen size and hide/show navigation links
-        function checkWindowSize() {
-          if ($(window).width() <= 600) { // Set the desired maximum width
-            $("#nav").hide();
-          } else {
-            $("#nav").show();
-          }
-        }
-    
-        // Initial check on page load
-        checkWindowSize();
-    
-        // Re-check on window resize
-        $(window).resize(function () {
-          checkWindowSize();
-        });
-      });
-</script>
+
 <body id="body">
 
 
@@ -100,7 +80,7 @@
                 </div>
         </div> -->
     <!-- end preloader -->
-    
+
 
     <!--
         Fixed Navigation
@@ -323,7 +303,7 @@
 
             <div class="results-button-wrapper">
                 <div class="filterButton">
-                    <button id="" onclick="showFilters()" aria-label="Show Filters"
+                    <button id="filter-button" onclick="showFilters()" aria-label="Show Filters"
                         class="nds-btn filters-btn  css-m6to1p css-b92biz ex41m6f0 btn-secondary-dark btn btn-blue"
                         type="submit" aria-controls="left-nav" aria-describedby="Men's-Shoes-&amp;-Sneakers"
                         aria-expanded="false"><span class="filters-btn__filter_text">Filter</span><svg
