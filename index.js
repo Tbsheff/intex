@@ -243,6 +243,7 @@ app.get('/logout', (req, res) => {
 
 app.post('/results', (req, res) => {
     console.log(req.body);
+    req.session.filters = req.body;
     let query = knex.select(
         '*'
     )
@@ -290,16 +291,26 @@ app.post('/results', (req, res) => {
     // Additional filters for location, relationship, and occupation...
 
     // Execute the query
-    query.then(users => {
-        res.render('results', {
-            surveyresults: users,
-            user: req.session.user,
-            filters: req.body // Pass the filter values back to the template
-        })
-    }).catch(error => {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    });
+    query.then(rows => {
+        let formattedRows = rows.map(row => {
+            return {
+                ...row,
+                formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
+            };
+        });
+        return formattedRows;
+    })
+        .then(users => {
+            res.redirect('/results', {user: req.session.user});
+            // res.render('results', {
+            //     surveyresults: users,
+            //     user: req.session.user,
+            //     filters: req.body // Pass the filter values back to the template
+            // })
+        }).catch(error => {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        });
 });
 
 app.get("/signup", isAuthenticated, (req, res) => res.render("signup", { user: req.session.user }));

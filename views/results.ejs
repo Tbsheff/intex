@@ -162,61 +162,35 @@
 
             <form class="filters" method="post" action="/results">
                 <div>
-                    <select id="monthFilter" name="month" onchange="filterResults()">
-                        <option value="" disabled selected>Select a Month</option>
-                        <option value="all">All Months</option>
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                        <!-- Add more month options as needed -->
+                    <!-- Month Filter -->
+                    <select id="monthFilter" name="month">
+                        <option value="all" <%=filters.month==='all' ? 'selected' : '' %>>All Months</option>
+                        <option value="01" <%=filters.month==='01' ? 'selected' : '' %>>January</option>
+                        <option value="02" <%=filters.month==='02' ? 'selected' : '' %>>February</option>
+                        <option value="03" <%=filters.month==='03' ? 'selected' : '' %>>March</option>
+                        <option value="04" <%=filters.month==='04' ? 'selected' : '' %>>April</option>
+                        <option value="05" <%=filters.month==='05' ? 'selected' : '' %>>May</option>
+                        <option value="06" <%=filters.month==='06' ? 'selected' : '' %>>June</option>
+                        <option value="07" <%=filters.month==='07' ? 'selected' : '' %>>July</option>
+                        <option value="08" <%=filters.month==='08' ? 'selected' : '' %>>August</option>
+                        <option value="09" <%=filters.month==='09' ? 'selected' : '' %>>September</option>
+                        <option value="10" <%=filters.month==='10' ? 'selected' : '' %>>October</option>
+                        <option value="11" <%=filters.month==='11' ? 'selected' : '' %>>November</option>
+                        <option value="12" <%=filters.month==='12' ? 'selected' : '' %>>December</option>
                     </select>
+
                 </div>
                 <div>
-                    <select id="dayFilter" name="day" onchange="filterResults()">
-                        <option value="" disabled selected>Select a Date</option>
-                        <option value="all">All dates</option>
-                        <option value="01">1</option>
-                        <option value="02">2</option>
-                        <option value="03">3</option>
-                        <option value="04">4</option>
-                        <option value="05">5</option>
-                        <option value="06">6</option>
-                        <option value="07">7</option>
-                        <option value="08">8</option>
-                        <option value="09">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <!-- Add more day options as needed -->
+                    <!-- Day Filter -->
+                    <select id="dayFilter" name="day">
+                        <option value="all" <%=filters.day==='all' ? 'selected' : '' %>>All Days</option>
+                        <% for(let i=1; i <=31; i++) { %>
+                            <% let day=i < 10 ? '0' + i : '' + i; %>
+                                <option value="<%= day %>" <%=filters.day===day ? 'selected' : '' %>><%= i %>
+                                </option>
+                                <% } %>
                     </select>
+
                 </div>
 
                 <div>
@@ -277,7 +251,8 @@
                 </select>
 
 
-                <input type="submit" name="submit" id="" value="Apply Filters">
+                <input type="submit" name="submit" id="" value="Apply Filter" class="btn btn-blue btn-sm">
+                <a href="/results" class="btn btn-blue btn-sm">Clear Filter</a>
             </form>
 
             <div class="btn-group">
