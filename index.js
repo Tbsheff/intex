@@ -622,13 +622,13 @@ app.post("/delete-user/:id", (req, res) => {
             .then(trx.commit)
             .catch(trx.rollback);
     })
-    .then(() => {
-        res.redirect("/");
-    })
-    .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: err.message });
-    });
+        .then(() => {
+            res.redirect("/accounts");
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.message });
+        });
 });
 
 
