@@ -54,6 +54,8 @@ function isAdmin(req, res, next) {
 }
 
 app.get("/results", isAuthenticated, (req, res) => {
+    let filters = req.session.filters || {};
+    console.log(filters);
     knex.select(
         '*'
     )
@@ -71,8 +73,8 @@ app.get("/results", isAuthenticated, (req, res) => {
             return formattedRows;
         })
         .then(results => {
-            console.log(results);
-            res.render("results", { surveyresults: results, user: req.session.user, filters: [] });
+            // console.log(results);
+            res.render("results", { surveyresults: results, user: req.session.user, filters: filters });
         })
 }
 );
@@ -301,7 +303,7 @@ app.post('/results', (req, res) => {
         return formattedRows;
     })
         .then(users => {
-            res.redirect('/results', {user: req.session.user});
+            res.redirect('/results');
             // res.render('results', {
             //     surveyresults: users,
             //     user: req.session.user,
