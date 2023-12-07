@@ -197,19 +197,18 @@
                             </td>
 
                             <td class="">
-                                <form id="deleteUserForm" action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST" class="edit-td" onsubmit="return confirmDelete()">
-                                    <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
-                                </form>
-                                
-                                <script>
-                                    function confirmDelete() {
-                                        // Display a confirmation dialog
-                                        var confirmation = confirm("Are you sure you want to delete the user?");
-                                
-                                        // If the user confirms, allow form submission; otherwise, cancel it
-                                        return confirmation;
-                                    }
-                                </script>
+                                <% if (iCount > 0) { %>
+                                    <!-- Only render the delete form for rows other than the first row -->
+                                    <form action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST" class="edit-td" onsubmit="return confirmDelete()">
+                                        <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
+                                    </form>
+                                    <script>
+                                        function confirmDelete() {
+                                            var confirmation = confirm("Are you sure you want to delete the user?");
+                                            return confirmation;
+                                        }
+                                    </script>
+                                <% } %>
                             </td>
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">

@@ -362,14 +362,25 @@ option {
         display: none;
     }
 
-    table td {
-        display: flex;
+    .table-style td {
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-left: 0;
     }
 
-    table td::before {
-        content: attr(label);
-        font-weight: bold;
-        width: 120px;
-        min-width: 120px;
+    .cell-label {
+        display: inline;
+        font-size: large;
+        font-weight: bolder;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 0.75rem;
+        /* Show only on small screens */
+    }
+
+    table thead {
+        display: none;
+        /* Hide table headers on small screens */
     }
 }
