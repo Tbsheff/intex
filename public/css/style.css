@@ -32,7 +32,8 @@
 }
 
 .rating-scale input[type="radio"] {
-  display: none;
+  position: absolute;
+  left: -9999px;
   /* Hide the default radio button */
 }
 

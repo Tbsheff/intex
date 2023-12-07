@@ -606,8 +606,15 @@ app.post("/modify-user", (req, res) => {
 
     }
 
+});
 
-
+app.post("/delete-user/:id", (req, res) => {
+    knex("user_table").where("user_id", req.params.id).del().then(mydeletedrecord => {
+        res.redirect("/");
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
+    })
 });
 
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
