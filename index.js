@@ -477,14 +477,15 @@ app.post("/survey", (req, res) => {
                 iCount++;
             };
             iCount = 1;
-            if(socialMediaPlatforms.length)
-            for (const platform of socialMediaPlatforms) {
-                await trx('social_media').insert({
-                    survey_id: surveyId[0].survey_id,
-                    social_media_number: iCount,
-                    social_media_platform: platform
-                });
-                iCount++;
+            if (socialMediaPlatforms.length) {
+                for (const platform of socialMediaPlatforms) {
+                    await trx('social_media').insert({
+                        survey_id: surveyId[0].survey_id,
+                        social_media_number: iCount,
+                        social_media_platform: platform
+                    });
+                    iCount++;
+                }
             }
 
             await trx.commit();
@@ -615,11 +616,11 @@ app.post("/delete-user/:id", (req, res) => {
         .join("security_table as st", "st.user_id", "ut.user_id")
         .where("st.user_id", "=", req.params.id).del()
         .then(mydeletedrecord => {
-        res.redirect("/");
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
+            res.redirect("/");
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
 });
 
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
