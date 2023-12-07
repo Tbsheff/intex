@@ -133,7 +133,7 @@
 
             <div class="account-title">
                 <label for="">Create New Employee Account</label>
-                <button class="btn"><a href="/signup">HERE</a></button>
+                <a href="/signup" class="btn" id="signup-btn">HERE</a>
             </div>
 
 
@@ -160,6 +160,10 @@
                     <th>
                         Edit
                     </th>
+                    <th>
+                        Delete
+                    </th>
+
                 </thead>
                 <tbody>
                     <% for (let iCount=0; iCount < allAccounts.length; iCount++) { %>
@@ -180,8 +184,15 @@
                                 <%= allAccounts[iCount].username%>
                             </td>
 
-                            <td>
-                                <button class="edit-btn" data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
+                            <td class="edit-td">
+                                <button class="edit-btn btn"
+                                    data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
+                            </td>
+                            <td class="">
+                                <form action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST"
+                                    class="edit-td">
+                                    <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
+                                </form>
                             </td>
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
@@ -205,7 +216,7 @@
                                     <input type="password" name="password" value="">
 
 
-                                    <button type="submit" style="grid-column: 2;">Save Changes</button>
+                                    <button type="submit" style="grid-column: 2;" class="btn" id="save-changes">Save Changes</button>
                                 </form>
 
 
@@ -226,11 +237,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-ms-4">
-                    <h7>
+                    <h6>
                         <a href="">
                             <img class="img-fluid" src="images/logo.png" alt="">
                         </a>
-                    </h7>
+                    </h6>
                 </div>
             </div>
         </div>

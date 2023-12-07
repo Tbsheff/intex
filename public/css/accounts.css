@@ -30,11 +30,54 @@ button {
 }
 
 .account-title {
-    margin-bottom: 1.5rem;
-    text-align: right;
+    width: 100%;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .account-title label {
-    margin-right: 0.5rem;
+    margin-bottom: 0;
 
+}
+
+.btn a {
+    color: white;
+}
+
+.btn a:hover,
+.btn:hover {
+    color: #0AA6BD;
+}
+
+.btn {
+    margin: 0;
+}
+
+#signup-btn,
+.edit-btn,
+#save-changes,
+.delete-btn {
+    padding: 6px 20px;
+}
+
+.edit-btn {
+    margin: auto;
+}
+
+.edit-td {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#save-changes {
+    justify-self: center;
+}
+
+.container {
+    padding-top: 50px;
 }

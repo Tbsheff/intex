@@ -136,7 +136,7 @@
         <section class="container">
             <div class="account-title">
                 <label for="">Create New Employee Account</label>
-                <button><a href="/signup">HERE</a></button>
+                <a href="/signup" class="btn" id="signup-btn">HERE</a>
             </div>
 
 
@@ -191,13 +191,15 @@
                                 <%= allAccounts[iCount].username%>
                             </td>
 
-                            <td>
-                                <button class="edit-btn" data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
+                            <td class="edit-td">
+                                <button class="edit-btn btn"
+                                    data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
 
-                            <td>
-                                <form action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST">
-                                    <input type="submit" name="Delete" value="Delete" />
+                            <td class="">
+                                <form action="/delete-user/<%= allAccounts[iCount].user_id %>" method="POST"
+                                    class="edit-td">
+                                    <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
                                 </form>
                             </td>
                         </tr>
@@ -223,7 +225,8 @@
 
 
 
-                                    <button type="submit" style="grid-column: 2;">Save Changes</button>
+                                    <button type="submit" style="grid-column: 2;" class="btn" id="save-changes">Save
+                                        Changes</button>
                                 </form>
 
 
