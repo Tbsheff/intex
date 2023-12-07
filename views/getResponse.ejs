@@ -613,6 +613,85 @@
     <script src="plugins/jquery.validate.min.js"></script>
 
     <script src="js/main.js"></script>
+    <!-- Add this script to your HTML document -->
+    <script>
+        function validateForm() {
+            // Age validation
+            var ageInput = document.querySelector('input[name="age"]');
+            var age = ageInput.value;
+            if (isNaN(age) || age < 1) {
+                alert("Please enter a valid age.");
+                ageInput.focus();
+                return false;
+            }
+
+            // Gender validation
+            var genderSelect = document.getElementById('gender');
+            if (genderSelect.value === '') {
+                alert("Please select your gender.");
+                genderSelect.focus();
+                return false;
+            }
+
+            // Relationship Status validation
+            var relationshipStatusSelect = document.getElementById('relationship_status');
+            if (relationshipStatusSelect.value === '') {
+                alert("Please select your relationship status.");
+                relationshipStatusSelect.focus();
+                return false;
+            }
+
+            // Occupation validation
+            var occupationSelect = document.getElementById('occupation');
+            if (occupationSelect.value === '') {
+                alert("Please select your occupation.");
+                occupationSelect.focus();
+                return false;
+            }
+
+            // Organization Type validation
+            var orgCheckboxes = document.getElementsByName('organization_type');
+            if (!hasChecked(orgCheckboxes)) {
+                alert('Please select at least one organization type.');
+                return false;
+            }
+
+            // Social Media Usage validation
+            var socialRadioButtons = document.getElementsByName('social_media_use');
+            if (!hasChecked(socialRadioButtons)) {
+                alert('Please indicate whether you use social media.');
+                return false;
+            }
+
+            // Social Media Platforms validation
+            var socialMediaCheckboxes = document.getElementsByName('social_media');
+            if (!hasChecked(socialMediaCheckboxes)) {
+                alert('Please select at least one social media platform.');
+                return false;
+            }
+
+            // Time Spent on Social Media validation
+            var timeSpentRadioButtons = document.getElementsByName('time_spent_social_media');
+            if (!hasChecked(timeSpentRadioButtons)) {
+                alert('Please select the amount of time you spend on social media.');
+                return false;
+            }
+
+            // Additional validations for other questions can be added here...
+
+            // If all validations pass, allow form submission
+            return true;
+        }
+
+        function hasChecked(elements) {
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].checked) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
 
 
 </body>
