@@ -631,7 +631,7 @@ app.post("/delete-user/:id", (req, res) => {
         });
 });
 
-app.post("/delete/logout-user/:id", (req, res) => {
+app.post("/delete-logout-user/:id", (req, res) => {
     knex.transaction((trx) => {
         knex("security_table")
             .transacting(trx)

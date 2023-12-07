@@ -133,8 +133,14 @@
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
     <section class="service-2 section">
-        <div class="grid-container">
-            <% let iCount=0; %>
+        <% let iCount=0; %>
+            <div>
+                <h2>Responses for Survey Number <%= resultobject[iCount].survey_id%>
+                </h2>
+            </div>
+
+            <div class="grid-container">
+
 
                 <div class="grid-item">Survey Number</div>
                 <div class="grid-item">
@@ -256,7 +262,7 @@
                 </div>
 
 
-        </div>
+            </div>
 
     </section>
 
