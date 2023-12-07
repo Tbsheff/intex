@@ -646,21 +646,21 @@ app.post("/delete-logout-user/:id", (req, res) => {
             .then(trx.commit)
             .catch(trx.rollback);
     })
-    .then(() => {
-        // Session destruction logic
-        req.session.destroy((err) => {
-            if (err) {
-                console.error(err);
-                res.status(500).json({ error: "Failed to destroy session" });
-            } else {
-                res.redirect("/accounts");
-            }
+        .then(() => {
+            // Session destruction logic
+            req.session.destroy((err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: "Failed to destroy session" });
+                } else {
+                    res.redirect("/accounts");
+                }
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.message });
         });
-    })
-    .catch((err) => {
-        console.log(err);
-        res.status(500).json({ error: err.message });
-    });
 });
 
 
