@@ -321,11 +321,11 @@
                 </div>
 
                 <form method="post" action="/clear-filters" id="filter-form-button">
-                    <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters">
+                    <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters" id="filter-form-btn">
                 </form>
 
 
-                <div class="">
+                <div class="inline-flex">
                     <button type="button" class="btn" id="export-button" data-toggle="dropdown">
                         Export <span id="export-span"></span>
                     </button>
@@ -429,6 +429,24 @@
 
 
     <script src="js/main.js"></script>
+    <script>
+        window.setMobileTable = function (selector) {
+            // if (window.innerWidth > 600) return false;
+            const tableEl = document.querySelector(selector);
+            const thEls = tableEl.querySelectorAll('thead th');
+            const tdLabels = Array.from(thEls).map(el => el.innerText);
+            tableEl.querySelectorAll('tbody tr').forEach(tr => {
+                Array.from(tr.children).forEach(
+                    (td, ndx) => td.setAttribute('label', tdLabels[ndx])
+                );
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setMobileTable('#results-table');
+        });
+    </script>
 
 
     <script>
