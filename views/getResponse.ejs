@@ -44,7 +44,54 @@
 
     <!-- Modernizer Script for old Browsers -->
     <script src="plugins/modernizr-2.6.2.min.js"></script>
-
+    <script>
+        function validateForm() {
+            // Organization Type validation
+            var orgCheckboxes = document.getElementsByName('organization_type');
+            if (!hasChecked(orgCheckboxes)) {
+                showErrorMessage('Please select at least one organization type.');
+                return false;
+            }
+    
+            // Social Media Usage validation
+            var socialRadioButtons = document.getElementsByName('social_media_use');
+            if (!hasChecked(socialRadioButtons)) {
+                showErrorMessage('Please indicate whether you use social media.');
+                return false;
+            }
+    
+            // Social Media Platforms validation
+            var socialMediaCheckboxes = document.getElementsByName('social_media');
+            if (!hasChecked(socialMediaCheckboxes)) {
+                showErrorMessage('Please select at least one social media platform.');
+                return false;
+            }
+    
+            // Time Spent on Social Media validation
+            var timeSpentRadioButtons = document.getElementsByName('time_spent_social_media');
+            if (!hasChecked(timeSpentRadioButtons)) {
+                showErrorMessage('Please select the amount of time you spend on social media.');
+                return false;
+            }
+    
+            // If all validations pass, clear error message and allow form submission
+            showErrorMessage('');
+            return true;
+        }
+    
+        function hasChecked(elements) {
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].checked) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+        function showErrorMessage(message) {
+            document.getElementById('errorMessage').innerText = message;
+        }
+    </script>
 
 </head>
 
