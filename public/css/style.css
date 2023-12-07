@@ -1660,9 +1660,3 @@ textarea.form-control {
 .section-title h2 {
   line-height: 2rem;
 }
-
-.button-container {
-  display: flex;
-  justify-content: flex-end; /* Align the button to the right side */
-  margin-right: 10px; /* Adjust the margin to create some space from the right edge */
-}

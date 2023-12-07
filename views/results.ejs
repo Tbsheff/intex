@@ -193,27 +193,26 @@
 
                 </div>
 
-                <div>
-                    <select id="yearFilter" name="year" onchange="filterResults()">
-                        <option value="" disabled selected>Select a Year</option>
-                        <option value="all">All</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <!-- Add more year options as needed -->
-                    </select>
-                </div>
+                <!-- Year Filter -->
+                <select id="yearFilter" name="year">
+                    <option value="all" <%=filters.year==='all' ? 'selected' : '' %>>All</option>
+                    <% for(let year=2022; year <=2023; year++) { %>
+                        <option value="<%= year %>" <%=filters.year===String(year) ? 'selected' : '' %>><%= year %>
+                        </option>
+                        <% } %>
+                </select>
 
-                <div>
-                    <select id="genderFilter" name="gender" onchange="filterResults()">
-                        <option value="all">All</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Non-binary">Non-binary</option>
-                        <option value="Trans">Trans</option>
-                        <option value="Other">Other</option>
-                        <!-- Add more gender options as needed -->
-                    </select>
-                </div>
+
+                <!-- Gender Filter -->
+                <select id="genderFilter" name="gender">
+                    <option value="all" <%=filters.gender==='all' ? 'selected' : '' %>>All</option>
+                    <option value="Male" <%=filters.gender==='Male' ? 'selected' : '' %>>Male</option>
+                    <option value="Female" <%=filters.gender==='Female' ? 'selected' : '' %>>Female</option>
+                    <option value="Non-binary" <%=filters.gender==='Non-binary' ? 'selected' : '' %>>Non-binary</option>
+                    <option value="Trans" <%=filters.gender==='Trans' ? 'selected' : '' %>>Trans</option>
+                    <option value="Other" <%=filters.gender==='Other' ? 'selected' : '' %>>Other</option>
+                </select>
+
 
                 <!-- Location Filter -->
                 <select id="locationFilter" name="location">
@@ -252,15 +251,17 @@
 
 
                 <input type="submit" name="submit" id="" value="Apply Filter" class="btn btn-blue btn-sm">
-                <a href="/results" class="btn btn-blue btn-sm">Clear Filter</a>
+
+            </form>
+            <form method="post" action="/clear-filters">
+                <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters">
+
             </form>
 
             <div class="btn-group">
-                <div class="button-container">
-                    <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-export"></span> Export
-                    </button>
-                </div>
+                <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-export"></span> Export
+                </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" onClick="$('#results-table').tableExport({type:'json', escape:'false'});">JSON</a>
                     </li>
@@ -385,7 +386,11 @@
             // ...
         });
     </script>
-
+    <script>
+        document.getElementById('clearFilters').addEventListener('click', function () {
+            document.getElementById('filterForm').reset();
+        });
+    </script>
 
 </body>
 
