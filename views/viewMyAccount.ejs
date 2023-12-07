@@ -189,10 +189,19 @@
                                     data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
                             <td class="">
-                                <form action="/delete-logout-user/<%= allAccounts[iCount].user_id %>" method="POST"
-                                    class="edit-td">
+                                <form id="deleteLogoutUserForm" action="/delete-logout-user/<%= allAccounts[iCount].user_id %>" method="POST" class="edit-td" onsubmit="return confirmDeleteLogout()">
                                     <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
                                 </form>
+                                
+                                <script>
+                                    function confirmDeleteLogout() {
+                                        // Display a confirmation dialog
+                                        var confirmation = confirm("Are you sure you want to delete the user and log out?");
+                                
+                                        // If the user confirms, allow form submission; otherwise, cancel it
+                                        return confirmation;
+                                    }
+                                </script>
                             </td>
                                 
                                 
