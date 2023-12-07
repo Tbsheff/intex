@@ -615,94 +615,121 @@
     <script src="js/main.js"></script>
     <!-- Add this script to your HTML document -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var form = document.querySelector('.survey');
-            form.addEventListener('submit', function (event) {
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent the form from submitting
-                }
-            });
-        });
-    
         function validateForm() {
-            // Your existing validation code...
-    
-            // Age validation
-            var ageInput = document.querySelector('input[name="age"]');
-            var age = ageInput.value;
-            if (isNaN(age) || age < 1) {
-                alert("Please enter a valid age.");
-                ageInput.focus();
-                return false;
+          var form = document.getElementById('surveyForm');
+          var errors = [];
+        
+          // Example validation, you should customize based on your requirements
+          var ageInput = form.elements['age'];
+          if (!ageInput.value || isNaN(ageInput.value) || ageInput.value < 1) {
+            errors.push('Please enter a valid age.');
+          }
+        
+          var genderSelect = form.elements['gender'];
+          if (!genderSelect.value) {
+            errors.push('Please select your gender.');
+          }
+        
+          var relationshipStatusSelect = form.elements['relationship_status'];
+          if (!relationshipStatusSelect.value) {
+            errors.push('Please select your relationship status.');
+          }
+        
+          var occupationSelect = form.elements['occupation'];
+          if (!occupationSelect.value) {
+            errors.push('Please select your occupation.');
+          }
+        
+          var organizationTypeCheckboxes = form.elements['organization_type'];
+          var selectedOrganizationTypes = Array.from(organizationTypeCheckboxes).filter(checkbox => checkbox.checked);
+          if (selectedOrganizationTypes.length === 0) {
+            errors.push('Please select at least one organization type.');
+          }
+        
+          var socialMediaUseRadio = form.elements['social_media_use'];
+          if (socialMediaUseRadio.value === 'true') {
+            var socialMediaCheckboxes = form.elements['social_media'];
+            var selectedSocialMedia = Array.from(socialMediaCheckboxes).filter(checkbox => checkbox.checked);
+            if (selectedSocialMedia.length === 0) {
+              errors.push('Please select at least one social media platform.');
             }
-    
-            // Gender validation
-            var genderSelect = document.getElementById('gender');
-            if (genderSelect.value === '') {
-                alert("Please select your gender.");
-                genderSelect.focus();
-                return false;
-            }
-    
-            // Relationship Status validation
-            var relationshipStatusSelect = document.getElementById('relationship_status');
-            if (relationshipStatusSelect.value === '') {
-                alert("Please select your relationship status.");
-                relationshipStatusSelect.focus();
-                return false;
-            }
-    
-            // Occupation validation
-            var occupationSelect = document.getElementById('occupation');
-            if (occupationSelect.value === '') {
-                alert("Please select your occupation.");
-                occupationSelect.focus();
-                return false;
-            }
-    
-            // Organization Type validation
-            var orgCheckboxes = document.getElementsByName('organization_type');
-            if (!hasChecked(orgCheckboxes)) {
-                alert('Please select at least one organization type.');
-                return false;
-            }
-    
-            // Social Media Usage validation
-            var socialRadioButtons = document.getElementsByName('social_media_use');
-            if (!hasChecked(socialRadioButtons)) {
-                alert('Please indicate whether you use social media.');
-                return false;
-            }
-    
-            // Social Media Platforms validation
-            var socialMediaCheckboxes = document.getElementsByName('social_media');
-            if (!hasChecked(socialMediaCheckboxes)) {
-                alert('Please select at least one social media platform.');
-                return false;
-            }
-    
-            // Time Spent on Social Media validation
-            var timeSpentRadioButtons = document.getElementsByName('time_spent_social_media');
-            if (!hasChecked(timeSpentRadioButtons)) {
-                alert('Please select the amount of time you spend on social media.');
-                return false;
-            }
-    
-            // Additional validations for other questions can be added here...
-    
-            // If all validations pass, allow form submission
-            return true;
+          }
+        
+          var timeSpentSocialMediaRadio = form.elements['time_spent_social_media'];
+          if (!timeSpentSocialMediaRadio.value) {
+            errors.push('Please select the time you commonly spend on social media per day.');
+          }
+        
+          var ratingRadio = form.elements['rating'];
+          if (!ratingRadio.value) {
+            errors.push('Please rate how often you find yourself using social media without a specific purpose.');
+          }
+        
+          var distractedRadio = form.elements['distracted'];
+          if (!distractedRadio.value) {
+            errors.push('Please rate how often you get distracted by social media when you are busy doing something.');
+          }
+        
+          var restlessRadio = form.elements['restless'];
+          if (!restlessRadio.value) {
+            errors.push('Please rate if you feel restless if you haven\'t used social media in a while.');
+          }
+        
+          var easyDistractedRadio = form.elements['easydistracted'];
+          if (!easyDistractedRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how easily distracted you are.');
+          }
+        
+          var worriesRadio = form.elements['worries'];
+          if (!worriesRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how much you are bothered by worries.');
+          }
+        
+          var concentrationRadio = form.elements['concentration'];
+          if (!concentrationRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how difficult you find it to concentrate on things.');
+          }
+        
+          var comparisonRadio = form.elements['comparison'];
+          if (!comparisonRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how often you compare yourself to other successful people through the use of social media.');
+          }
+        
+          var feelingsRadio = form.elements['feelings'];
+          if (!feelingsRadio.value) {
+            errors.push('Please rate how you feel about social media comparisons, generally speaking.');
+          }
+        
+          var validationRadio = form.elements['validation'];
+          if (!validationRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how often you look to seek validation from features of social media.');
+          }
+        
+          var depressionRadio = form.elements['depression'];
+          if (!depressionRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how often you feel depressed or down.');
+          }
+        
+          var interestFluctuationRadio = form.elements['interestFluctuation'];
+          if (!interestFluctuationRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how frequently your interest in daily activities fluctuates.');
+          }
+        
+          var sleepIssuesRadio = form.elements['sleepIssues'];
+          if (!sleepIssuesRadio.value) {
+            errors.push('Please rate on a scale of 1 to 5 how often you face issues regarding sleep.');
+          }
+        
+          // Add more validation rules for other form fields
+        
+          if (errors.length > 0) {
+            alert('Form validation failed. Please check the entered data.\nErrors: ' + errors.join(', '));
+            return false; // Prevent form submission
+          }
+        
+          return true; // Allow form submission
         }
-    
-        function hasChecked(elements) {
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].checked) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    </script>
+        </script>
 
 </body>
 
