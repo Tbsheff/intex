@@ -1,3 +1,7 @@
+// Tyler Sheffield, Allan Foote, Rai Martin, Mikayla Randall
+// Intex Group Project
+// Section 2 Group 11
+
 let express = require("express");
 let session = require('express-session');
 let app = express();
