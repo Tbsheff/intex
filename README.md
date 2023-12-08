@@ -11,5 +11,6 @@ https://socialsense.is404.net/
     	* Password: giveusa100
     
 * Intructions for use
-  Use login information to login to website. Once logged in, you will be able to see survey results and account info displayed as a link in the nav bar.
-  User nav bar to navigate to each page. 
+  * Use login information to login to website.
+  * Once logged in, you will be able to see survey results and account info displayed as a link in the nav bar.
+  * User nav bar to navigate to each page. 
