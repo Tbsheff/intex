@@ -107,12 +107,18 @@ app.get("/results", isAuthenticated, async (req, res) => {
         console.log("Survey Ids: ", surveys);
         console.log("filters:", filters);
         let query = knex.select(
-            '*'
+            's.survey_id',
+            's.time_stamp',
+            's.age',
+            's.location',
+            'g.gender_description',
+            'o.occupation_description',
+            'rs.relationship_status_description'
         )
             .from('survey as s')
             .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-            .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-            .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id');
+            .leftJoin('relationship_status as rs', 's.relationship_status_id', 'rs.relationship_status_id')
+            .leftJoin('occupation as o', 's.occupation_id', 'o.occupation_id');
 
         // Filter by Month (if applicable)
         if (filters.month && filters.month !== 'all') {
