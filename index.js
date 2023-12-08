@@ -120,8 +120,8 @@ app.get("/results", isAuthenticated, async (req, res) => {
         }
 
         // Filter by Day (if applicable)
-        if (filters.day && filters.day !== 'all') {
-            query.whereRaw('EXTRACT(DAY FROM s.time_stamp) = ?', [filters.day]);
+        if (filters.age && filters.age !== 'all') {
+            query.where('s.age', filters.age);
         }
 
         // Filter by survey_id
@@ -269,7 +269,8 @@ app.post("/login", (req, res) => {
     knex.select('*').from('security_table').where({ username })
         .then(users => {
             if (users.length === 0) {
-                res.status(401).json({ error: 'Invalid username or password' });
+                req.session.error = 'noMatch';
+                res.redirect('/login');
                 return;
             }
 
@@ -298,7 +299,7 @@ app.post("/login", (req, res) => {
                     // Passwords do not match
                     // let error = "noMatch";
                     // res.render("login", { req: req, user: req.session.user, error: error });
-                    req.session.error = 'noMatch'
+                    req.session.error = 'noMatch';
                     res.redirect('/login');
                 }
             });

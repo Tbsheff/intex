@@ -168,7 +168,7 @@
                         <!-- Survey Filter -->
                         <div class="form-group col-md-2 input-field dropdown">
                             <select id="surveyFilter" name="survey_id">
-                                <option value="all" <%=filters.survey_id==='all' ? 'selected' : '' %>>All Survey Ids
+                                <option value="all" <%=filters.survey_id==='all' ? 'selected' : '' %>>All Survey ID's
                                 </option>
                                 <% for(let iCount=1; iCount <=surveys.length ; iCount++) { %>
                                     <option value="<%= iCount %>" <%=filters.survey_id===String(iCount) ? 'selected'
@@ -199,13 +199,14 @@
                         </div>
                         <div class="form-group col-md-2  input-field dropdown">
                             <!-- Day Filter -->
-                            <select id="dayFilter" name="day">
-                                <option value="all" <%=filters.day==='all' ? 'selected' : '' %>>All Days</option>
-                                <% for(let i=1; i <=31; i++) { %>
-                                    <% let day=i < 10 ? '0' + i : '' + i; %>
-                                        <option value="<%= day %>" <%=filters.day===day ? 'selected' : '' %>><%= i %>
-                                        </option>
-                                        <% } %>
+                            <select id="ageFilter" name="age">
+                                <option value="all" <%=filters.age==='all' ? 'selected' : '' %>>All Ages</option>
+                                <% for(let iCount=1; iCount <=120; iCount++) { %>
+
+                                    <option value="<%= iCount %>" <%=filters.age===iCount ? 'selected' : '' %>><%=
+                                            iCount %>
+                                    </option>
+                                    <% } %>
                             </select>
 
                         </div>
@@ -361,7 +362,7 @@
 
                 <thead>
                     <tr>
-                        <th>Survey Number</th>
+                        <th>Survey ID</th>
 
                         <th>
                             Time Stamp
