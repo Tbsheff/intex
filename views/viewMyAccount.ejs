@@ -19,7 +19,7 @@
 
     <!-- CSS
 		================================================== -->
-        
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
     <link rel="shortcut icon" type="image/x-icon" href="/images/icon.png" />
     <!-- Fontawesome Icon font -->
@@ -127,7 +127,7 @@
 
 
     <div class="buffer" id="buffer"></div>
-    <main class="site-content" role="main">
+    <main class="site-content main-content" role="main">
 
         <section class="container">
 
@@ -140,7 +140,7 @@
             <div>
                 <h2>Account Details</h2>
             </div>
-            <table class="table-style">
+            <table class="table-style" id="survey-results-table">
                 <thead>
                     <th>
                         User ID
@@ -189,22 +189,24 @@
                                     data-user-id="<%= allAccounts[iCount].user_id %>">Edit</button>
                             </td>
                             <td class="">
-                                <form id="deleteLogoutUserForm" action="/delete-logout-user/<%= allAccounts[iCount].user_id %>" method="POST" class="edit-td" onsubmit="return confirmDeleteLogout()">
+                                <form id="deleteLogoutUserForm"
+                                    action="/delete-logout-user/<%= allAccounts[iCount].user_id %>" method="POST"
+                                    class="edit-td" onsubmit="return confirmDeleteLogout()">
                                     <input type="submit" name="Delete" value="Delete" class="btn delete-btn" />
                                 </form>
-                                
+
                                 <script>
                                     function confirmDeleteLogout() {
                                         // Display a confirmation dialog
                                         var confirmation = confirm("Are you sure you want to delete the user and log out?");
-                                
+
                                         // If the user confirms, allow form submission; otherwise, cancel it
                                         return confirmation;
                                     }
                                 </script>
                             </td>
-                                
-                                
+
+
                         </tr>
                         <tr class="edit-form" id="edit-form-<%= allAccounts[iCount].user_id %>" style="display: none;">
                             <td colspan="100%">
@@ -227,7 +229,8 @@
                                     <input type="password" name="password" value="">
 
 
-                                    <button type="submit" style="grid-column: 2;" class="btn" id="save-changes">Save Changes</button>
+                                    <button type="submit" style="grid-column: 2;" class="btn" id="save-changes">Save
+                                        Changes</button>
                                 </form>
 
 
@@ -244,8 +247,8 @@
 
     </main>
 
-    <footer id="footer">
-        <div class="container">
+    <section id="footer-bottom">
+        <div class="container" style="padding-top: 0;">
             <div class="row">
                 <div class="col-ms-4">
                     <h6>
@@ -254,27 +257,40 @@
                         </a>
                     </h6>
                 </div>
-            </div>
-        </div>
-    </footer>
-
-    <section id="footer-bottom">
-        <div class="container">
-            <div class="row">
                 <div class="col-md-6">
                     <p class="text-center text-lg-left">
                         COPYRIGHT © 2023, SOCIAL SENSE | PROVO CITY
                     </p>
-                </div>
-                <div class="col-md-6 text-right">
                     <p class="text-center text-lg-left">
                         Designed and Developed By SOCIAL SENSE</a>
                     </p>
                 </div>
+
             </div>
         </div>
     </section>
 
+
+    <script>
+        function adjustMainContentHeight() {
+            const mainContent = document.querySelector('.main-content'); // Replace with your main content selector
+            if (!mainContent) return;
+
+            const windowHeight = window.innerHeight;
+            const mainContentHeight = mainContent.offsetHeight;
+
+            if (mainContentHeight < windowHeight) {
+                mainContent.style.minHeight = 'calc(100vh - 96px)';
+            } else {
+                mainContent.style.minHeight = 'auto';
+            }
+        }
+
+        // Call the function on page load and on window resize
+        window.onload = adjustMainContentHeight;
+        window.onresize = adjustMainContentHeight;
+
+    </script>
 
     <!-- Twitter Bootstrap -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
@@ -310,30 +326,30 @@
         });
     </script>
 
-<script>
-    window.setMobileTable = function (selector) {
-        const tableEl = document.querySelector(selector);
-        if (!tableEl) return; // Check if the table exists
+    <script>
+        window.setMobileTable = function (selector) {
+            const tableEl = document.querySelector(selector);
+            if (!tableEl) return; // Check if the table exists
 
-        const thEls = tableEl.querySelectorAll('thead th');
-        const tdLabels = Array.from(thEls).map(el => el.innerText);
+            const thEls = tableEl.querySelectorAll('thead th');
+            const tdLabels = Array.from(thEls).map(el => el.innerText);
 
-        tableEl.querySelectorAll('tbody tr').forEach(tr => {
-            Array.from(tr.children).forEach((td, ndx) => {
-                const span = document.createElement('span');
-                span.classList.add('cell-label');
-                span.textContent = tdLabels[ndx] + ': ';
-                td.insertBefore(span, td.firstChild);
+            tableEl.querySelectorAll('tbody tr').forEach(tr => {
+                Array.from(tr.children).forEach((td, ndx) => {
+                    const span = document.createElement('span');
+                    span.classList.add('cell-label');
+                    span.textContent = tdLabels[ndx] + ': ';
+                    td.insertBefore(span, td.firstChild);
+                });
             });
-        });
-    };
+        };
 
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        setMobileTable('#results-table');
-    });
-</script>
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            setMobileTable('#survey-results-table');
+        });
+    </script>
 
 
 
