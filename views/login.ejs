@@ -131,8 +131,9 @@
     </header>
     <!--
               End Fixed Navigation
-              ==================================== --> 
-              <!-- user and password box-->
+              ==================================== -->
+
+    <!-- login form that calls post method to grab data for security and user tables -->
     <div class="buffer" id="buffer"></div>
     <main class="site-content" role="main" style="height:calc(100vh - 96px)">
 
@@ -153,6 +154,7 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password"
                             required>
                     </div>
+                    <!-- Error Message for a nonmatch -->
                     <% if(error==='noMatch' ){%>
                         <div>
                             <p style="color: crimson; margin-bottom: 1rem;">Error: Incorrect Username or Password</p>
@@ -173,8 +175,10 @@
 
     </main>
 
+    <!-- footer -->
+
     <section id="footer-bottom">
-        <div class="container"  style="padding-top: 0;">
+        <div class="container" style="padding-top: 0;">
             <div class="row">
                 <div class="col-ms-4">
                     <h6>
