@@ -220,7 +220,7 @@ body {
 /* Media Query for screens less than 560px */
 @media (max-width: 560px) {
     .login-row {
-        width: 80%;
+        width: 85%;
     }
 
     .rating-container {

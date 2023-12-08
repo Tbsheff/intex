@@ -388,4 +388,13 @@ option {
         display: none;
         /* Hide table headers on small screens */
     }
+
+    h2 {
+        width: 90%;
+        margin: auto;
+    }
+
+    .grid-container {
+        width: 86%;
+    }
 }
