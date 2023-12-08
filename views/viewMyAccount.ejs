@@ -310,7 +310,30 @@
         });
     </script>
 
+<script>
+    window.setMobileTable = function (selector) {
+        const tableEl = document.querySelector(selector);
+        if (!tableEl) return; // Check if the table exists
 
+        const thEls = tableEl.querySelectorAll('thead th');
+        const tdLabels = Array.from(thEls).map(el => el.innerText);
+
+        tableEl.querySelectorAll('tbody tr').forEach(tr => {
+            Array.from(tr.children).forEach((td, ndx) => {
+                const span = document.createElement('span');
+                span.classList.add('cell-label');
+                span.textContent = tdLabels[ndx] + ': ';
+                td.insertBefore(span, td.firstChild);
+            });
+        });
+    };
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        setMobileTable('#results-table');
+    });
+</script>
 
 
 

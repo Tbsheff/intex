@@ -357,6 +357,10 @@ option {
     }
 }
 
+.cell-label {
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
     table thead {
         display: none;
