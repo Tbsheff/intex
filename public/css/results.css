@@ -252,6 +252,7 @@ option {
 }
 
 .results-button-wrapper {
+    height: 35px;
     display: flex;
     margin-top: 1.25rem;
     column-gap: 1rem;
@@ -304,7 +305,7 @@ option {
     border-radius: 40px;
     margin: 0;
     cursor: pointer;
-    padding: 12px 25px;
+    padding: 4.5px 25px;
     box-shadow: none;
 }
 
