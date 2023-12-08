@@ -85,6 +85,7 @@
     <!--
         Fixed Navigation
         ==================================== -->
+        <!-- header with our logo and naviation to other links -->
     <header id="navigation" class="fixed-top animated-header">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -302,7 +303,7 @@
 
                 </form>
             </div>
-
+            <!--Show filters button-->
             <div class="results-button-wrapper">
                 <div class="filterButton">
                     <button id="filter-button" onclick="showFilters()" aria-label="Show Filters"
@@ -320,6 +321,7 @@
                         </svg>
                         <span class="ripple"></span></button>
                 </div>
+                <!-- clear filters button -->
 
                 <form method="post" action="/clear-filters" id="filter-form-button">
                     <input class="btn btn-blue btn-sm" type="submit" value="Clear Filters" id="filter-form-btn">
