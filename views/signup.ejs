@@ -90,6 +90,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
+                        <!-- if statement changes link displayed on nav bar based on who is logged in -->
                         <% if (!user) { %>
                             <li class="nav-item">
                                 <a class="nav-link" href="/login" id="login">Login</a>
@@ -136,7 +137,7 @@
     <main class="site-content" role="main">
 
         <section class="container">
-
+<!-- form to add new accounts to data base. Calls POST method to grab values -->
             <div class="col-md-7 contact-form">
                 <form action="/signup" method="post">
                     <h2>Create New <br>Employee Account</h2>
