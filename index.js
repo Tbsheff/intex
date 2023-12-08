@@ -2,14 +2,15 @@
 // Intex Group Project
 // Section 2 Group 11
 
-let express = require("express");
-let session = require('express-session');
+let express = require("express"); // import express
+let session = require('express-session'); // import middleware
 let app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; // set port
 let format = require('date-fns/format');
 app.use(express.urlencoded({ extended: true }));
-app.set("view engine", "ejs");
+app.set("view engine", "ejs"); // set view engine
 
+// set session secret 
 app.use(session({
     secret: 'asd;lfkja;ldfkjlk123389akjdhla987897akjh78111ih',
     resave: false,
@@ -20,6 +21,8 @@ app.use(session({
 let path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
+
+// connect to database
 let knex = require("knex")({
     client: "pg",
     connection: {
@@ -32,10 +35,12 @@ let knex = require("knex")({
     debug: true
 });
 
+// password hashing
 let bcrypt = require('bcrypt');
 const { timeStamp } = require("console");
 let saltRounds = 10;
 
+// check if user is authenticated
 function isAuthenticated(req, res, next) {
     console.log(req.session.user);
     if (req.session && req.session.user) {
@@ -70,47 +75,19 @@ function getDistinctSurveyIds() {
 }
 
 
-
-
-
-// app.get("/results", isAuthenticated, (req, res) => {
-//     let filters = req.session.filters || {};
-//     console.log("filters:" + filters);
-//     knex.select(
-//         '*'
-//     )
-//         .from('survey as s')
-//         .leftJoin('gender as g', 's.gender_id', 'g.gender_id')
-//         .leftJoin('relationship_status as rs', 'rs.relationship_status_id', 's.relationship_status_id')
-//         .leftJoin('occupation as o', 'o.occupation_id', 's.occupation_id')
-//         .then(rows => {
-//             let formattedRows = rows.map(row => {
-//                 return {
-//                     ...row,
-//                     formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
-//                 };
-//             });
-//             return formattedRows;
-//         })
-//         .then(results => {
-//             // console.log(results);
-//             res.render("results", { surveyresults: results, user: req.session.user, filters: filters });
-//         })
-// }
-// );
-
+// Route to get all the survey results 
 app.get("/results", isAuthenticated, async (req, res) => {
     try {
         console.log(req.body);
-        let filters = req.session.filters || {};
+        let filters = req.session.filters || {}; // get filters from req.session
         if (req.query.refresh) {
             req.session.filters = {};
         }
 
-        let surveys = await getDistinctSurveyIds();
+        let surveys = await getDistinctSurveyIds(); // get all survey ids for filter
         console.log("Survey Ids: ", surveys);
         console.log("filters:", filters);
-        let query = knex.select(
+        let query = knex.select( // select survey info
             's.survey_id',
             's.time_stamp',
             's.age',
@@ -179,7 +156,7 @@ app.get("/results", isAuthenticated, async (req, res) => {
         })
             .then(users => {
                 console.log("final check: ", surveys);
-                res.render('results', {
+                res.render('results', { // pass context to view
                     surveyresults: users,
                     user: req.session.user,
                     filters: filters,
@@ -192,8 +169,9 @@ app.get("/results", isAuthenticated, async (req, res) => {
     }
 });
 
+// route to render view with detailed info about specific survey
 app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
-    knex.select(
+    knex.select( // query info from database
         's.survey_id',
         's.time_stamp',
         's.age',
@@ -240,7 +218,7 @@ app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
 
         .where("s.survey_id", req.params.surveyID)
         .then(rows => {
-            let formattedRows = rows.map(row => {
+            let formattedRows = rows.map(row => { // format date time 
                 return {
                     ...row,
                     formatted_time_stamp: format(new Date(row.time_stamp), 'MM-dd-yyyy hh:mm aa')
@@ -249,20 +227,26 @@ app.get("/choosesurvey/:surveyID", isAuthenticated, (req, res) => {
             return formattedRows;
         })
         .then(formattedRows => {
-            res.render("displayresult", { resultobject: formattedRows, user: req.session.user });
+            res.render("displayresult", { resultobject: formattedRows, user: req.session.user }); // pass context to view
         }).catch(err => {
             console.log(err);
             res.status(500).json({ err });
         });
 });
 
+
+// render index.ejs view
 app.get("/", (req, res) => res.render("index", { user: req.session.user }));
 
-app.get("/respond", (req, res) => {
-    res.render("getResponse", { user: req.session.user });
-}
-);
 
+//
+// app.get("/respond", (req, res) => {
+//     res.render("getResponse", { user: req.session.user });
+// }
+// );
+
+
+// Get login page and if error, render an error message
 app.get("/login", (req, res) => {
     let error = req.session.error; // Retrieve error from session
     req.session.error = null; // Clear error message from session
@@ -271,6 +255,7 @@ app.get("/login", (req, res) => {
 }
 );
 
+// post to login route
 app.post("/login", (req, res) => {
     // Extract the username and plain text password from the request
     const { username, password } = req.body;
@@ -310,7 +295,7 @@ app.post("/login", (req, res) => {
                     // let error = "noMatch";
                     // res.render("login", { req: req, user: req.session.user, error: error });
                     req.session.error = 'noMatch';
-                    res.redirect('/login');
+                    res.redirect('/login'); // send to get route so error can be rendered
                 }
             });
         })
@@ -320,6 +305,7 @@ app.post("/login", (req, res) => {
         });
 });
 
+// log out of session
 app.get('/logout', (req, res) => {
     // Clears session to log the user out
     req.session.destroy((err) => {
@@ -330,16 +316,18 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// route to apply selected filtered
 app.post('/results', (req, res) => {
     console.log(req.body);
     req.session.filters = req.body;
-    console.log("session filters", req.session.filters);
-    res.redirect('/results');
+    console.log("session filters", req.session.filters); // store filters in session storage
+    res.redirect('/results');  // redirect to get request to reload page
 });
 
-
+// route to signup page, must be authenticated
 app.get("/signup", isAuthenticated, (req, res) => res.render("signup", { user: req.session.user }));
 
+// post signup route
 app.post("/signup", (req, res) => {
     console.log(req.body);
     // Extract the plain text password from the request
@@ -383,9 +371,11 @@ app.post("/signup", (req, res) => {
     });
 });
 
-
+// route to get survey view
 app.get("/survey", (req, res) => res.render("getResponse", { user: req.session.user }));
 
+
+// post survey results route
 app.post("/survey", (req, res) => {
     console.log(req.body);
 
@@ -406,7 +396,7 @@ app.post("/survey", (req, res) => {
         'Trans': 4,
         'Other': 5
     };
-
+    //mapping for relationship
     const relationshipStatusMap = {
         'In a relationship': 1,
         'Single': 2,
@@ -420,7 +410,7 @@ app.post("/survey", (req, res) => {
     let genderId = genderMap[req.body.gender];
     let organizationTypes = req.body.organization_type;
 
-    if (!organizationTypes) {
+    if (!organizationTypes) { // check that organization selected
         return res.status(400).json({ error: 'No organization type selected' });
     }
 
@@ -451,9 +441,9 @@ app.post("/survey", (req, res) => {
         return res.status(400).json({ error: 'Invalid relationship status' });
     }
 
-    knex.transaction(async (trx) => {
+    knex.transaction(async (trx) => { // start transaction
         try {
-            let surveyId = await trx('survey').insert({
+            let surveyId = await trx('survey').insert({ // insert into survey table
                 age: req.body.age,
                 gender_id: genderId,
                 relationship_status_id: relationshipStatusId,
@@ -476,8 +466,8 @@ app.post("/survey", (req, res) => {
             }, 'survey_id');
             let iCount = 1;
             for (const type of organizationTypes) {
-                await trx('organization').insert({
-                    survey_id: surveyId[0].survey_id,
+                await trx('organization').insert({ // wait for previous insert to run
+                    survey_id: surveyId[0].survey_id, // use new survey_id to insert to organiation table
                     organization_number: iCount,
                     organization: type
                 });
@@ -486,8 +476,8 @@ app.post("/survey", (req, res) => {
 
             if (socialMediaPlatforms && socialMediaPlatforms.length) {
                 iCount = 1;
-                for (const platform of socialMediaPlatforms) {
-                    await trx('social_media').insert({
+                for (const platform of socialMediaPlatforms) { // wait for previous insert to run
+                    await trx('social_media').insert({// use new survey_id to insert to social media table
                         survey_id: surveyId[0].survey_id,
                         social_media_number: iCount,
                         social_media_platform: platform
@@ -509,8 +499,9 @@ app.post("/survey", (req, res) => {
     });
 });
 
+// get accounts route
 app.get("/accounts", isAuthenticated, isAdmin, (req, res) => {
-    knex.select("*")
+    knex.select("*") // get all user accounts
         .from("user_table as ut")
         .join("security_table as st", "st.user_id", "ut.user_id")
         .then(results => {
@@ -520,16 +511,18 @@ app.get("/accounts", isAuthenticated, isAdmin, (req, res) => {
 });
 
 app.get("/account", isAuthenticated, (req, res) => {
-    knex.select("*")
+    knex.select("*") // get all info
         .from("user_table as ut")
         .join("security_table as st", "st.user_id", "ut.user_id")
-        .where("st.user_id", "=", req.session.user.id)
+        .where("st.user_id", "=", req.session.user.id) // get only info for your account
         .then(results => {
             console.log(results);
             res.render("viewMyAccount", { allAccounts: results, user: req.session.user });
         });
 });
 
+
+// route to modify user
 app.post("/modify-user", (req, res) => {
     console.log(req.body);
     if (req.body.password != "") {
@@ -618,8 +611,9 @@ app.post("/modify-user", (req, res) => {
 
 });
 
+// route to delete use
 app.post("/delete-user/:id", (req, res) => {
-    knex.transaction((trx) => {
+    knex.transaction((trx) => { // start transaction
         knex("security_table")
             .transacting(trx)
             .where("user_id", req.params.id)
@@ -633,7 +627,7 @@ app.post("/delete-user/:id", (req, res) => {
             .then(trx.commit)
             .catch(trx.rollback);
     })
-        .then(() => {
+        .then(() => { // redirect to accounts or login 
             res.redirect("/accounts");
         })
         .catch((err) => {
@@ -642,8 +636,9 @@ app.post("/delete-user/:id", (req, res) => {
         });
 });
 
+// delete user and logout route
 app.post("/delete-logout-user/:id", (req, res) => {
-    knex.transaction((trx) => {
+    knex.transaction((trx) => { //  start transaction
         knex("security_table")
             .transacting(trx)
             .where("user_id", req.params.id)
@@ -674,9 +669,10 @@ app.post("/delete-logout-user/:id", (req, res) => {
         });
 });
 
-
+// route to get dashboard view
 app.get("/dashboard", (req, res) => res.render("dashboard", { user: req.session.user }));
 
+// route to clear filters 
 app.post('/clear-filters', (req, res) => {
     req.session.filters = {};
     console.log("clearfilters: ", req.session.filters);// Clear the filters
@@ -684,4 +680,4 @@ app.post('/clear-filters', (req, res) => {
 });
 
 
-app.listen(port, () => console.log("Website started"));    
+app.listen(port, () => console.log("Website started"));    // server listening on PORT

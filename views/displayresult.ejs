@@ -91,7 +91,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
-
+                        <!-- if statement changes link displayed on nav bar based on who is logged in -->
                         <% if (!user) { %>
                             <li class="nav-item">
                                 <a class="nav-link" href="/login" id="login">Login</a>
@@ -136,6 +136,8 @@
               ==================================== -->
     <div class="buffer" id="buffer" style="height: 116px;"></div>
 
+    <!-- Displays single result and aggregates tables with multiple data for one survey ID -->
+    <!-- Filtering done server side check index.js file -->
     <section class="service-2 section">
         <% let iCount=0; %>
             <div>
@@ -286,7 +288,7 @@
             </div>
 
     </section>
-
+<!--  -->
     <section id="footer-bottom">
         <div class="container" style="padding-top: 0;">
             <div class="row">

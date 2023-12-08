@@ -90,6 +90,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Dashboard</a>
                         </li>
+                        <!-- if statement changes link displayed on nav bar based on who is logged in -->
                         <% if (!user) { %>
                             <li class="nav-item">
                                 <a class="nav-link" href="/login" id="login">Login</a>
