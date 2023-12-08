@@ -219,6 +219,10 @@ body {
 
 /* Media Query for screens less than 560px */
 @media (max-width: 560px) {
+    .login-row {
+        width: 80%;
+    }
+
     .rating-container {
         grid-template-columns: 1fr auto 1fr;
         /* Adjust grid layout */
